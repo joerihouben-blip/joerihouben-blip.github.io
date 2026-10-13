@@ -4,8 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Interactieve vermogensberekening | Sint-Martinus</title>
+<title>Interactieve vermogensberekening – Sint-Martinus</title>
 
 <style>
 *{box-sizing:border-box}
@@ -20,16 +19,12 @@ body{
 header{
  background:linear-gradient(135deg,#102d50,#1765a5);
  color:white;
+ padding:22px;
  text-align:center;
- padding:22px 15px;
 }
 
-header h1{
- margin:0 0 8px;
- font-size:28px;
-}
-
-header p{margin:0}
+header h1{margin:0 0 8px;font-size:28px}
+header p{margin:0;font-size:15px}
 
 main{
  max-width:1100px;
@@ -39,52 +34,55 @@ main{
 
 .kaart{
  background:white;
- border-radius:12px;
  padding:20px;
+ margin-bottom:16px;
+ border-radius:12px;
  box-shadow:0 4px 15px #00000012;
- margin-bottom:18px;
 }
 
-h2{
- color:#14558c;
- margin-top:0;
-}
+h2{color:#14558c;margin-top:0}
 
-.keuze{
+.keuzes{
  display:flex;
  gap:10px;
  flex-wrap:wrap;
- margin-bottom:20px;
 }
 
-.keuze button{
+.keuzes button{
  flex:1;
- min-width:150px;
+ min-width:140px;
+ background:#edf4fb;
+ color:#14558c;
  border:2px solid #1765a5;
- background:white;
- color:#1765a5;
  border-radius:8px;
  padding:12px;
- font-size:15px;
  font-weight:bold;
  cursor:pointer;
 }
 
-.keuze button.actief{
+.keuzes button.actief{
  background:#1765a5;
  color:white;
 }
 
+.formule{
+ text-align:center;
+ font-size:30px;
+ color:#14558c;
+ font-weight:bold;
+ margin:18px 0;
+}
+
 .invoer{
  display:grid;
- grid-template-columns:repeat(2,minmax(0,1fr));
- gap:20px;
+ grid-template-columns:1fr 1fr;
+ gap:18px;
 }
 
 .veld{
  background:#f4f8fc;
- padding:16px;
  border-radius:10px;
+ padding:16px;
 }
 
 .veld label{
@@ -98,7 +96,7 @@ h2{
  padding:10px;
  border:1px solid #b8cadd;
  border-radius:7px;
- font-size:18px;
+ font-size:19px;
 }
 
 .veld input[type=range]{
@@ -110,27 +108,15 @@ h2{
 .resultaat{
  background:#123e70;
  color:white;
- border-radius:12px;
  padding:20px;
  text-align:center;
+ border-radius:10px;
 }
 
 .resultaat .waarde{
  font-size:42px;
  font-weight:bold;
- margin:12px 0;
-}
-
-.formule{
- font-size:24px;
- font-weight:bold;
- margin:15px 0;
- text-align:center;
- color:#14558c;
-}
-
-.uitleg{
- line-height:1.6;
+ margin:10px 0;
 }
 
 svg{
@@ -141,22 +127,25 @@ svg{
  margin:auto;
 }
 
+.uitleg{line-height:1.6}
+
+.terug{
+ display:inline-block;
+ padding:10px 16px;
+ margin-bottom:15px;
+ background:#1765a5;
+ color:white;
+ text-decoration:none;
+ border-radius:7px;
+}
+
 footer{
  background:#102d50;
  color:white;
  text-align:center;
- padding:14px;
+ padding:15px;
  font-size:13px;
-}
-
-.terug{
- display:inline-block;
- background:#1765a5;
- color:white;
- text-decoration:none;
- padding:10px 16px;
- border-radius:7px;
- margin-bottom:15px;
+ font-weight:bold;
 }
 
 @media(max-width:600px){
@@ -181,134 +170,142 @@ footer{
 </a>
 
 <section class="kaart">
-<h2>1. Kies wat je wilt berekenen</h2>
+<h2>1. Kies de te berekenen grootheid</h2>
 
-<div class="keuze">
-<button id="knopP" class="actief" onclick="kies('P')">
-Vermogen (P)
+<div class="keuzes">
+<button id="knopP" onclick="kies('P')">
+Vermogen P
 </button>
 
 <button id="knopU" onclick="kies('U')">
-Spanning (U)
+Spanning U
 </button>
 
 <button id="knopI" onclick="kies('I')">
-Stroomsterkte (I)
+Stroomsterkte I
 </button>
 </div>
 
-<div class="formule" id="formule">
-P = U × I
-</div>
+<div class="formule" id="formule">P = U × I</div>
 
 <div class="invoer">
 
 <div class="veld">
 <label id="label1" for="waarde1">Spanning U (V)</label>
-<input type="number" id="waarde1" min="0" max="400"
- step="0.1" value="230" oninput="syncNummer(1)">
-<input type="range" id="schuif1" min="0" max="400"
- step="0.1" value="230" oninput="syncSchuif(1)">
+<input id="waarde1" type="number" min="0" step="any"
+ value="230" oninput="nummer(1)">
+<input id="schuif1" type="range" min="0" max="400"
+ step="0.1" value="230" oninput="schuif(1)">
 </div>
 
 <div class="veld">
-<label id="label2" for="waarde2">Stroomsterkte I (A)</label>
-<input type="number" id="waarde2" min="0" max="32"
- step="0.1" value="5" oninput="syncNummer(2)">
-<input type="range" id="schuif2" min="0" max="32"
- step="0.1" value="5" oninput="syncSchuif(2)">
+<label id="label2" for="waarde2">
+Stroomsterkte I (A)
+</label>
+<input id="waarde2" type="number" min="0" step="any"
+ value="5" oninput="nummer(2)">
+<input id="schuif2" type="range" min="0" max="32"
+ step="0.1" value="5" oninput="schuif(2)">
 </div>
 
 </div>
 </section>
 
 <section class="kaart">
-
-<h2>2. Resultaat</h2>
+<h2>2. Berekening</h2>
 
 <div class="resultaat">
 <div id="resultaatLabel">Elektrisch vermogen</div>
 <div class="waarde" id="resultaatWaarde">1150 W</div>
-<div id="berekening">230 V × 5 A = 1150 W</div>
+<div id="berekening">230 × 5 = 1150 W</div>
 </div>
-
 </section>
 
 <section class="kaart">
 <h2>3. Elektrische kring</h2>
 
-<svg viewBox="0 0 650 290" role="img"
- aria-label="Elektrische kring met spanningsbron en verbruiker">
+<svg viewBox="0 0 650 290"
+ role="img"
+ aria-label="Elektrische kring met bron en verbruiker">
 
-<!-- LEIDINGEN -->
-<g fill="none" stroke="#243447"
- stroke-width="5" stroke-linecap="round">
-<path d="M145 75 H505 V215 H145 Z"/>
-</g>
+<!-- DRADEN -->
+<path d="M145 75 H505 V215 H145 Z"
+ fill="none"
+ stroke="#243447"
+ stroke-width="5"
+ stroke-linejoin="round"/>
 
-<!-- SPANNINGSBRON -->
+<!-- BRON -->
 <rect x="105" y="112" width="80" height="68"
- rx="9" fill="#e8f2fc" stroke="#1765a5" stroke-width="3"/>
+ rx="9" fill="#e8f2fc"
+ stroke="#1765a5" stroke-width="3"/>
 
-<text x="145" y="139" text-anchor="middle"
- font-size="23" font-weight="bold" fill="#1765a5">~</text>
+<text x="145" y="141" text-anchor="middle"
+ font-size="24" fill="#1765a5">~</text>
 
-<text x="145" y="163" text-anchor="middle"
- font-size="15" fill="#1765a5">U</text>
+<text x="145" y="165" text-anchor="middle"
+ font-size="16" fill="#1765a5">U</text>
 
 <!-- VERBRUIKER -->
 <rect x="455" y="112" width="100" height="68"
- rx="9" fill="#fff0c9" stroke="#d28b00" stroke-width="3"/>
+ rx="9" fill="#fff0c9"
+ stroke="#d28b00" stroke-width="3"/>
 
 <text x="505" y="140" text-anchor="middle"
- font-size="15" font-weight="bold" fill="#805000">
-Verbruiker
-</text>
+ font-size="15" font-weight="bold"
+ fill="#805000">Verbruiker</text>
 
 <text x="505" y="160" text-anchor="middle"
- font-size="14" fill="#805000">P</text>
+ font-size="15" fill="#805000">P</text>
 
 <!-- BEWEGEND PUNT -->
-<circle id="punt" cx="145" cy="75" r="8" fill="#e6492d"/>
+<circle id="punt" cx="145" cy="75" r="8"
+ fill="#e6492d"/>
 
-<!-- MEETWAARDEN -->
-<text id="tekstU" x="60" y="100" font-size="17"
- fill="#1765a5" font-weight="bold">230 V</text>
+<!-- WAARDEN -->
+<text id="tekstU" x="60" y="100"
+ font-size="17" font-weight="bold"
+ fill="#1765a5">230 V</text>
 
-<text id="tekstI" x="325" y="55" text-anchor="middle"
- font-size="17" fill="#1765a5" font-weight="bold">5 A</text>
+<text id="tekstI" x="325" y="55"
+ text-anchor="middle" font-size="17"
+ font-weight="bold" fill="#1765a5">5 A</text>
 
-<text id="tekstP" x="505" y="205" text-anchor="middle"
- font-size="17" fill="#b36b00" font-weight="bold">1150 W</text>
+<text id="tekstP" x="505" y="205"
+ text-anchor="middle" font-size="17"
+ font-weight="bold" fill="#b36b00">1150 W</text>
 
 </svg>
 
 <p class="uitleg">
-De spanning zorgt ervoor dat er stroom door de verbruiker
-kan vloeien. Het opgenomen elektrische vermogen hangt af
-van de spanning en de stroomsterkte.
+Het bewegende rode punt stelt de stroom door de
+elektrische kring schematisch voor. De snelheid
+verandert met de ingestelde stroomsterkte.
 </p>
-
 </section>
 
 <section class="kaart">
-<h2>4. Uitleg</h2>
+<h2>4. Uitleg voor de leerlingen</h2>
 
-<p class="uitleg" id="uitleg">
-Het elektrisch vermogen is het product van de spanning
-en de stroomsterkte. Bij 230 V en 5 A is het vermogen 1150 W.
+<p id="uitleg" class="uitleg"></p>
+
+<p class="uitleg">
+<strong>Vermogen (P)</strong> wordt uitgedrukt in watt (W).
+<strong>Spanning (U)</strong> wordt uitgedrukt in volt (V).
+<strong>Stroomsterkte (I)</strong> wordt uitgedrukt in ampère (A).
 </p>
 
 <p class="uitleg">
-<strong>Eenheden:</strong> vermogen in watt (W),
-spanning in volt (V) en stroomsterkte in ampère (A).
+Deze formules gelden rechtstreeks bij gelijkstroom.
+Bij eenfasige wisselstroom geldt voor het actieve
+vermogen in het algemeen P = U × I × cos φ.
+De formule P = U × I geldt dan bij cos φ = 1.
 </p>
 
 <p class="uitleg">
-Deze formules gelden rechtstreeks voor gelijkstroom
-en voor eenfasige wisselstroom met een arbeidsfactor
-cos φ = 1. Bij andere wisselstroombelastingen moet
-ook rekening worden gehouden met de arbeidsfactor.
+<strong>Opmerking:</strong> de bewegende puntanimatie
+is een didactische voorstelling, geen natuurgetrouwe
+weergave van de elektronenbeweging.
 </p>
 </section>
 
@@ -320,111 +317,103 @@ Gemaakt door Joeri Houben voor Sint-Martinus Herk-de-Stad
 
 <script>
 let keuze="P";
+let snelheid=0;
+let segment=0;
+let positie=0;
+let vorigeTijd=null;
 
 const instellingen={
  P:{
   formule:"P = U × I",
-  label1:"Spanning U (V)",
-  label2:"Stroomsterkte I (A)",
-  min1:0,max1:400,
-  min2:0,max2:32,
-  waarde1:230,waarde2:5,
-  resultaat:"Elektrisch vermogen",
+  labels:["Spanning U (V)","Stroomsterkte I (A)"],
+  max:[400,32],
+  waarden:[230,5],
+  naam:"Elektrisch vermogen",
   eenheid:"W"
  },
  U:{
   formule:"U = P / I",
-  label1:"Vermogen P (W)",
-  label2:"Stroomsterkte I (A)",
-  min1:0,max1:10000,
-  min2:0,max2:32,
-  waarde1:1150,waarde2:5,
-  resultaat:"Elektrische spanning",
+  labels:["Vermogen P (W)","Stroomsterkte I (A)"],
+  max:[10000,32],
+  waarden:[1150,5],
+  naam:"Elektrische spanning",
   eenheid:"V"
  },
  I:{
   formule:"I = P / U",
-  label1:"Vermogen P (W)",
-  label2:"Spanning U (V)",
-  min1:0,max1:10000,
-  min2:0,max2:400,
-  waarde1:1150,waarde2:230,
-  resultaat:"Elektrische stroomsterkte",
+  labels:["Vermogen P (W)","Spanning U (V)"],
+  max:[10000,400],
+  waarden:[1150,230],
+  naam:"Elektrische stroomsterkte",
   eenheid:"A"
  }
 };
 
-function getal(n){
+function toon(n){
  return Number(n.toFixed(2)).toLocaleString("nl-BE",{
   maximumFractionDigits:2
  });
 }
 
-function kies(nieuweKeuze){
- keuze=nieuweKeuze;
- const s=instellingen[keuze];
+function kies(k){
+ keuze=k;
+ const s=instellingen[k];
 
- document.querySelectorAll(".keuze button")
+ document.querySelectorAll(".keuzes button")
   .forEach(b=>b.classList.remove("actief"));
 
- document.getElementById("knop"+keuze)
+ document.getElementById("knop"+k)
   .classList.add("actief");
 
  document.getElementById("formule").textContent=s.formule;
- document.getElementById("label1").textContent=s.label1;
- document.getElementById("label2").textContent=s.label2;
 
  for(let i=1;i<=2;i++){
-  const nummer=document.getElementById("waarde"+i);
-  const schuif=document.getElementById("schuif"+i);
+  document.getElementById("label"+i).textContent=
+   s.labels[i-1];
 
-  nummer.min=s["min"+i];
-  nummer.max=s["max"+i];
-  nummer.value=s["waarde"+i];
+  const veld=document.getElementById("waarde"+i);
+  const schuifveld=document.getElementById("schuif"+i);
 
-  schuif.min=s["min"+i];
-  schuif.max=s["max"+i];
-  schuif.value=s["waarde"+i];
+  veld.value=s.waarden[i-1];
+  schuifveld.max=s.max[i-1];
+  schuifveld.value=s.waarden[i-1];
  }
 
- document.getElementById("resultaatLabel").textContent=s.resultaat;
-
+ document.getElementById("resultaatLabel").textContent=s.naam;
  bereken();
 }
 
-function syncNummer(i){
- const nummer=document.getElementById("waarde"+i);
- const schuif=document.getElementById("schuif"+i);
-
- schuif.value=nummer.value;
+function nummer(i){
+ const veld=document.getElementById("waarde"+i);
+ document.getElementById("schuif"+i).value=veld.value;
  bereken();
 }
 
-function syncSchuif(i){
- const nummer=document.getElementById("waarde"+i);
- const schuif=document.getElementById("schuif"+i);
-
- nummer.value=schuif.value;
+function schuif(i){
+ const waarde=document.getElementById("schuif"+i).value;
+ document.getElementById("waarde"+i).value=waarde;
  bereken();
 }
 
 function bereken(){
- const a=parseFloat(document.getElementById("waarde1").value);
- const b=parseFloat(document.getElementById("waarde2").value);
+ const a=Number(document.getElementById("waarde1").value);
+ const b=Number(document.getElementById("waarde2").value);
 
- const waarde=document.getElementById("resultaatWaarde");
- const berekening=document.getElementById("berekening");
- const uitleg=document.getElementById("uitleg");
+ const uitvoer=document.getElementById("resultaatWaarde");
+ const regel=document.getElementById("berekening");
 
- if(!Number.isFinite(a)||!Number.isFinite(b)||a<0||b<0){
-  waarde.textContent="Ongeldige invoer";
-  berekening.textContent="Vul geldige, niet-negatieve waarden in.";
+ if(!Number.isFinite(a)||!Number.isFinite(b)||
+    a<0||b<0){
+  uitvoer.textContent="Ongeldige invoer";
+  regel.textContent="Gebruik positieve waarden of nul.";
+  snelheid=0;
   return;
  }
 
- if(keuze!=="P" && b===0){
-  waarde.textContent="Niet berekenbaar";
-  berekening.textContent="Delen door nul is niet mogelijk.";
+ if(keuze!=="P"&&b===0){
+  uitvoer.textContent="Niet berekenbaar";
+  regel.textContent="Delen door nul is onmogelijk.";
+  snelheid=0;
   return;
  }
 
@@ -435,46 +424,52 @@ function bereken(){
   I=b;
   P=U*I;
   resultaat=P;
-  tekst=getal(U)+" V × "+getal(I)+" A = "+getal(P)+" W";
- }else if(keuze==="U"){
+  tekst=toon(U)+" V × "+toon(I)+" A = "+toon(P)+" W";
+ }
+ else if(keuze==="U"){
   P=a;
   I=b;
   U=P/I;
   resultaat=U;
-  tekst=getal(P)+" W / "+getal(I)+" A = "+getal(U)+" V";
- }else{
+  tekst=toon(P)+" W / "+toon(I)+" A = "+toon(U)+" V";
+ }
+ else{
   P=a;
   U=b;
   I=P/U;
   resultaat=I;
-  tekst=getal(P)+" W / "+getal(U)+" V = "+getal(I)+" A";
+  tekst=toon(P)+" W / "+toon(U)+" V = "+toon(I)+" A";
  }
 
- waarde.textContent=getal(resultaat)+" "+instellingen[keuze].eenheid;
- berekening.textContent=tekst;
-
- document.getElementById("tekstU").textContent=getal(U)+" V";
- document.getElementById("tekstI").textContent=getal(I)+" A";
- document.getElementById("tekstP").textContent=getal(P)+" W";
-
- if(keuze==="P"){
-  uitleg.textContent=
-   "Het vermogen bereken je door de spanning te vermenigvuldigen "+
-   "met de stroomsterkte. "+tekst+".";
- }else if(keuze==="U"){
-  uitleg.textContent=
-   "De spanning bereken je door het vermogen te delen "+
-   "door de stroomsterkte. "+tekst+".";
- }else{
-  uitleg.textContent=
-   "De stroomsterkte bereken je door het vermogen te delen "+
-   "door de spanning. "+tekst+".";
+ if(!Number.isFinite(resultaat)){
+  uitvoer.textContent="Niet berekenbaar";
+  regel.textContent="Controleer de ingevoerde waarden.";
+  snelheid=0;
+  return;
  }
+
+ uitvoer.textContent=
+  toon(resultaat)+" "+instellingen[keuze].eenheid;
+
+ regel.textContent=tekst;
+
+ document.getElementById("tekstU").textContent=toon(U)+" V";
+ document.getElementById("tekstI").textContent=toon(I)+" A";
+ document.getElementById("tekstP").textContent=toon(P)+" W";
+
+ const uitleg={
+  P:"Het vermogen is het product van spanning en stroomsterkte.",
+  U:"De spanning bereken je door het vermogen te delen door de stroomsterkte.",
+  I:"De stroomsterkte bereken je door het vermogen te delen door de spanning."
+ };
+
+ document.getElementById("uitleg").textContent=
+  uitleg[keuze]+" "+tekst+".";
 
  snelheid=Math.min(0.025,Math.max(0,I*0.0015));
 }
 
-// ANIMATIE VAN DE STROOM
+// SCHEMATISCHE ANIMATIE
 const punt=document.getElementById("punt");
 
 const pad=[
@@ -485,24 +480,17 @@ const pad=[
  [145,75]
 ];
 
-let segment=0;
-let positie=0;
-let snelheid=0.007;
-let vorigeTijd=null;
-
 function animeer(tijd){
  if(vorigeTijd===null) vorigeTijd=tijd;
 
  const dt=Math.min(50,tijd-vorigeTijd);
  vorigeTijd=tijd;
 
- if(snelheid>0){
-  positie+=snelheid*dt/16.67;
+ positie+=snelheid*dt/16.67;
 
-  while(positie>=1){
-   positie-=1;
-   segment=(segment+1)%(pad.length-1);
-  }
+ while(positie>=1){
+  positie-=1;
+  segment=(segment+1)%(pad.length-1);
  }
 
  const a=pad[segment];
@@ -520,4 +508,3 @@ requestAnimationFrame(animeer);
 
 </body>
 </html>
-
