@@ -5,353 +5,519 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Joeri Houben | Technische leeromgeving</title>
+<title>Interactieve vermogensberekening | Sint-Martinus</title>
 
 <style>
-*{
- box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html,body{
+body{
  margin:0;
- min-height:100%;
  font-family:Arial,sans-serif;
  background:#eaf0f7;
  color:#243447;
 }
 
-body{
- display:flex;
- flex-direction:column;
- min-height:100vh;
-}
-
 header{
  background:linear-gradient(135deg,#102d50,#1765a5);
  color:white;
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:12px;
- padding:10px 20px;
+ text-align:center;
+ padding:22px 15px;
 }
 
 header h1{
- margin:0;
- font-size:22px;
+ margin:0 0 8px;
+ font-size:28px;
 }
 
-header p{
- margin:0;
- font-size:13px;
-}
+header p{margin:0}
 
 main{
- width:100%;
- max-width:1800px;
- margin:0 auto;
- padding:10px;
- flex:1;
+ max-width:1100px;
+ margin:20px auto;
+ padding:0 15px;
 }
 
-.dashboard{
- display:grid;
- grid-template-columns:repeat(4,minmax(0,1fr));
- gap:10px;
- align-items:start;
-}
-
-.hoofdrubriek{
+.kaart{
  background:white;
- border-radius:9px;
- padding:9px;
- box-shadow:0 2px 8px #00000012;
- min-width:0;
+ border-radius:12px;
+ padding:20px;
+ box-shadow:0 4px 15px #00000012;
+ margin-bottom:18px;
 }
 
-.hoofdrubriek h2{
- margin:0 0 9px;
- padding:9px;
- background:#123e70;
- color:white;
- border-radius:6px;
- text-align:center;
- font-size:17px;
-}
-
-.onderdeel{
- background:#f4f8fc;
- border:1px solid #dce6f0;
- border-radius:7px;
- padding:8px;
- margin-bottom:8px;
-}
-
-.onderdeel:last-child{
- margin-bottom:0;
-}
-
-.onderdeel h3{
+h2{
  color:#14558c;
- margin:0 0 5px;
- font-size:14px;
+ margin-top:0;
 }
 
-.knop{
- display:block;
+.keuze{
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
+ margin-bottom:20px;
+}
+
+.keuze button{
+ flex:1;
+ min-width:150px;
+ border:2px solid #1765a5;
+ background:white;
+ color:#1765a5;
+ border-radius:8px;
+ padding:12px;
+ font-size:15px;
+ font-weight:bold;
+ cursor:pointer;
+}
+
+.keuze button.actief{
  background:#1765a5;
  color:white;
- text-decoration:none;
- border-radius:5px;
- padding:7px 8px;
- margin-top:5px;
- font-size:12px;
+}
+
+.invoer{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:20px;
+}
+
+.veld{
+ background:#f4f8fc;
+ padding:16px;
+ border-radius:10px;
+}
+
+.veld label{
+ display:block;
  font-weight:bold;
+ margin-bottom:10px;
+}
+
+.veld input[type=number]{
+ width:100%;
+ padding:10px;
+ border:1px solid #b8cadd;
+ border-radius:7px;
+ font-size:18px;
+}
+
+.veld input[type=range]{
+ width:100%;
+ margin-top:15px;
+ accent-color:#1765a5;
+}
+
+.resultaat{
+ background:#123e70;
+ color:white;
+ border-radius:12px;
+ padding:20px;
  text-align:center;
- line-height:1.25;
 }
 
-.knop:hover,
-.knop:focus{
- background:#103d6b;
+.resultaat .waarde{
+ font-size:42px;
+ font-weight:bold;
+ margin:12px 0;
 }
 
-.binnenkort{
- font-size:11px;
- color:#718096;
- font-style:italic;
+.formule{
+ font-size:24px;
+ font-weight:bold;
+ margin:15px 0;
+ text-align:center;
+ color:#14558c;
+}
+
+.uitleg{
+ line-height:1.6;
+}
+
+svg{
+ display:block;
+ width:100%;
+ max-width:650px;
+ height:auto;
+ margin:auto;
 }
 
 footer{
  background:#102d50;
  color:white;
  text-align:center;
- font-size:12px;
- padding:10px;
+ padding:14px;
+ font-size:13px;
 }
 
-@media(min-width:1101px) and (max-height:750px){
- header{
-  padding:7px 15px;
- }
- header h1{
-  font-size:19px;
- }
- header p{
-  font-size:11px;
- }
- main{
-  padding:7px;
- }
- .dashboard{
-  gap:7px;
- }
- .hoofdrubriek{
-  padding:7px;
- }
- .hoofdrubriek h2{
-  padding:6px;
-  margin-bottom:6px;
- }
- .onderdeel{
-  padding:6px;
-  margin-bottom:6px;
- }
- .knop{
-  padding:5px;
-  margin-top:4px;
- }
- footer{
-  padding:6px;
- }
-}
-
-@media(max-width:1100px){
- .dashboard{
-  grid-template-columns:repeat(2,minmax(0,1fr));
- }
+.terug{
+ display:inline-block;
+ background:#1765a5;
+ color:white;
+ text-decoration:none;
+ padding:10px 16px;
+ border-radius:7px;
+ margin-bottom:15px;
 }
 
 @media(max-width:600px){
- header{
-  flex-direction:column;
-  text-align:center;
- }
- .dashboard{
-  grid-template-columns:1fr;
- }
+ .invoer{grid-template-columns:1fr}
+ header h1{font-size:23px}
+ .resultaat .waarde{font-size:32px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header>
-<h1>Joeri Houben</h1>
-<p>Technische leeromgeving | Leren • Oefenen • Simuleren</p>
+<h1>⚡ Interactieve vermogensberekening</h1>
+<p>Elektriciteit – Sint-Martinus Herk-de-Stad</p>
 </header>
 
-<!-- HOOFDPAGINA -->
 <main>
 
-<div class="dashboard">
-
-<!-- ================================= -->
-<!-- VERWARMING                        -->
-<!-- ================================= -->
-
-<section class="hoofdrubriek">
-
-<h2>🔥 Verwarming</h2>
-
-<div class="onderdeel">
-<h3>Stookolie</h3>
-
-<a class="knop"
- href="7Ti-stookolie_V51_nieuwe_doorsnede.html">
- Stookoliebrander – simulatie
+<a class="terug" href="index.html">
+← Terug naar de leeromgeving
 </a>
 
-<a class="knop"
- href="Huisbrandolie_7TI%20%281%29.html">
- Theorie huisbrandolie
-</a>
+<section class="kaart">
+<h2>1. Kies wat je wilt berekenen</h2>
 
-<a class="knop"
- href="Elektrische_werking_stookoliebrander_7TI.html">
- Elektrische werking brander
-</a>
+<div class="keuze">
+<button id="knopP" class="actief" onclick="kies('P')">
+Vermogen (P)
+</button>
 
+<button id="knopU" onclick="kies('U')">
+Spanning (U)
+</button>
+
+<button id="knopI" onclick="kies('I')">
+Stroomsterkte (I)
+</button>
 </div>
 
-<div class="onderdeel">
-<h3>Gasketels</h3>
-
-<a class="knop"
- href="Gasketel_7TI%20%281%29.html">
- Gasketel – simulatie
-</a>
-
+<div class="formule" id="formule">
+P = U × I
 </div>
 
-<div class="onderdeel">
-<h3>Warmtepompen</h3>
-<span class="binnenkort">
-Binnenkort beschikbaar
-</span>
+<div class="invoer">
+
+<div class="veld">
+<label id="label1" for="waarde1">Spanning U (V)</label>
+<input type="number" id="waarde1" min="0" max="400"
+ step="0.1" value="230" oninput="syncNummer(1)">
+<input type="range" id="schuif1" min="0" max="400"
+ step="0.1" value="230" oninput="syncSchuif(1)">
+</div>
+
+<div class="veld">
+<label id="label2" for="waarde2">Stroomsterkte I (A)</label>
+<input type="number" id="waarde2" min="0" max="32"
+ step="0.1" value="5" oninput="syncNummer(2)">
+<input type="range" id="schuif2" min="0" max="32"
+ step="0.1" value="5" oninput="syncSchuif(2)">
+</div>
+
+</div>
+</section>
+
+<section class="kaart">
+
+<h2>2. Resultaat</h2>
+
+<div class="resultaat">
+<div id="resultaatLabel">Elektrisch vermogen</div>
+<div class="waarde" id="resultaatWaarde">1150 W</div>
+<div id="berekening">230 V × 5 A = 1150 W</div>
 </div>
 
 </section>
 
-<!-- ================================= -->
-<!-- SANITAIR                          -->
-<!-- ================================= -->
+<section class="kaart">
+<h2>3. Elektrische kring</h2>
 
-<section class="hoofdrubriek">
+<svg viewBox="0 0 650 290" role="img"
+ aria-label="Elektrische kring met spanningsbron en verbruiker">
 
-<h2>💧 Sanitair</h2>
+<!-- LEIDINGEN -->
+<g fill="none" stroke="#243447"
+ stroke-width="5" stroke-linecap="round">
+<path d="M145 75 H505 V215 H145 Z"/>
+</g>
 
-<div class="onderdeel">
-<h3>Warmwaterbereiding</h3>
+<!-- SPANNINGSBRON -->
+<rect x="105" y="112" width="80" height="68"
+ rx="9" fill="#e8f2fc" stroke="#1765a5" stroke-width="3"/>
 
-<a class="knop"
- href="sanitair-warmwaterbereiding.html">
- Sanitair warmwaterbereiding
-</a>
+<text x="145" y="139" text-anchor="middle"
+ font-size="23" font-weight="bold" fill="#1765a5">~</text>
 
-<a class="knop"
- href="boiler-rekentrainer.html">
- Boiler rekentrainers
-</a>
+<text x="145" y="163" text-anchor="middle"
+ font-size="15" fill="#1765a5">U</text>
 
-</div>
+<!-- VERBRUIKER -->
+<rect x="455" y="112" width="100" height="68"
+ rx="9" fill="#fff0c9" stroke="#d28b00" stroke-width="3"/>
 
-<div class="onderdeel">
-<h3>Aanvoer</h3>
-<span class="binnenkort">
-Binnenkort beschikbaar
-</span>
-</div>
+<text x="505" y="140" text-anchor="middle"
+ font-size="15" font-weight="bold" fill="#805000">
+Verbruiker
+</text>
 
-<div class="onderdeel">
-<h3>Afvoer</h3>
-<span class="binnenkort">
-Binnenkort beschikbaar
-</span>
-</div>
+<text x="505" y="160" text-anchor="middle"
+ font-size="14" fill="#805000">P</text>
 
-<div class="onderdeel">
-<h3>Kraanwerk</h3>
-<span class="binnenkort">
-Binnenkort beschikbaar
-</span>
-</div>
+<!-- BEWEGEND PUNT -->
+<circle id="punt" cx="145" cy="75" r="8" fill="#e6492d"/>
 
-</section>
+<!-- MEETWAARDEN -->
+<text id="tekstU" x="60" y="100" font-size="17"
+ fill="#1765a5" font-weight="bold">230 V</text>
 
-<!-- ================================= -->
-<!-- ELEKTRICITEIT                     -->
-<!-- ================================= -->
+<text id="tekstI" x="325" y="55" text-anchor="middle"
+ font-size="17" fill="#1765a5" font-weight="bold">5 A</text>
 
-<section class="hoofdrubriek">
+<text id="tekstP" x="505" y="205" text-anchor="middle"
+ font-size="17" fill="#b36b00" font-weight="bold">1150 W</text>
 
-<h2>⚡ Elektriciteit</h2>
+</svg>
 
-<div class="onderdeel">
-<h3>Berekeningen en metingen</h3>
-<span class="binnenkort">
-Binnenkort beschikbaar
-</span>
-</div>
-
-<div class="onderdeel">
-<h3>Elektrische installaties</h3>
-<span class="binnenkort">
-Binnenkort beschikbaar
-</span>
-</div>
-
-<div class="onderdeel">
-<h3>Data en netwerken</h3>
-<span class="binnenkort">
-Binnenkort beschikbaar
-</span>
-</div>
+<p class="uitleg">
+De spanning zorgt ervoor dat er stroom door de verbruiker
+kan vloeien. Het opgenomen elektrische vermogen hangt af
+van de spanning en de stroomsterkte.
+</p>
 
 </section>
 
-<!-- ================================= -->
-<!-- VENTILATIE                        -->
-<!-- ================================= -->
+<section class="kaart">
+<h2>4. Uitleg</h2>
 
-<section class="hoofdrubriek">
+<p class="uitleg" id="uitleg">
+Het elektrisch vermogen is het product van de spanning
+en de stroomsterkte. Bij 230 V en 5 A is het vermogen 1150 W.
+</p>
 
-<h2>🌬️ Ventilatie</h2>
+<p class="uitleg">
+<strong>Eenheden:</strong> vermogen in watt (W),
+spanning in volt (V) en stroomsterkte in ampère (A).
+</p>
 
-<div class="onderdeel">
-<h3>Ventilatiesystemen</h3>
-
-<a class="knop"
- href="ventilatiesysteem_C.html">
- Ventilatiesysteem C – simulatie
-</a>
-
-</div>
-
+<p class="uitleg">
+Deze formules gelden rechtstreeks voor gelijkstroom
+en voor eenfasige wisselstroom met een arbeidsfactor
+cos φ = 1. Bij andere wisselstroombelastingen moet
+ook rekening worden gehouden met de arbeidsfactor.
+</p>
 </section>
-
-</div>
 
 </main>
-
-<!-- ================================= -->
-<!-- VOETTEKST                         -->
-<!-- ================================= -->
 
 <footer>
 Gemaakt door Joeri Houben voor Sint-Martinus Herk-de-Stad
 </footer>
 
+<script>
+let keuze="P";
+
+const instellingen={
+ P:{
+  formule:"P = U × I",
+  label1:"Spanning U (V)",
+  label2:"Stroomsterkte I (A)",
+  min1:0,max1:400,
+  min2:0,max2:32,
+  waarde1:230,waarde2:5,
+  resultaat:"Elektrisch vermogen",
+  eenheid:"W"
+ },
+ U:{
+  formule:"U = P / I",
+  label1:"Vermogen P (W)",
+  label2:"Stroomsterkte I (A)",
+  min1:0,max1:10000,
+  min2:0,max2:32,
+  waarde1:1150,waarde2:5,
+  resultaat:"Elektrische spanning",
+  eenheid:"V"
+ },
+ I:{
+  formule:"I = P / U",
+  label1:"Vermogen P (W)",
+  label2:"Spanning U (V)",
+  min1:0,max1:10000,
+  min2:0,max2:400,
+  waarde1:1150,waarde2:230,
+  resultaat:"Elektrische stroomsterkte",
+  eenheid:"A"
+ }
+};
+
+function getal(n){
+ return Number(n.toFixed(2)).toLocaleString("nl-BE",{
+  maximumFractionDigits:2
+ });
+}
+
+function kies(nieuweKeuze){
+ keuze=nieuweKeuze;
+ const s=instellingen[keuze];
+
+ document.querySelectorAll(".keuze button")
+  .forEach(b=>b.classList.remove("actief"));
+
+ document.getElementById("knop"+keuze)
+  .classList.add("actief");
+
+ document.getElementById("formule").textContent=s.formule;
+ document.getElementById("label1").textContent=s.label1;
+ document.getElementById("label2").textContent=s.label2;
+
+ for(let i=1;i<=2;i++){
+  const nummer=document.getElementById("waarde"+i);
+  const schuif=document.getElementById("schuif"+i);
+
+  nummer.min=s["min"+i];
+  nummer.max=s["max"+i];
+  nummer.value=s["waarde"+i];
+
+  schuif.min=s["min"+i];
+  schuif.max=s["max"+i];
+  schuif.value=s["waarde"+i];
+ }
+
+ document.getElementById("resultaatLabel").textContent=s.resultaat;
+
+ bereken();
+}
+
+function syncNummer(i){
+ const nummer=document.getElementById("waarde"+i);
+ const schuif=document.getElementById("schuif"+i);
+
+ schuif.value=nummer.value;
+ bereken();
+}
+
+function syncSchuif(i){
+ const nummer=document.getElementById("waarde"+i);
+ const schuif=document.getElementById("schuif"+i);
+
+ nummer.value=schuif.value;
+ bereken();
+}
+
+function bereken(){
+ const a=parseFloat(document.getElementById("waarde1").value);
+ const b=parseFloat(document.getElementById("waarde2").value);
+
+ const waarde=document.getElementById("resultaatWaarde");
+ const berekening=document.getElementById("berekening");
+ const uitleg=document.getElementById("uitleg");
+
+ if(!Number.isFinite(a)||!Number.isFinite(b)||a<0||b<0){
+  waarde.textContent="Ongeldige invoer";
+  berekening.textContent="Vul geldige, niet-negatieve waarden in.";
+  return;
+ }
+
+ if(keuze!=="P" && b===0){
+  waarde.textContent="Niet berekenbaar";
+  berekening.textContent="Delen door nul is niet mogelijk.";
+  return;
+ }
+
+ let P,U,I,resultaat,tekst;
+
+ if(keuze==="P"){
+  U=a;
+  I=b;
+  P=U*I;
+  resultaat=P;
+  tekst=getal(U)+" V × "+getal(I)+" A = "+getal(P)+" W";
+ }else if(keuze==="U"){
+  P=a;
+  I=b;
+  U=P/I;
+  resultaat=U;
+  tekst=getal(P)+" W / "+getal(I)+" A = "+getal(U)+" V";
+ }else{
+  P=a;
+  U=b;
+  I=P/U;
+  resultaat=I;
+  tekst=getal(P)+" W / "+getal(U)+" V = "+getal(I)+" A";
+ }
+
+ waarde.textContent=getal(resultaat)+" "+instellingen[keuze].eenheid;
+ berekening.textContent=tekst;
+
+ document.getElementById("tekstU").textContent=getal(U)+" V";
+ document.getElementById("tekstI").textContent=getal(I)+" A";
+ document.getElementById("tekstP").textContent=getal(P)+" W";
+
+ if(keuze==="P"){
+  uitleg.textContent=
+   "Het vermogen bereken je door de spanning te vermenigvuldigen "+
+   "met de stroomsterkte. "+tekst+".";
+ }else if(keuze==="U"){
+  uitleg.textContent=
+   "De spanning bereken je door het vermogen te delen "+
+   "door de stroomsterkte. "+tekst+".";
+ }else{
+  uitleg.textContent=
+   "De stroomsterkte bereken je door het vermogen te delen "+
+   "door de spanning. "+tekst+".";
+ }
+
+ snelheid=Math.min(0.025,Math.max(0,I*0.0015));
+}
+
+// ANIMATIE VAN DE STROOM
+const punt=document.getElementById("punt");
+
+const pad=[
+ [145,75],
+ [505,75],
+ [505,215],
+ [145,215],
+ [145,75]
+];
+
+let segment=0;
+let positie=0;
+let snelheid=0.007;
+let vorigeTijd=null;
+
+function animeer(tijd){
+ if(vorigeTijd===null) vorigeTijd=tijd;
+
+ const dt=Math.min(50,tijd-vorigeTijd);
+ vorigeTijd=tijd;
+
+ if(snelheid>0){
+  positie+=snelheid*dt/16.67;
+
+  while(positie>=1){
+   positie-=1;
+   segment=(segment+1)%(pad.length-1);
+  }
+ }
+
+ const a=pad[segment];
+ const b=pad[segment+1];
+
+ punt.setAttribute("cx",a[0]+(b[0]-a[0])*positie);
+ punt.setAttribute("cy",a[1]+(b[1]-a[1])*positie);
+
+ requestAnimationFrame(animeer);
+}
+
+kies("P");
+requestAnimationFrame(animeer);
+</script>
+
 </body>
 </html>
+
