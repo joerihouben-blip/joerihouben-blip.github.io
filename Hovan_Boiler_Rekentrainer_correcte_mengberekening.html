@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boiler berekenen </title>
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;min-height:100vh;font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#dff2ff,#eef4ff,#fff5d7);
+    color:#17345f;display:flex;justify-content:center;align-items:center;padding:15px
+}
+#app{width:1100px;max-width:100%;background:#fff;border-radius:30px;padding:24px;
+    box-shadow:0 15px 45px rgba(30,70,120,.2)}
+h1{text-align:center;margin:0;color:#244b83;font-size:38px}
+.subtitle{text-align:center;color:#64748b;font-weight:bold;font-size:18px;margin:5px 0 20px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{background:#f7faff;border-radius:22px;padding:20px}
+h2{margin:0 0 15px;color:#244b83}
+label{display:block;font-weight:bold;margin:13px 0 5px}
+input[type=number]{
+    width:100%;padding:11px;border:3px solid #cadaee;border-radius:14px;
+    font-size:18px;outline:none
+}
+input[type=number]:focus{border-color:#5d8bc8}
+.rangebox{
+    background:#eaf4ff;border-radius:16px;padding:10px 13px;margin-top:4px
+}
+.rangevalue{font-size:26px;font-weight:900;text-align:center;color:#244b83}
+input[type=range]{width:100%;height:13px;accent-color:#244b83;cursor:pointer}
+.scale{display:flex;justify-content:space-between;color:#728197;font-size:12px;font-weight:bold}
+.parts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:15px}
+.part{padding:13px;border-radius:15px;text-align:center;font-weight:bold}
+.part span{display:block;font-size:24px;margin-top:4px;color:#244b83}
+.blue{background:#e0efff}.yellow{background:#fff2bd}
+.purple{background:#ece3ff}.green{background:#e2f5e4}
+.result{background:#e0f5e2;border-radius:20px;padding:16px;text-align:center}
+.result-title{font-size:17px;font-weight:bold;color:#4d6652}
+.big{font-size:45px;font-weight:900;color:#247039;margin:4px 0}
+.big small{font-size:20px}
+.formula{
+    background:#fff;border:3px dashed #8ba9cf;border-radius:18px;
+    padding:15px;text-align:center;margin-top:15px
+}
+.formula-main{font-size:25px;font-weight:900;color:#244b83}
+.formula-detail{margin-top:10px;line-height:1.6;font-size:15px;color:#53667f}
+.explain{background:#fff8dc;border-radius:16px;padding:14px;line-height:1.55;
+    color:#5c6470;margin-top:15px}
+.explain b{color:#244b83}
+.visual{
+    min-height:240px;display:flex;justify-content:center;align-items:center;
+    margin-bottom:10px
+}
+.boiler{
+    position:relative;width:165px;height:220px;border-radius:82px 82px 28px 28px;
+    border:5px solid #244b83;background:linear-gradient(to right,#d7e9fb,#fff,#bdd7f1);
+    overflow:hidden
+}
+.boiler-water{
+    position:absolute;left:0;right:0;bottom:0;background:linear-gradient(to top,#60a7dd,#b9def7);
+    border-top:4px solid #4d8fc4
+}
+.temp-label{
+    position:absolute;left:50%;top:88px;transform:translateX(-50%);
+    background:rgba(255,255,255,.82);padding:7px 11px;border-radius:12px;
+    font-weight:900;color:#244b83
+}
+.meter{
+    position:absolute;right:16px;top:35px;width:14px;height:125px;border:3px solid #244b83;
+    border-radius:10px;background:#eef5fc;overflow:hidden
+}
+.meter-fill{position:absolute;bottom:0;left:0;right:0;background:#e0674b}
+.mixing{
+    background:#eef5ff;border-radius:16px;padding:12px;margin-top:12px;
+    font-size:15px;line-height:1.5
+}
+button{
+    border:0;border-radius:15px;padding:12px 20px;margin:5px;font-size:17px;
+    font-weight:900;cursor:pointer;background:#244b83;color:#fff;
+    box-shadow:0 4px 0 rgba(0,0,0,.13)
+}
+button:hover{transform:translateY(-2px)}
+.footer{border-top:2px solid #edf0f5;margin-top:18px;padding-top:12px;
+    text-align:center;color:#7a8798}
+.footer b{color:#244b83;font-size:16px}
+.warning{display:none;background:#ffe1e1;color:#9b2c2c;padding:10px;border-radius:14px;
+    font-weight:bold;margin-top:10px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+@media(max-width:600px){
+    #app{padding:15px;border-radius:22px}h1{font-size:29px}.subtitle{font-size:15px}
+    .parts{grid-template-columns:1fr}.big{font-size:38px}
+}
+</style>
+</head>
+
+<body>
+<div id="app">
+<h1>BOILER REKENTRAINER</h1>
+<div class="subtitle">Voor het middelbaar onderwijs – warm water, energie en vermogen 🔥</div>
+
+<div class="grid">
+
+<div class="card">
+<h2>1️⃣ Gegevens</h2>
+
+<label>Aantal personen</label>
+<input id="personen" type="number" min="1" step="1" value="4">
+
+<label>Warmwaterbehoefte per persoon</label>
+<input id="literPP" type="number" min="1" step="1" value="45">
+<div class="scale" style="margin-top:3px"><span>liter persoon</span><span>instelbaar</span></div>
+
+<label>Gewenste gebruikstemperatuur</label>
+<div class="rangebox">
+    <div class="rangevalue"><span id="gebruikText">60</span> °C</div>
+    <input id="gebruikTemp" type="range" min="35" max="70" step="1" value="60">
+    <div class="scale"><span>35 °C</span><span>50 °C</span><span>70 °C</span></div>
+</div>
+
+<label>Koudwatertemperatuur</label>
+<div class="rangebox">
+    <div class="rangevalue"><span id="koudText">10</span> °C</div>
+    <input id="koudTemp" type="range" min="0" max="25" step="1" value="10">
+    <div class="scale"><span>0 °C</span><span>10 °C</span><span>25 °C</span></div>
+</div>
+
+<label>Temperatuur in de boiler</label>
+<div class="rangebox">
+    <div class="rangevalue"><span id="boilerTempText">60</span> °C</div>
+    <input id="boilerTemp" type="range" min="35" max="90" step="1" value="60">
+    <div class="scale"><span>35 °C</span><span>60 °C</span><span>90 °C</span></div>
+</div>
+
+<label>Opwarmtijd</label>
+<div class="rangebox" style="background:#fff1ba">
+    <div class="rangevalue"><span id="tijdText">5,0</span> uur</div>
+    <input id="tijd" type="range" min="0.1" max="10" step="0.1" value="5">
+    <div class="scale"><span>0,1 uur</span><span>5 uur</span><span>10 uur</span></div>
+</div>
+
+<div id="warning" class="warning"></div>
+
+<div class="parts">
+<div class="part blue">Gewenste hoeveelheid<span id="gewenst">180 L</span></div>
+<div class="part yellow">Berekening boiler<span id="boilerInhoud">180 L</span></div>
+<div class="part purple">ΔT boiler<span id="deltaBoiler">50 °C</span></div>
+<div class="part green">Energie Q<span id="energie">37.620 kJ</span></div>
+</div>
+</div>
+
+<div class="card">
+<h2>2️⃣ Resultaat</h2>
+
+<div class="visual">
+<div>
+<div class="boiler">
+<div class="boiler-water" id="waterFill"></div>
+<div class="temp-label"><span id="boilerVisualTemp">60</span> °C</div>
+<div class="meter"><div class="meter-fill" id="meterFill"></div></div>
+</div>
+<div style="font-weight:900;color:#244b83;margin-top:6px">BOILER</div>
+</div>
+</div>
+
+<div class="result">
+<div class="result-title">Nodig verwarmingsvermogen</div>
+<div class="big" id="vermogen">2,09 <small>kW</small></div>
+<div id="vermogenW">= 2.092 W</div>
+</div>
+
+<div class="formula">
+<div class="formula-main">Boilerinhoud:</div>
+<div class="formula-detail" id="mengFormule">
+V<sub>boiler</sub> = V<sub>gebruik</sub> × (T<sub>gebruik</sub> − T<sub>koud</sub>) ÷ (T<sub>boiler</sub> − T<sub>koud</sub>)
+</div>
+
+<div class="formula-main" style="margin-top:14px">Vermogen:</div>
+<div class="formula-main">P = m × c × ΔT ÷ t</div>
+<div class="formula-detail" id="uitwerking"></div>
+</div>
+
+<div class="mixing">
+<b>📘 Denkstap:</b><br>
+Een persoon heeft bijvoorbeeld <b>45 liter water van 60 °C</b> nodig.
+Staat de boiler warmer, dan heb je minder boilerwater nodig en meng je met koud water.
+Staat de boiler precies op de gebruikstemperatuur, dan is de benodigde boilerinhoud gelijk aan de gewenste hoeveelheid.
+</div>
+</div>
+</div>
+
+<div class="explain">
+<b>Wat gebeurt er?</b><br>
+De app berekent eerst hoeveel <b>boilerwater</b> nodig is om de gewenste hoeveelheid warm water
+te leveren. Daarna berekent hij met <b>P = m × c × ΔT ÷ t</b> hoeveel verwarmingsvermogen nodig is.
+We nemen voor water <b>c = 4,18 kJ/(kg·K)</b> en ongeveer <b>1 kg = 1 liter</b>.
+De berekening gaat uit van 100% rendement; in een echte installatie zijn warmteverliezen aanwezig.
+</div>
+
+<div style="text-align:center">
+<button onclick="resetForm()">↻ VOORBEELD TERUGZETTEN</button>
+</div>
+
+<div class="footer">
+<b>Hovan Technical Solutions</b><br>
+Rekenen met warm water, energie en vermogen 🚀
+</div>
+</div>
+
+<script>
+const personen=document.getElementById("personen");
+const literPP=document.getElementById("literPP");
+const gebruikTemp=document.getElementById("gebruikTemp");
+const koudTemp=document.getElementById("koudTemp");
+const boilerTemp=document.getElementById("boilerTemp");
+const tijd=document.getElementById("tijd");
+
+function nl(n,dec=0){
+ return n.toLocaleString("nl-BE",{minimumFractionDigits:dec,maximumFractionDigits:dec});
+}
+
+function bereken(){
+ const p=Math.max(1,Number(personen.value)||1);
+ const lpp=Math.max(1,Number(literPP.value)||45);
+ const Tg=Number(gebruikTemp.value)||60;
+ const Tk=Number(koudTemp.value)||10;
+ const Tb=Number(boilerTemp.value)||60;
+ const uren=Number(tijd.value)||5;
+
+ document.getElementById("gebruikText").textContent=nl(Tg);
+ document.getElementById("koudText").textContent=nl(Tk);
+ document.getElementById("boilerTempText").textContent=nl(Tb);
+ document.getElementById("boilerVisualTemp").textContent=nl(Tb);
+ document.getElementById("tijdText").textContent=nl(uren,1);
+
+ const gewenst=p*lpp;
+ let Vboiler=0;
+ let deltaBoiler=Tb-Tk;
+ let Q=0;
+ let PkW=0;
+
+ const warning=document.getElementById("warning");
+
+ if(Tb<=Tk){
+   warning.style.display="block";
+   warning.textContent="⚠️ De boilertemperatuur moet hoger zijn dan de koudwatertemperatuur.";
+   Vboiler=0; deltaBoiler=0; Q=0; PkW=0;
+ } else if(Tb<Tg){
+   warning.style.display="block";
+   warning.textContent="⚠️ De boiler is kouder dan de gewenste gebruikstemperatuur. Kies een hogere boilertemperatuur.";
+   Vboiler=0; deltaBoiler=0; Q=0; PkW=0;
+ } else {
+   warning.style.display="none";
+
+   // Mengformule: gewenste hoeveelheid op gebruikstemperatuur
+   // wordt geleverd door boilerwater + koud water.
+   Vboiler=gewenst*(Tg-Tk)/(Tb-Tk);
+
+   // Voor het opwarmen rekenen we met de effectieve boilerinhoud.
+   deltaBoiler=Tb-Tk;
+   const massa=Vboiler; // 1 kg/L
+   const c=4.18;
+   Q=massa*c*deltaBoiler; // kJ
+
+   // kJ / s = kW
+   PkW=Q/(uren*3600);
+ }
+
+ document.getElementById("gewenst").textContent=nl(gewenst)+" L";
+ document.getElementById("boilerInhoud").textContent=nl(Vboiler,1)+" L";
+ document.getElementById("deltaBoiler").textContent=nl(deltaBoiler,1)+" °C";
+ document.getElementById("energie").textContent=nl(Q,0)+" kJ";
+
+ document.getElementById("vermogen").innerHTML=nl(PkW,2)+' <small>kW</small>';
+ document.getElementById("vermogenW").textContent="= "+nl(PkW*1000,0)+" W";
+
+ document.getElementById("mengFormule").innerHTML=
+   "V<sub>boiler</sub> = "+nl(gewenst,0)+" × ("+nl(Tg,0)+" − "+nl(Tk,0)+") ÷ ("+
+   nl(Tb,0)+" − "+nl(Tk,0)+")<br>"+
+   "V<sub>boiler</sub> = <b>"+nl(Vboiler,1)+" L</b>";
+
+ document.getElementById("uitwerking").innerHTML=
+   "m = "+nl(Vboiler,1)+" kg<br>"+
+   "ΔT = "+nl(deltaBoiler,1)+" °C<br>"+
+   "P = "+nl(Vboiler,1)+" × 4,18 × "+nl(deltaBoiler,1)+
+   " ÷ ("+nl(uren,1)+" × 3600)<br>"+
+   "P = <b>"+nl(PkW,2)+" kW</b>";
+
+ // Visualiseer boilertemperatuur.
+ const tempPct=Math.max(0,Math.min(100,(Tb-20)/(90-20)*100));
+ document.getElementById("meterFill").style.height=Math.max(5,tempPct)+"%";
+ document.getElementById("waterFill").style.height=Math.max(20,Math.min(95,(Vboiler/(gewenst||1))*70+25))+"%";
+}
+
+[personen,literPP,gebruikTemp,koudTemp,boilerTemp,tijd].forEach(x=>x.addEventListener("input",bereken));
+
+function resetForm(){
+ personen.value=4;
+ literPP.value=45;
+ gebruikTemp.value=60;
+ koudTemp.value=10;
+ boilerTemp.value=60;
+ tijd.value=5;
+ bereken();
+}
+bereken();
+</script>
+</body>
+</html>
