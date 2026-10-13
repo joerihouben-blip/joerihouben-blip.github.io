@@ -1,26 +1,482 @@
+
 <!DOCTYPE html>
-<html lang="nl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wet van Ohm | Interactieve les</title><style>
-:root{font-family:Arial,sans-serif;color:#17324f;background:#edf3fa}*{box-sizing:border-box}body{margin:0}header{background:#123d70;color:white;padding:18px;text-align:center}h1{margin:0;font-size:26px}main{max-width:1080px;margin:18px auto;padding:0 14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{background:white;border-radius:14px;padding:20px;box-shadow:0 3px 12px #15334b16}h2{margin:0 0 15px;font-size:20px}label{display:block;font-weight:bold;margin:15px 0 8px}input[type=range]{width:100%;accent-color:#1475bc}.modes{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.modes button{flex:1;background:#e2edf7;color:#123d70}.modes button.active{background:#1169a6;color:white}.hidden{display:none}.value{font-size:26px;color:#0869ae;font-weight:bold}.formula{font-size:29px;text-align:center;font-weight:bold;background:#e8f3ff;padding:15px;border-radius:10px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.stat{background:#eff6fc;padding:14px;border-radius:9px;text-align:center}.stat strong{display:block;font-size:24px;color:#0d629e}.muted{font-size:13px;color:#50677a}.circuit{width:100%;height:auto}.question{font-size:18px;font-weight:bold}input[type=number]{padding:11px;border:1px solid #b5c8d8;border-radius:8px;width:130px;font-size:17px}button{background:#1169a6;color:white;border:0;border-radius:8px;padding:12px 18px;font-size:15px;cursor:pointer}button:hover{background:#094a7b}.feedback{min-height:26px;font-weight:bold;margin-top:12px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.step{background:#f0f6fc;border-left:4px solid #1773b6;border-radius:7px;padding:12px}.step b{display:block;color:#123d70;margin-bottom:7px}.step div{line-height:1.7}.full{grid-column:1/-1}@media(max-width:820px){.steps{grid-template-columns:1fr}}@media(max-width:720px){.grid{grid-template-columns:1fr}.full{grid-column:auto}} @media(min-width:900px){header{padding:8px}h1{font-size:21px}header div{font-size:12px}main{max-width:1500px;margin:8px auto;padding:0 10px}.grid{grid-template-columns:0.95fr 1.05fr;gap:9px}.panel{padding:11px;border-radius:9px}h2{font-size:16px;margin:0 0 7px}label{margin:7px 0 4px}.value{font-size:18px}.modes{margin:6px 0}.modes button{padding:8px}.stats{margin-top:7px}.stat{padding:7px}.stat strong{font-size:18px}.circuit{display:block;width:100%;max-height:185px}.steps{margin-top:7px;gap:6px}.step{padding:7px;font-size:13px}.step div{line-height:1.35}.muted{margin:6px 0;font-size:11px}.question{font-size:15px;margin:6px 0}.full{grid-column:1/-1}.full .steps{grid-template-columns:repeat(3,1fr)}.full label{display:inline-block;margin-right:8px}input[type=number]{padding:6px}button{padding:7px 12px}.feedback{display:inline-block;margin-left:12px;min-height:0}body{overflow-x:hidden}}@media(min-width:900px) and (max-height:760px){.circuit{max-height:145px}.panel{padding:8px}.step{padding:5px}header{padding:5px}.muted{display:none}} </style></head><body>
-<header><h1>⚡ De wet van Ohm</h1><div>Interactieve elektriciteitsles — spanning, stroom en weerstand</div></header><main><div class="grid">
-<section class="panel"><h2>1. Kies wat je wilt berekenen</h2><div class="modes"><button data-mode="I" class="active">I zoeken</button><button data-mode="U">U zoeken</button><button data-mode="R">R zoeken</button></div><h2>Stel de gegevens in</h2><div id="voltageControl"><label for="voltage">Spanning U: <span id="uv" class="value">12 V</span></label><input id="voltage" type="range" min="0" max="24" step="1" value="12"></div><div id="resistanceControl"><label for="resistance">Weerstand R: <span id="rv" class="value">12 Ω</span></label><input id="resistance" type="range" min="1" max="100" step="1" value="12"></div><div id="currentControl" class="hidden"><label for="currentInput">Stroomsterkte I: <span id="iv" class="value">1,00 A</span></label><input id="currentInput" type="range" min="0.1" max="5" step="0.1" value="1"></div><div class="stats"><div class="stat">Stroomsterkte I<strong id="amps">1,00 A</strong></div><div class="stat">Vermogen P<strong id="watts">12,00 W</strong></div></div><p class="muted">Verhoog de spanning of weerstand en bekijk wat verandert.</p></section>
-<section class="panel"><h2>2. Bekijk de stroomkring</h2><svg class="circuit" viewBox="0 0 460 260" role="img" aria-label="Gesloten stroomkring, weerstand met aansluiting aan beide zijden, spanningsbron en ampèremeter">
-<path d="M90 85 H275 M365 85 H395 V205 H276 M224 205 H90 V175 M90 115 V85" stroke="#2483c1" stroke-width="6" fill="none" stroke-linecap="round"/>
-<rect x="275" y="67" width="90" height="36" rx="3" fill="white" stroke="#1c4160" stroke-width="3"/><text x="320" y="91" text-anchor="middle" font-size="17">R</text>
-<circle cx="90" cy="145" r="30" fill="white" stroke="#183c5b" stroke-width="3"/><text x="90" y="139" text-anchor="middle" font-size="17">+</text><text x="90" y="160" text-anchor="middle" font-size="17">−</text>
-<circle cx="250" cy="205" r="26" fill="white" stroke="#183c5b" stroke-width="3"/><text x="250" y="212" text-anchor="middle" font-size="23">A</text>
-<circle id="electron" cx="90" cy="85" r="7" fill="#ff9e18"/><text x="90" y="37" text-anchor="middle" font-size="17" id="sourceLabel">12 V</text><text x="320" y="49" text-anchor="middle" font-size="17" id="resLabel">12 Ω</text><text x="250" y="252" text-anchor="middle" font-size="17" id="currentLabel">1,00 A</text></svg><div class="steps"><div class="step"><b>Gegeven</b><div id="simGiven"></div></div><div class="step"><b>Gevraagd</b><div id="simAsked">I = ? (A)</div></div><div class="step"><b>Oplossing</b><div id="simSolution"></div></div></div><p class="muted">De oranje stip beweegt sneller bij een grotere stroomsterkte. Dit is een schematische voorstelling, geen werkelijke elektronenbeweging.</p></section>
-<section class="panel full"><h2>3. Oefen zelf</h2><p class="question" id="question"></p><label for="answer">Jouw antwoord:</label><input id="answer" type="number" step="any" inputmode="decimal"> <span id="unit">A</span> <button id="check">Controleer</button> <button id="next">Nieuwe oefening</button><div id="feedback" class="feedback" aria-live="polite"></div><div class="steps"><div class="step"><b>Gegeven</b><div id="exGiven"></div></div><div class="step"><b>Gevraagd</b><div id="exAsked"></div></div><div class="step"><b>Oplossing</b><div id="exSolution">Bereken eerst zelf. Klik daarna op Controleer.</div></div></div><p class="muted">Tip: I = U / R &nbsp; | &nbsp; U = R × I &nbsp; | &nbsp; R = U / I</p></section>
-</div></main><script>
-const $=id=>document.getElementById(id),v=$('voltage'),r=$('resistance'),ci=$('currentInput'),dot=$('electron');let current=1,position=0,last=performance.now(),exercise,mode='I';
-function fmt(n){return n.toLocaleString('nl-BE',{minimumFractionDigits:2,maximumFractionDigits:2})}
-function update(){let U=+v.value,R=+r.value,I=+ci.value;if(mode==='I'){I=U/R}else if(mode==='U'){U=R*I}else{R=I>0?U/I:0}current=I;
-$('voltageControl').classList.toggle('hidden',mode==='U');$('resistanceControl').classList.toggle('hidden',mode==='R');$('currentControl').classList.toggle('hidden',mode!=='U'&&mode!=='R');
-$('uv').textContent=U+' V';$('rv').textContent=fmt(R)+' Ω';$('iv').textContent=fmt(I)+' A';$('amps').textContent=fmt(I)+' A';$('watts').textContent=fmt(U*I)+' W';
-$('simGiven').innerHTML=mode==='I'?`U = ${fmt(U)} V<br>R = ${fmt(R)} Ω`:mode==='U'?`R = ${fmt(R)} Ω<br>I = ${fmt(I)} A`:`U = ${fmt(U)} V<br>I = ${fmt(I)} A`;
-$('simAsked').textContent=mode==='I'?'I = ? (A)':mode==='U'?'U = ? (V)':'R = ? (Ω)';
-$('simSolution').innerHTML=mode==='I'?`I = U / R<br>I = ${fmt(U)} / ${fmt(R)}<br><strong>I = ${fmt(I)} A</strong>`:mode==='U'?`U = R × I<br>U = ${fmt(R)} × ${fmt(I)}<br><strong>U = ${fmt(U)} V</strong>`:`R = U / I<br>R = ${fmt(U)} / ${fmt(I)}<br><strong>R = ${fmt(R)} Ω</strong>`;
-$('sourceLabel').textContent=fmt(U)+' V';$('resLabel').textContent=fmt(R)+' Ω';$('currentLabel').textContent=fmt(I)+' A';dot.style.opacity=I?1:.25}
-[v,r,ci].forEach(el=>el.addEventListener('input',update));document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.mode;document.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle('active',x===b));update()}));
-function animate(t){let dt=Math.min((t-last)/1000,.1);last=t;position=(position+dt*current*95)%850;let p=position,x,y;if(p<305){x=90+p;y=85}else if(p<425){x=395;y=85+p-305}else if(p<730){x=395-(p-425);y=205}else{x=90;y=205-(p-730)}dot.setAttribute('cx',x);dot.setAttribute('cy',y);requestAnimationFrame(animate)}requestAnimationFrame(animate);
-function next(){let R=[2,3,4,6,8,12][Math.floor(Math.random()*6)],U=R*[1,2,3,4][Math.floor(Math.random()*4)],mode=Math.floor(Math.random()*3);exercise={mode,U,R,expected:mode===0?U/R:mode===1?U:R};$('question').textContent=mode===0?`Een weerstand van ${R} Ω is aangesloten op ${U} V. Bereken de stroomsterkte I.`:mode===1?`Door een weerstand van ${R} Ω loopt ${fmt(U/R)} A. Bereken de spanning U.`:`Bij een spanning van ${U} V loopt ${fmt(U/R)} A. Bereken de weerstand R.`;$('unit').textContent=['A','V','Ω'][mode];$('answer').value='';$('feedback').textContent='';$('exGiven').innerHTML=mode===0?`U = ${U} V<br>R = ${R} Ω`:mode===1?`R = ${R} Ω<br>I = ${fmt(U/R)} A`:`U = ${U} V<br>I = ${fmt(U/R)} A`;$('exAsked').textContent=['I = ? (A)','U = ? (V)','R = ? (Ω)'][mode];$('exSolution').textContent='Bereken eerst zelf. Klik daarna op Controleer.';}$('next').addEventListener('click',next);$('check').addEventListener('click',()=>{let a=Number($('answer').value.replace(',','.'));if(!$('answer').value.trim()||!Number.isFinite(a)){$('feedback').textContent='Vul eerst een getal in.';return}let ok=Math.abs(a-exercise.expected)<=Math.max(.02,exercise.expected*.005);$('feedback').style.color=ok?'#168046':'#b33b24';$('feedback').textContent=ok?'✓ Correct! Goed gewerkt.':`Niet juist. Bekijk de uitwerking hieronder.`;let {U,R,mode}=exercise;let I=U/R;$('exSolution').innerHTML=mode===0?`I = U / R<br>I = ${U} / ${R}<br><strong>I = ${fmt(I)} A</strong>`:mode===1?`U = R × I<br>U = ${R} × ${fmt(I)}<br><strong>U = ${fmt(U)} V</strong>`:`R = U / I<br>R = ${U} / ${fmt(I)}<br><strong>R = ${fmt(R)} Ω</strong>`});update();next();
-</script></body></html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wet van Ohm | Sint-Martinusschool</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#eaf0f7;
+ color:#243447;
+}
+header{
+ background:linear-gradient(135deg,#102d50,#1765a5);
+ color:white;
+ text-align:center;
+ padding:12px;
+}
+header h1{margin:0;font-size:24px}
+header p{margin:5px 0 0;font-size:12px}
+main{
+ max-width:1400px;
+ margin:auto;
+ padding:10px;
+}
+.grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+}
+.card{
+ background:white;
+ border-radius:9px;
+ padding:12px;
+ box-shadow:0 2px 8px #00000012;
+ min-width:0;
+}
+h2{
+ margin:0 0 10px;
+ color:#123e70;
+ font-size:17px;
+}
+.keuze{
+ display:flex;
+ gap:7px;
+ margin-bottom:10px;
+}
+button{
+ background:#1765a5;
+ color:white;
+ border:0;
+ border-radius:5px;
+ padding:9px 12px;
+ cursor:pointer;
+ font-weight:bold;
+}
+button:hover{background:#103d6b}
+button.actief{background:#16834a}
+label{
+ display:block;
+ margin:8px 0 4px;
+ font-weight:bold;
+ font-size:13px;
+}
+input[type=range]{width:100%}
+input[type=number]{
+ width:100%;
+ padding:8px;
+ border:1px solid #ccd8e5;
+ border-radius:5px;
+}
+.waarde{
+ color:#1765a5;
+ font-weight:bold;
+}
+.resultaat{
+ background:#edf5ff;
+ padding:10px;
+ border-radius:6px;
+ margin-top:10px;
+ font-size:15px;
+}
+.stap{
+ background:#f4f8fc;
+ border-left:4px solid #1765a5;
+ padding:8px;
+ margin:7px 0;
+ border-radius:4px;
+}
+.stap strong{
+ display:block;
+ color:#123e70;
+ margin-bottom:4px;
+}
+.schema{
+ width:100%;
+ height:190px;
+ background:#f8fbff;
+ border:1px solid #dce6f0;
+ border-radius:7px;
+}
+.draad{
+ stroke:#243447;
+ stroke-width:4;
+ fill:none;
+}
+.antwoord{
+ margin-top:8px;
+ padding:10px;
+ border-radius:5px;
+ background:#edf5ff;
+}
+footer{
+ text-align:center;
+ font-size:12px;
+ color:#53657a;
+ padding:10px;
+}
+@media(max-width:750px){
+ .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>⚡ Wet van Ohm</h1>
+<p>Interactieve simulatie – Elektriciteit</p>
+<p>Gemaakt door Joeri Houben voor Sint-Martinusschool</p>
+</header>
+
+<main>
+
+<div class="grid">
+
+<section class="card">
+<h2>1. Kies wat je wilt berekenen</h2>
+
+<div class="keuze">
+<button id="btnI" onclick="kies('I')">I zoeken</button>
+<button id="btnU" onclick="kies('U')">U zoeken</button>
+<button id="btnR" onclick="kies('R')">R zoeken</button>
+</div>
+
+<div id="instellingen"></div>
+
+<div class="resultaat" id="resultaat"></div>
+</section>
+
+<section class="card">
+<h2>2. Elektrische kring</h2>
+
+<svg class="schema" viewBox="0 0 500 200">
+<path class="draad"
+ d="M100 100 V40 H220 M280 40 H400 V160 H100 V100"/>
+
+<!-- Weerstand -->
+<rect x="220" y="25" width="60" height="30"
+ fill="#f4b942" stroke="#243447" stroke-width="3"/>
+<text x="250" y="19" text-anchor="middle" font-size="13">
+R
+</text>
+
+<!-- Voeding -->
+<line x1="85" y1="85" x2="115" y2="85"
+ stroke="#243447" stroke-width="3"/>
+<line x1="93" y1="105" x2="107" y2="105"
+ stroke="#243447" stroke-width="3"/>
+<text x="65" y="82" font-size="16">+</text>
+<text x="65" y="113" font-size="16">−</text>
+
+<text x="120" y="185" id="schemaU" font-size="14">
+U = 12 V
+</text>
+<text x="280" y="185" id="schemaI" font-size="14">
+I = 2 A
+</text>
+<text x="290" y="20" id="schemaR" font-size="14">
+R = 6 Ω
+</text>
+
+<circle id="stroompunt" cx="100" cy="40" r="6"
+ fill="#16834a"/>
+</svg>
+
+<p style="font-size:12px">
+De stroomsterkte verandert wanneer je de spanning
+of weerstand aanpast.
+</p>
+</section>
+
+<section class="card">
+<h2>3. Gegeven – Gevraagd – Oplossing</h2>
+
+<div class="stap">
+<strong>Gegeven</strong>
+<div id="gegeven"></div>
+</div>
+
+<div class="stap">
+<strong>Gevraagd</strong>
+<div id="gevraagd"></div>
+</div>
+
+<div class="stap">
+<strong>Oplossing</strong>
+<div id="oplossing"></div>
+</div>
+</section>
+
+<section class="card">
+<h2>4. Oefeningen</h2>
+
+<p id="vraag"></p>
+
+<label for="leerlingAntwoord">Jouw antwoord</label>
+<input type="number" id="leerlingAntwoord"
+ step="any" placeholder="Vul je antwoord in">
+
+<div style="margin-top:10px">
+<button onclick="controleer()">Controleer</button>
+<button onclick="nieuweOefening()">Nieuwe oefening</button>
+<button onclick="toonOplossing()">Toon oplossing</button>
+</div>
+
+<div class="antwoord" id="feedback">
+Vul je antwoord in en klik op Controleer.
+</div>
+</section>
+
+</div>
+</main>
+
+<footer>
+Gemaakt door Joeri Houben voor Sint-Martinusschool
+</footer>
+
+<script>
+let modus="I";
+let U=12;
+let R=6;
+let I=2;
+let oefening=null;
+
+function getal(n){
+ return Number(n.toFixed(3)).toLocaleString("nl-BE");
+}
+
+function kies(nieuweModus){
+ modus=nieuweModus;
+
+ document.querySelectorAll(".keuze button")
+ .forEach(b=>b.classList.remove("actief"));
+
+ document.getElementById("btn"+modus)
+ .classList.add("actief");
+
+ instellingenMaken();
+ bereken();
+ nieuweOefening();
+}
+
+function instellingenMaken(){
+ let html="";
+
+ if(modus==="I"){
+ html=`
+ <label>Spanning U:
+ <span class="waarde" id="waardeU"></span></label>
+ <input type="range" min="1" max="48" step="1"
+ value="${U}" oninput="U=+this.value;bereken()">
+
+ <label>Weerstand R:
+ <span class="waarde" id="waardeR"></span></label>
+ <input type="range" min="1" max="100" step="1"
+ value="${R}" oninput="R=+this.value;bereken()">
+ `;
+ }
+
+ if(modus==="U"){
+ html=`
+ <label>Stroomsterkte I:
+ <span class="waarde" id="waardeI"></span></label>
+ <input type="range" min="0.1" max="10" step="0.1"
+ value="${I}" oninput="I=+this.value;bereken()">
+
+ <label>Weerstand R:
+ <span class="waarde" id="waardeR"></span></label>
+ <input type="range" min="1" max="100" step="1"
+ value="${R}" oninput="R=+this.value;bereken()">
+ `;
+ }
+
+ if(modus==="R"){
+ html=`
+ <label>Spanning U:
+ <span class="waarde" id="waardeU"></span></label>
+ <input type="range" min="1" max="48" step="1"
+ value="${U}" oninput="U=+this.value;bereken()">
+
+ <label>Stroomsterkte I:
+ <span class="waarde" id="waardeI"></span></label>
+ <input type="range" min="0.1" max="10" step="0.1"
+ value="${I}" oninput="I=+this.value;bereken()">
+ `;
+ }
+
+ document.getElementById("instellingen").innerHTML=html;
+}
+
+function bereken(){
+ let formule="";
+ let invullen="";
+ let antwoord="";
+ let gegeven="";
+ let gevraagd="";
+
+ if(modus==="I"){
+ I=U/R;
+ formule="I = U / R";
+ invullen=`I = ${getal(U)} / ${getal(R)}`;
+ antwoord=`I = ${getal(I)} A`;
+ gegeven=`U = ${getal(U)} V<br>R = ${getal(R)} Ω`;
+ gevraagd="I = ? A";
+ }
+
+ if(modus==="U"){
+ U=R*I;
+ formule="U = R × I";
+ invullen=`U = ${getal(R)} × ${getal(I)}`;
+ antwoord=`U = ${getal(U)} V`;
+ gegeven=`R = ${getal(R)} Ω<br>I = ${getal(I)} A`;
+ gevraagd="U = ? V";
+ }
+
+ if(modus==="R"){
+ R=U/I;
+ formule="R = U / I";
+ invullen=`R = ${getal(U)} / ${getal(I)}`;
+ antwoord=`R = ${getal(R)} Ω`;
+ gegeven=`U = ${getal(U)} V<br>I = ${getal(I)} A`;
+ gevraagd="R = ? Ω";
+ }
+
+ document.getElementById("gegeven").innerHTML=gegeven;
+ document.getElementById("gevraagd").innerHTML=gevraagd;
+
+ document.getElementById("oplossing").innerHTML=
+ `Formule: ${formule}<br>
+ Invullen: ${invullen}<br>
+ <strong>Antwoord: ${antwoord}</strong>`;
+
+ document.getElementById("resultaat").innerHTML=
+ `<strong>${antwoord}</strong>`;
+
+ ["U","I","R"].forEach(x=>{
+ let el=document.getElementById("waarde"+x);
+ if(el){
+ el.textContent=getal(windowWaarde(x))+
+ (x==="U"?" V":x==="I"?" A":" Ω");
+ }
+ });
+
+ document.getElementById("schemaU").textContent=
+ `U = ${getal(U)} V`;
+ document.getElementById("schemaI").textContent=
+ `I = ${getal(I)} A`;
+ document.getElementById("schemaR").textContent=
+ `R = ${getal(R)} Ω`;
+}
+
+function windowWaarde(x){
+ if(x==="U")return U;
+ if(x==="I")return I;
+ return R;
+}
+
+function nieuweOefening(){
+ let a,b,uitkomst,eenheid,formule;
+
+ if(modus==="I"){
+ a=Math.floor(Math.random()*24)+1;
+ b=Math.floor(Math.random()*20)+1;
+ uitkomst=a/b;
+ eenheid="A";
+ formule=`I = U / R = ${a} / ${b}`;
+ oefening={uitkomst,eenheid,formule,
+ gegeven:`U = ${a} V, R = ${b} Ω`,
+ gevraagd:"I = ? A"};
+ }
+
+ if(modus==="U"){
+ a=Math.floor(Math.random()*10)+1;
+ b=Math.floor(Math.random()*20)+1;
+ uitkomst=a*b;
+ eenheid="V";
+ formule=`U = R × I = ${b} × ${a}`;
+ oefening={uitkomst,eenheid,formule,
+ gegeven:`R = ${b} Ω, I = ${a} A`,
+ gevraagd:"U = ? V"};
+ }
+
+ if(modus==="R"){
+ a=Math.floor(Math.random()*10)+1;
+ b=Math.floor(Math.random()*20)+1;
+ uitkomst=b;
+ eenheid="Ω";
+ formule=`R = U / I = ${a*b} / ${a}`;
+ oefening={uitkomst,eenheid,formule,
+ gegeven:`U = ${a*b} V, I = ${a} A`,
+ gevraagd:"R = ? Ω"};
+ }
+
+ document.getElementById("vraag").innerHTML=
+ `<strong>Gegeven:</strong> ${oefening.gegeven}<br>
+ <strong>Gevraagd:</strong> ${oefening.gevraagd}`;
+
+ document.getElementById("leerlingAntwoord").value="";
+ document.getElementById("feedback").textContent=
+ "Vul je antwoord in en klik op Controleer.";
+}
+
+function controleer(){
+ const veld=document.getElementById("leerlingAntwoord");
+ if(veld.value.trim()===""){
+ document.getElementById("feedback").textContent=
+ "Vul eerst een antwoord in.";
+ return;
+ }
+
+ let antwoord=Number(veld.value);
+ let juist=Math.abs(antwoord-oefening.uitkomst)
+ <=Math.max(0.01,Math.abs(oefening.uitkomst)*0.01);
+
+ document.getElementById("feedback").textContent=
+ juist?"Correct! Goed gewerkt.":
+ "Nog niet juist. Probeer opnieuw.";
+}
+
+function toonOplossing(){
+ document.getElementById("feedback").innerHTML=
+ `<strong>Gegeven:</strong> ${oefening.gegeven}<br>
+ <strong>Gevraagd:</strong> ${oefening.gevraagd}<br>
+ <strong>Oplossing:</strong> ${oefening.formule}
+ = ${getal(oefening.uitkomst)} ${oefening.eenheid}`;
+}
+
+// Bewegend stroompunt op gesloten kring
+const punt=document.getElementById("stroompunt");
+const pad=[
+ [100,100],[100,40],[220,40],[280,40],
+ [400,40],[400,160],[100,160],[100,100]
+];
+let segment=0;
+let positie=0;
+
+function animeer(){
+ if(I>0){
+ positie+=Math.min(0.06,0.004+I*0.002);
+ if(positie>=1){
+ positie=0;
+ segment=(segment+1)%(pad.length-1);
+ }
+ let a=pad[segment];
+ let b=pad[segment+1];
+ punt.setAttribute("cx",a[0]+(b[0]-a[0])*positie);
+ punt.setAttribute("cy",a[1]+(b[1]-a[1])*positie);
+ }
+ requestAnimationFrame(animeer);
+}
+
+kies("I");
+animeer();
+</script>
+
+</body>
+</html>
