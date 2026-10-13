@@ -2,206 +2,82 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Joeri Houben | Technische leeromgeving</title>
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #eef3f9;
-      color: #243447;
-    }
-
-    header {
-      background: linear-gradient(135deg, #102d50, #1765a5);
-      color: white;
-      text-align: center;
-      padding: 55px 20px;
-    }
-
-    header h1 {
-      font-size: 42px;
-      margin: 0 0 12px;
-    }
-
-    header p {
-      font-size: 19px;
-      margin: 0;
-    }
-
-    nav {
-      background: #102d50;
-      text-align: center;
-      padding: 15px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 10px;
-      font-weight: bold;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    h2 {
-      color: #123e70;
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(
-        auto-fit, minmax(230px, 1fr)
-      );
-      gap: 22px;
-    }
-
-    .kaart {
-      background: white;
-      padding: 30px 20px;
-      border-radius: 14px;
-      text-align: center;
-      box-shadow: 0 4px 15px #00000012;
-    }
-
-    .kaart h3 {
-      color: #14558c;
-      font-size: 23px;
-    }
-
-    .icoon {
-      font-size: 45px;
-    }
-
-    .knop {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 12px 20px;
-      background: #1765a5;
-      color: white;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .knop:hover {
-      background: #103d6b;
-    }
-
-    .info {
-      background: white;
-      border-left: 5px solid #1765a5;
-      border-radius: 10px;
-      padding: 25px;
-      margin-top: 35px;
-    }
-
-    footer {
-      text-align: center;
-      background: #102d50;
-      color: white;
-      padding: 25px;
-      margin-top: 50px;
-    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: #eef3f9; color: #243447; }
+    header { background: linear-gradient(135deg, #102d50, #1765a5); color: white; text-align: center; padding: 55px 20px; }
+    header h1 { font-size: 42px; margin: 0 0 12px; }
+    header p { font-size: 19px; margin: 0; }
+    nav { background: #102d50; text-align: center; padding: 15px; }
+    nav a { color: white; text-decoration: none; margin: 10px; font-weight: bold; }
+    main { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+    h2 { color: #123e70; text-align: center; margin-bottom: 30px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 22px; }
+    .kaart { background: white; padding: 30px 20px; border-radius: 14px; text-align: center; box-shadow: 0 4px 15px #00000012; }
+    .kaart h3 { color: #14558c; font-size: 23px; }
+    .icoon { font-size: 45px; }
+    .knop { display: inline-block; margin-top: 15px; padding: 12px 20px; background: #1765a5; color: white; border-radius: 8px; text-decoration: none; font-weight: bold; }
+    .knop:hover { background: #103d6b; }
+    .info { background: white; border-left: 5px solid #1765a5; border-radius: 10px; padding: 25px; margin-top: 35px; }
+    footer { text-align: center; background: #102d50; color: white; padding: 25px; margin-top: 50px; }
   </style>
 </head>
-
 <body>
-
   <header>
     <h1>Joeri Houben</h1>
     <p>Interactieve technische leeromgeving</p>
     <p>Leren • Oefenen • Simuleren</p>
   </header>
-
   <nav>
     <a href="#verwarming">Verwarming</a>
     <a href="#sanitair">Sanitair</a>
     <a href="#elektriciteit">Elektriciteit</a>
     <a href="#ventilatie">Ventilatie</a>
   </nav>
-
   <main>
     <h2>Welkom bij de technische tools</h2>
-
     <div class="grid">
-
       <section class="kaart" id="verwarming">
         <div class="icoon">🔥</div>
         <h3>Verwarming</h3>
-        <p>
-          Simulaties van branders,
-          verwarmingsketels en installaties.
-        </p>
-      <a class="knop" href="7Ti-stookolie_V51_nieuwe_doorsnede.html">
-          Stookoliebrander
-        </a>
+        <p>Simulaties van branders,
+          verwarmingsketels en installaties.</p>
+        <a class="knop" href="7Ti-stookolie_V51_nieuwe_doorsnede.html">Stookoliebrander</a>
       </section>
-
       <section class="kaart" id="sanitair">
         <div class="icoon">💧</div>
         <h3>Sanitair</h3>
-        <p>
-          Berekeningen van afvoerleidingen,
-          diameters en afschot.
-        </p>
-        <a class="knop" href="sanitair-warmwaterbereiding.html">
-          Sanitair warmwaterbereiding
-        </a>
+        <p>Berekeningen van afvoerleidingen,
+          diameters en afschot.</p>
+        <a class="knop" href="sanitair-warmwaterbereiding.html">Sanitair warmwaterbereiding</a>
+        <a class="knop" href="boiler-rekentrainer.html">Boiler rekentrainers</a>
       </section>
-
       <section class="kaart" id="elektriciteit">
         <div class="icoon">⚡</div>
         <h3>Elektriciteit</h3>
-        <p>
-          Elektrische schakelingen,
-          motoren en berekeningen.
-        </p>
+        <p>Elektrische schakelingen,
+          motoren en berekeningen.</p>
         <span>Binnenkort beschikbaar</span>
       </section>
-
       <section class="kaart" id="ventilatie">
         <div class="icoon">🌬️</div>
         <h3>Ventilatie</h3>
-        <p>
-          Luchtdebieten, ventilatiesystemen
-          en interactieve oefeningen.
-        </p>
+        <p>Luchtdebieten, ventilatiesystemen
+          en interactieve oefeningen.</p>
         <span>Binnenkort beschikbaar</span>
       </section>
-
     </div>
-
     <div class="info">
       <h3>Over deze leeromgeving</h3>
-      <p>
-        Deze website is ontwikkeld door Joeri Houben
-        als ondersteuning bij de technische lessen.
-      </p>
-      <p>
-        Leerlingen kunnen hier zelfstandig oefenen,
+      <p>Deze website is ontwikkeld door Joeri Houben
+        als ondersteuning bij de technische lessen.</p>
+      <p>Leerlingen kunnen hier zelfstandig oefenen,
         technische installaties simuleren en
-        hun kennis verder ontwikkelen.
-      </p>
+        hun kennis verder ontwikkelen.</p>
     </div>
-
   </main>
-
-  <footer>
-    Joeri Houben | Technische leeromgeving
-  </footer>
-
+  <footer>Joeri Houben | Technische leeromgeving</footer>
 </body>
 </html>
