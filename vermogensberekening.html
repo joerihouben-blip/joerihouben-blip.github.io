@@ -9,149 +9,187 @@
 <style>
 *{box-sizing:border-box}
 
-body{
+html,body{
  margin:0;
+ min-height:100%;
  font-family:Arial,sans-serif;
  background:#eaf0f7;
  color:#243447;
 }
 
+body{
+ display:flex;
+ flex-direction:column;
+ min-height:100vh;
+}
+
 header{
  background:linear-gradient(135deg,#102d50,#1765a5);
  color:white;
- padding:22px;
  text-align:center;
+ padding:10px;
 }
 
-header h1{margin:0 0 8px;font-size:28px}
-header p{margin:0;font-size:15px}
+header h1{
+ margin:0 0 3px;
+ font-size:20px;
+}
+
+header p{
+ margin:2px 0;
+ font-size:10px;
+}
 
 main{
+ width:100%;
  max-width:1100px;
- margin:20px auto;
- padding:0 15px;
+ margin:0 auto;
+ padding:8px;
+ flex:1;
+}
+
+.dashboard{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:8px;
 }
 
 .kaart{
  background:white;
- padding:20px;
- margin-bottom:16px;
- border-radius:12px;
- box-shadow:0 4px 15px #00000012;
-}
-
-h2{color:#14558c;margin-top:0}
-
-.keuzes{
- display:flex;
- gap:10px;
- flex-wrap:wrap;
-}
-
-.keuzes button{
- flex:1;
- min-width:140px;
- background:#edf4fb;
- color:#14558c;
- border:2px solid #1765a5;
  border-radius:8px;
- padding:12px;
+ padding:10px;
+ box-shadow:0 2px 8px #00000012;
+ min-width:0;
+}
+
+h2{
+ color:#123e70;
+ font-size:15px;
+ margin:0 0 10px;
+}
+
+.knoppen{
+ display:flex;
+ gap:5px;
+ flex-wrap:wrap;
+ margin-bottom:10px;
+}
+
+button{
+ background:#1765a5;
+ color:white;
+ border:0;
+ border-radius:4px;
+ padding:8px 11px;
+ font-size:12px;
  font-weight:bold;
  cursor:pointer;
 }
 
-.keuzes button.actief{
- background:#1765a5;
- color:white;
+button.actief{
+ background:#11925b;
 }
 
-.formule{
- text-align:center;
- font-size:30px;
- color:#14558c;
- font-weight:bold;
- margin:18px 0;
+button:hover{
+ filter:brightness(.9);
 }
 
-.invoer{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:18px;
-}
-
-.veld{
- background:#f4f8fc;
- border-radius:10px;
- padding:16px;
-}
-
-.veld label{
+label{
  display:block;
+ font-size:12px;
  font-weight:bold;
- margin-bottom:10px;
+ margin:9px 0 4px;
 }
 
-.veld input[type=number]{
+input[type=range]{
  width:100%;
- padding:10px;
- border:1px solid #b8cadd;
- border-radius:7px;
- font-size:19px;
-}
-
-.veld input[type=range]{
- width:100%;
- margin-top:15px;
  accent-color:#1765a5;
 }
 
-.resultaat{
- background:#123e70;
- color:white;
- padding:20px;
- text-align:center;
- border-radius:10px;
+input[type=number]{
+ width:100%;
+ padding:7px;
+ border:1px solid #c6d6e7;
+ border-radius:5px;
 }
 
-.resultaat .waarde{
- font-size:42px;
+.resultaat{
+ background:#eaf3ff;
+ color:#123e70;
+ border-radius:5px;
+ padding:9px;
+ font-size:13px;
  font-weight:bold;
- margin:10px 0;
+ margin-top:10px;
+}
+
+.schema{
+ background:#f7faff;
+ border:1px solid #d6e2ef;
+ border-radius:6px;
+ padding:5px;
 }
 
 svg{
- display:block;
  width:100%;
- max-width:650px;
- height:auto;
- margin:auto;
+ height:160px;
+ display:block;
 }
 
-.uitleg{line-height:1.6}
+.uitleg{
+ font-size:11px;
+ line-height:1.4;
+}
 
-.terug{
- display:inline-block;
- padding:10px 16px;
- margin-bottom:15px;
- background:#1765a5;
- color:white;
- text-decoration:none;
- border-radius:7px;
+.stap{
+ background:#f3f7fb;
+ border-left:3px solid #1765a5;
+ padding:8px;
+ margin-bottom:6px;
+ border-radius:3px;
+ font-size:13px;
+ min-height:50px;
+}
+
+.stap strong{
+ display:block;
+ color:#123e70;
+ margin-bottom:4px;
+}
+
+.oefening{
+ font-size:13px;
+ line-height:1.4;
+}
+
+.antwoord{
+ width:100%;
+ border:1px solid #c6d6e7;
+ border-radius:5px;
+ padding:8px;
+ margin:8px 0;
+}
+
+.melding{
+ background:#eaf3ff;
+ padding:9px;
+ margin-top:8px;
+ border-radius:5px;
+ font-size:12px;
+ min-height:32px;
 }
 
 footer{
- background:#102d50;
- color:white;
  text-align:center;
- padding:15px;
- font-size:13px;
- font-weight:bold;
+ color:#123e70;
+ font-size:11px;
+ padding:10px;
 }
 
-@media(max-width:600px){
- .invoer{grid-template-columns:1fr}
- header h1{font-size:23px}
- .resultaat .waarde{font-size:32px}
+@media(max-width:700px){
+ .dashboard{
+  grid-template-columns:1fr;
+ }
 }
 </style>
 </head>
@@ -159,156 +197,117 @@ footer{
 <body>
 
 <header>
-<h1>⚡ Interactieve vermogensberekening</h1>
-<p>Elektriciteit – Sint-Martinus Herk-de-Stad</p>
+<h1>⚡ Wet van het elektrisch vermogen</h1>
+<p>Interactieve simulatie – Elektriciteit</p>
+<p>Gemaakt door Joeri Houben voor Sint-Martinus Herk-de-Stad</p>
 </header>
 
 <main>
+<div class="dashboard">
 
-<a class="terug" href="index.html">
-← Terug naar de leeromgeving
-</a>
-
+<!-- 1. KIEZEN EN BEREKENEN -->
 <section class="kaart">
-<h2>1. Kies de te berekenen grootheid</h2>
+<h2>1. Kies wat je wilt berekenen</h2>
 
-<div class="keuzes">
-<button id="knopP" onclick="kies('P')">
-Vermogen P
-</button>
-
-<button id="knopU" onclick="kies('U')">
-Spanning U
-</button>
-
-<button id="knopI" onclick="kies('I')">
-Stroomsterkte I
-</button>
+<div class="knoppen">
+<button id="knopP" onclick="kies('P')">P zoeken</button>
+<button id="knopU" onclick="kies('U')">U zoeken</button>
+<button id="knopI" onclick="kies('I')">I zoeken</button>
 </div>
 
-<div class="formule" id="formule">P = U × I</div>
+<label id="label1"></label>
+<input type="range" id="schuif1" oninput="bereken()">
 
-<div class="invoer">
+<label id="label2"></label>
+<input type="range" id="schuif2" oninput="bereken()">
 
-<div class="veld">
-<label id="label1" for="waarde1">Spanning U (V)</label>
-<input id="waarde1" type="number" min="0" step="any"
- value="230" oninput="nummer(1)">
-<input id="schuif1" type="range" min="0" max="400"
- step="0.1" value="230" oninput="schuif(1)">
-</div>
-
-<div class="veld">
-<label id="label2" for="waarde2">
-Stroomsterkte I (A)
-</label>
-<input id="waarde2" type="number" min="0" step="any"
- value="5" oninput="nummer(2)">
-<input id="schuif2" type="range" min="0" max="32"
- step="0.1" value="5" oninput="schuif(2)">
-</div>
-
-</div>
+<div class="resultaat" id="resultaat"></div>
 </section>
 
+<!-- 2. ELEKTRISCHE KRING -->
 <section class="kaart">
-<h2>2. Berekening</h2>
+<h2>2. Elektrische kring</h2>
 
-<div class="resultaat">
-<div id="resultaatLabel">Elektrisch vermogen</div>
-<div class="waarde" id="resultaatWaarde">1150 W</div>
-<div id="berekening">230 × 5 = 1150 W</div>
-</div>
-</section>
+<div class="schema">
+<svg viewBox="0 0 500 190" aria-label="Elektrische kring">
 
-<section class="kaart">
-<h2>3. Elektrische kring</h2>
-
-<svg viewBox="0 0 650 290"
- role="img"
- aria-label="Elektrische kring met bron en verbruiker">
-
-<!-- DRADEN -->
-<path d="M145 75 H505 V215 H145 Z"
- fill="none"
- stroke="#243447"
- stroke-width="5"
- stroke-linejoin="round"/>
+<path d="M105 35 H390 V150 H105 Z"
+ fill="none" stroke="#243447" stroke-width="3"/>
 
 <!-- BRON -->
-<rect x="105" y="112" width="80" height="68"
- rx="9" fill="#e8f2fc"
- stroke="#1765a5" stroke-width="3"/>
+<rect x="75" y="65" width="60" height="55"
+ fill="#eaf3ff" stroke="#1765a5" stroke-width="2" rx="5"/>
 
-<text x="145" y="141" text-anchor="middle"
- font-size="24" fill="#1765a5">~</text>
-
-<text x="145" y="165" text-anchor="middle"
- font-size="16" fill="#1765a5">U</text>
+<text x="105" y="87" text-anchor="middle"
+ font-size="18" fill="#1765a5">~</text>
+<text x="105" y="106" text-anchor="middle"
+ font-size="12">U</text>
 
 <!-- VERBRUIKER -->
-<rect x="455" y="112" width="100" height="68"
- rx="9" fill="#fff0c9"
- stroke="#d28b00" stroke-width="3"/>
+<rect x="360" y="65" width="65" height="55"
+ fill="#ffc857" stroke="#243447" stroke-width="2"/>
 
-<text x="505" y="140" text-anchor="middle"
- font-size="15" font-weight="bold"
- fill="#805000">Verbruiker</text>
+<text x="392" y="88" text-anchor="middle"
+ font-size="12">P</text>
+<text x="392" y="106" text-anchor="middle"
+ font-size="10">Verbruiker</text>
 
-<text x="505" y="160" text-anchor="middle"
- font-size="15" fill="#805000">P</text>
-
-<!-- BEWEGEND PUNT -->
-<circle id="punt" cx="145" cy="75" r="8"
- fill="#e6492d"/>
-
-<!-- WAARDEN -->
-<text id="tekstU" x="60" y="100"
- font-size="17" font-weight="bold"
- fill="#1765a5">230 V</text>
-
-<text id="tekstI" x="325" y="55"
- text-anchor="middle" font-size="17"
- font-weight="bold" fill="#1765a5">5 A</text>
-
-<text id="tekstP" x="505" y="205"
- text-anchor="middle" font-size="17"
- font-weight="bold" fill="#b36b00">1150 W</text>
+<text id="schemaU" x="35" y="55" font-size="13"></text>
+<text id="schemaI" x="230" y="25" font-size="13"></text>
+<text id="schemaP" x="345" y="175" font-size="13"></text>
 
 </svg>
+</div>
 
 <p class="uitleg">
-Het bewegende rode punt stelt de stroom door de
-elektrische kring schematisch voor. De snelheid
-verandert met de ingestelde stroomsterkte.
+Het opgenomen elektrisch vermogen hangt af van
+de spanning en de stroomsterkte.
 </p>
 </section>
 
+<!-- 3. GEGEVEN GEVRAAGD OPLOSSING -->
 <section class="kaart">
-<h2>4. Uitleg voor de leerlingen</h2>
+<h2>3. Gegeven – Gevraagd – Oplossing</h2>
 
-<p id="uitleg" class="uitleg"></p>
+<div class="stap">
+<strong>Gegeven</strong>
+<div id="gegeven"></div>
+</div>
 
-<p class="uitleg">
-<strong>Vermogen (P)</strong> wordt uitgedrukt in watt (W).
-<strong>Spanning (U)</strong> wordt uitgedrukt in volt (V).
-<strong>Stroomsterkte (I)</strong> wordt uitgedrukt in ampère (A).
-</p>
+<div class="stap">
+<strong>Gevraagd</strong>
+<div id="gevraagd"></div>
+</div>
 
-<p class="uitleg">
-Deze formules gelden rechtstreeks bij gelijkstroom.
-Bij eenfasige wisselstroom geldt voor het actieve
-vermogen in het algemeen P = U × I × cos φ.
-De formule P = U × I geldt dan bij cos φ = 1.
-</p>
+<div class="stap">
+<strong>Oplossing</strong>
+<div id="oplossing"></div>
+</div>
 
-<p class="uitleg">
-<strong>Opmerking:</strong> de bewegende puntanimatie
-is een didactische voorstelling, geen natuurgetrouwe
-weergave van de elektronenbeweging.
-</p>
 </section>
 
+<!-- 4. OEFENINGEN -->
+<section class="kaart">
+<h2>4. Oefeningen</h2>
+
+<div class="oefening" id="oefening"></div>
+
+<label for="antwoord">Jouw antwoord</label>
+<input class="antwoord" type="number" id="antwoord"
+ step="any" placeholder="Vul je antwoord in">
+
+<div class="knoppen">
+<button onclick="controleer()">Controleer</button>
+<button onclick="nieuweOefening()">Nieuwe oefening</button>
+<button onclick="toonOplossing()">Toon oplossing</button>
+</div>
+
+<div class="melding" id="melding">
+Vul je antwoord in en klik op Controleer.
+</div>
+</section>
+
+</div>
 </main>
 
 <footer>
@@ -317,39 +316,30 @@ Gemaakt door Joeri Houben voor Sint-Martinus Herk-de-Stad
 
 <script>
 let keuze="P";
-let snelheid=0;
-let segment=0;
-let positie=0;
-let vorigeTijd=null;
+let oefenData=null;
 
-const instellingen={
+const configuratie={
  P:{
-  formule:"P = U × I",
-  labels:["Spanning U (V)","Stroomsterkte I (A)"],
+  labels:["Spanning U","Stroomsterkte I"],
   max:[400,32],
-  waarden:[230,5],
-  naam:"Elektrisch vermogen",
-  eenheid:"W"
+  standaard:[230,5],
+  eenheden:["V","A"]
  },
  U:{
-  formule:"U = P / I",
-  labels:["Vermogen P (W)","Stroomsterkte I (A)"],
+  labels:["Vermogen P","Stroomsterkte I"],
   max:[10000,32],
-  waarden:[1150,5],
-  naam:"Elektrische spanning",
-  eenheid:"V"
+  standaard:[1150,5],
+  eenheden:["W","A"]
  },
  I:{
-  formule:"I = P / U",
-  labels:["Vermogen P (W)","Spanning U (V)"],
+  labels:["Vermogen P","Spanning U"],
   max:[10000,400],
-  waarden:[1150,230],
-  naam:"Elektrische stroomsterkte",
-  eenheid:"A"
+  standaard:[1150,230],
+  eenheden:["W","V"]
  }
 };
 
-function toon(n){
+function fmt(n){
  return Number(n.toFixed(2)).toLocaleString("nl-BE",{
   maximumFractionDigits:2
  });
@@ -357,153 +347,188 @@ function toon(n){
 
 function kies(k){
  keuze=k;
- const s=instellingen[k];
 
- document.querySelectorAll(".keuzes button")
+ document.querySelectorAll(".knoppen button")
   .forEach(b=>b.classList.remove("actief"));
 
- document.getElementById("knop"+k)
-  .classList.add("actief");
+ document.getElementById("knop"+k).classList.add("actief");
 
- document.getElementById("formule").textContent=s.formule;
+ const c=configuratie[k];
 
  for(let i=1;i<=2;i++){
-  document.getElementById("label"+i).textContent=
-   s.labels[i-1];
-
-  const veld=document.getElementById("waarde"+i);
-  const schuifveld=document.getElementById("schuif"+i);
-
-  veld.value=s.waarden[i-1];
-  schuifveld.max=s.max[i-1];
-  schuifveld.value=s.waarden[i-1];
+  const schuif=document.getElementById("schuif"+i);
+  schuif.min=i===2?0.1:0;
+  schuif.max=c.max[i-1];
+  schuif.step=0.1;
+  schuif.value=c.standaard[i-1];
  }
 
- document.getElementById("resultaatLabel").textContent=s.naam;
- bereken();
-}
-
-function nummer(i){
- const veld=document.getElementById("waarde"+i);
- document.getElementById("schuif"+i).value=veld.value;
- bereken();
-}
-
-function schuif(i){
- const waarde=document.getElementById("schuif"+i).value;
- document.getElementById("waarde"+i).value=waarde;
  bereken();
 }
 
 function bereken(){
- const a=Number(document.getElementById("waarde1").value);
- const b=Number(document.getElementById("waarde2").value);
+ const a=Number(document.getElementById("schuif1").value);
+ const b=Number(document.getElementById("schuif2").value);
+ const c=configuratie[keuze];
 
- const uitvoer=document.getElementById("resultaatWaarde");
- const regel=document.getElementById("berekening");
+ document.getElementById("label1").textContent=
+  c.labels[0]+": "+fmt(a)+" "+c.eenheden[0];
 
- if(!Number.isFinite(a)||!Number.isFinite(b)||
-    a<0||b<0){
-  uitvoer.textContent="Ongeldige invoer";
-  regel.textContent="Gebruik positieve waarden of nul.";
-  snelheid=0;
-  return;
- }
+ document.getElementById("label2").textContent=
+  c.labels[1]+": "+fmt(b)+" "+c.eenheden[1];
 
- if(keuze!=="P"&&b===0){
-  uitvoer.textContent="Niet berekenbaar";
-  regel.textContent="Delen door nul is onmogelijk.";
-  snelheid=0;
-  return;
- }
-
- let P,U,I,resultaat,tekst;
+ let P,U,I;
+ let formule,invullen,antwoord,gevraagd;
 
  if(keuze==="P"){
   U=a;
   I=b;
   P=U*I;
-  resultaat=P;
-  tekst=toon(U)+" V × "+toon(I)+" A = "+toon(P)+" W";
+  formule="P = U × I";
+  invullen="P = "+fmt(U)+" × "+fmt(I);
+  antwoord="P = "+fmt(P)+" W";
+  gevraagd="P = ? W";
  }
  else if(keuze==="U"){
   P=a;
   I=b;
   U=P/I;
-  resultaat=U;
-  tekst=toon(P)+" W / "+toon(I)+" A = "+toon(U)+" V";
+  formule="U = P / I";
+  invullen="U = "+fmt(P)+" / "+fmt(I);
+  antwoord="U = "+fmt(U)+" V";
+  gevraagd="U = ? V";
  }
  else{
   P=a;
   U=b;
   I=P/U;
-  resultaat=I;
-  tekst=toon(P)+" W / "+toon(U)+" V = "+toon(I)+" A";
+  formule="I = P / U";
+  invullen="I = "+fmt(P)+" / "+fmt(U);
+  antwoord="I = "+fmt(I)+" A";
+  gevraagd="I = ? A";
  }
 
- if(!Number.isFinite(resultaat)){
-  uitvoer.textContent="Niet berekenbaar";
-  regel.textContent="Controleer de ingevoerde waarden.";
-  snelheid=0;
+ document.getElementById("resultaat").textContent=antwoord;
+
+ document.getElementById("gegeven").innerHTML=
+  "U = "+fmt(U)+" V<br>"+
+  "I = "+fmt(I)+" A<br>"+
+  "P = "+fmt(P)+" W";
+
+ // Alleen de twee gekende grootheden tonen
+ if(keuze==="P"){
+  document.getElementById("gegeven").innerHTML=
+   "U = "+fmt(U)+" V<br>I = "+fmt(I)+" A";
+ }
+ if(keuze==="U"){
+  document.getElementById("gegeven").innerHTML=
+   "P = "+fmt(P)+" W<br>I = "+fmt(I)+" A";
+ }
+ if(keuze==="I"){
+  document.getElementById("gegeven").innerHTML=
+   "P = "+fmt(P)+" W<br>U = "+fmt(U)+" V";
+ }
+
+ document.getElementById("gevraagd").textContent=gevraagd;
+
+ document.getElementById("oplossing").innerHTML=
+  "Formule: "+formule+"<br>"+
+  "Invullen: "+invullen+"<br>"+
+  "<strong>Antwoord: "+antwoord+"</strong>";
+
+ document.getElementById("schemaU").textContent="U = "+fmt(U)+" V";
+ document.getElementById("schemaI").textContent="I = "+fmt(I)+" A";
+ document.getElementById("schemaP").textContent="P = "+fmt(P)+" W";
+}
+
+// OEFENINGEN
+function nieuweOefening(){
+ const soorten=["P","U","I"];
+ const soort=soorten[Math.floor(Math.random()*3)];
+
+ const spanningen=[12,24,48,120,230];
+ const stromen=[0.5,1,2,3,4,5,6,8,10];
+
+ const U=spanningen[Math.floor(Math.random()*spanningen.length)];
+ const I=stromen[Math.floor(Math.random()*stromen.length)];
+ const P=U*I;
+
+ oefenData={soort,U,I,P};
+
+ let tekst="";
+
+ if(soort==="P"){
+  tekst="Gegeven: U = "+fmt(U)+" V, I = "+fmt(I)+
+   " A<br>Gevraagd: P = ? W";
+ }
+ else if(soort==="U"){
+  tekst="Gegeven: P = "+fmt(P)+" W, I = "+fmt(I)+
+   " A<br>Gevraagd: U = ? V";
+ }
+ else{
+  tekst="Gegeven: P = "+fmt(P)+" W, U = "+fmt(U)+
+   " V<br>Gevraagd: I = ? A";
+ }
+
+ document.getElementById("oefening").innerHTML=tekst;
+ document.getElementById("antwoord").value="";
+ document.getElementById("melding").textContent=
+  "Vul je antwoord in en klik op Controleer.";
+}
+
+function controleer(){
+ if(!oefenData)return;
+
+ const veld=document.getElementById("antwoord");
+ const melding=document.getElementById("melding");
+
+ if(veld.value.trim()===""){
+  melding.textContent="Vul eerst een antwoord in.";
   return;
  }
 
- uitvoer.textContent=
-  toon(resultaat)+" "+instellingen[keuze].eenheid;
+ const antwoord=Number(veld.value);
 
- regel.textContent=tekst;
+ let juist;
+ if(oefenData.soort==="P")juist=oefenData.P;
+ if(oefenData.soort==="U")juist=oefenData.U;
+ if(oefenData.soort==="I")juist=oefenData.I;
 
- document.getElementById("tekstU").textContent=toon(U)+" V";
- document.getElementById("tekstI").textContent=toon(I)+" A";
- document.getElementById("tekstP").textContent=toon(P)+" W";
-
- const uitleg={
-  P:"Het vermogen is het product van spanning en stroomsterkte.",
-  U:"De spanning bereken je door het vermogen te delen door de stroomsterkte.",
-  I:"De stroomsterkte bereken je door het vermogen te delen door de spanning."
- };
-
- document.getElementById("uitleg").textContent=
-  uitleg[keuze]+" "+tekst+".";
-
- snelheid=Math.min(0.025,Math.max(0,I*0.0015));
+ if(Math.abs(antwoord-juist)<=0.01){
+  melding.textContent="✓ Juist! Goed gewerkt.";
+  melding.style.background="#d9f5e7";
+ }
+ else{
+  melding.textContent="✗ Niet juist. Controleer je formule en probeer opnieuw.";
+  melding.style.background="#ffe5e5";
+ }
 }
 
-// SCHEMATISCHE ANIMATIE
-const punt=document.getElementById("punt");
+function toonOplossing(){
+ if(!oefenData)return;
 
-const pad=[
- [145,75],
- [505,75],
- [505,215],
- [145,215],
- [145,75]
-];
+ const d=oefenData;
+ let tekst="";
 
-function animeer(tijd){
- if(vorigeTijd===null) vorigeTijd=tijd;
-
- const dt=Math.min(50,tijd-vorigeTijd);
- vorigeTijd=tijd;
-
- positie+=snelheid*dt/16.67;
-
- while(positie>=1){
-  positie-=1;
-  segment=(segment+1)%(pad.length-1);
+ if(d.soort==="P"){
+  tekst="P = U × I = "+fmt(d.U)+" × "+fmt(d.I)+
+   " = "+fmt(d.P)+" W";
+ }
+ else if(d.soort==="U"){
+  tekst="U = P / I = "+fmt(d.P)+" / "+fmt(d.I)+
+   " = "+fmt(d.U)+" V";
+ }
+ else{
+  tekst="I = P / U = "+fmt(d.P)+" / "+fmt(d.U)+
+   " = "+fmt(d.I)+" A";
  }
 
- const a=pad[segment];
- const b=pad[segment+1];
-
- punt.setAttribute("cx",a[0]+(b[0]-a[0])*positie);
- punt.setAttribute("cy",a[1]+(b[1]-a[1])*positie);
-
- requestAnimationFrame(animeer);
+ document.getElementById("melding").textContent=tekst;
+ document.getElementById("melding").style.background="#eaf3ff";
 }
 
 kies("P");
-requestAnimationFrame(animeer);
+nieuweOefening();
 </script>
 
 </body>
