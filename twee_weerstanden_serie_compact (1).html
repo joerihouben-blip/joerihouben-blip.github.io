@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Twee weerstanden in serie | Sint-Martinus</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#eaf0f7;color:#243447;font:14px Arial,sans-serif}header{background:linear-gradient(135deg,#102d50,#1765a5);color:white;text-align:center;padding:14px}header h1{margin:0 0 5px;font-size:23px}header p{margin:3px;font-size:12px}main{max-width:1220px;margin:auto;padding:12px}.back{display:inline-block;color:#1765a5;text-decoration:none;font-weight:bold;margin:0 0 10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:white;border-radius:10px;padding:16px;box-shadow:0 3px 12px #0001;min-width:0}h2{font-size:17px;color:#123e70;margin:0 0 13px}.switches{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}button{border:0;border-radius:6px;background:#1765a5;color:white;padding:9px 12px;font-weight:bold;cursor:pointer}button.active{background:#168257}button:hover{filter:brightness(.9)}label{display:block;font-weight:bold;margin:12px 0 5px}.control{display:flex;gap:10px;align-items:center}.control input[type=range]{flex:1;min-width:0;accent-color:#1765a5}.control input[type=number]{width:98px;padding:8px;border:1px solid #bed0e0;border-radius:6px}.result{background:#eaf3ff;border-left:4px solid #1765a5;padding:12px;border-radius:6px;margin-top:14px}.big{font-size:23px;font-weight:bold;color:#123e70;margin:6px 0}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:10px}.stat{background:#f4f8fc;border:1px solid #dce8f2;padding:8px;border-radius:6px}.stat small{display:block;color:#536779;margin-bottom:4px}.stat b{font-size:16px;color:#123e70}.circuit{background:#f7faff;border:1px solid #d6e2ef;border-radius:8px;padding:8px}svg{width:100%;height:auto;max-height:255px;display:block}.step{background:#f3f7fb;border-left:4px solid #1765a5;padding:11px;border-radius:5px;margin:8px 0;line-height:1.65}.step.solution{border-left-color:#168257}.step strong{display:block;color:#123e70}.question{background:#f3f7fb;border-radius:6px;padding:12px;line-height:1.6}.answer{display:flex;align-items:center;gap:8px;margin:10px 0}.answer input{flex:1;min-width:0;padding:10px;border:1px solid #bed0e0;border-radius:6px}.message{background:#eaf3ff;padding:12px;border-radius:6px;margin-top:10px;line-height:1.6;min-height:44px}.hint{font-size:12px;color:#586c7f;line-height:1.55}.equation{font-size:14px;line-height:1.6;background:#f7faff;border-radius:6px;padding:10px;margin-top:9px}footer{text-align:center;background:#102d50;color:white;padding:12px;font-size:12px;margin-top:12px}@media(max-width:760px){.grid{grid-template-columns:1fr}.card{padding:12px}header h1{font-size:20px}}
+
+/* COMPACTE DESKTOPWEERGAVE: VIER VAKKEN OP ÉÉN SCHERM */
+@media (min-width: 761px){
+ html,body{height:100%;overflow:hidden}
+ body{display:flex;flex-direction:column;height:100dvh}
+ header{flex:none;padding:7px 12px}
+ header h1{font-size:19px;margin:0 0 2px}
+ header p{font-size:10px;margin:1px}
+ main{width:100%;max-width:1450px;flex:1;min-height:0;display:flex;flex-direction:column;padding:6px 10px}
+ .back{font-size:11px;margin-bottom:5px;flex:none}
+ .grid{flex:1;min-height:0;grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) minmax(0,1fr);gap:7px}
+ .card{min-height:0;overflow:auto;padding:9px 12px;scrollbar-width:thin}
+ h2{font-size:14px;margin-bottom:7px}
+ .switches{gap:5px;margin-bottom:6px}
+ button{font-size:11px;padding:6px 9px}
+ label{font-size:11px;margin:6px 0 3px}
+ .control{gap:7px}
+ .control input[type=number]{padding:4px;width:76px;font-size:12px}
+ .result{margin-top:7px;padding:7px}
+ .big{font-size:17px;margin:2px 0}
+ .stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:6px}
+ .stat{padding:5px}
+ .stat small{font-size:10px;margin-bottom:2px}
+ .stat b{font-size:12px}
+ .circuit{padding:3px}
+ svg{max-height:160px}
+ .equation{padding:6px;margin-top:5px;font-size:11px;line-height:1.3}
+ .hint{font-size:10px;line-height:1.3;margin:5px 0}
+ .step{font-size:11px;padding:6px 8px;margin:5px 0;line-height:1.35}
+ .question{font-size:12px;padding:8px;line-height:1.4}
+ .answer{margin:6px 0}
+ .answer input{padding:6px}
+ .message{padding:7px;margin-top:5px;font-size:11px;line-height:1.4;min-height:30px}
+ footer{flex:none;padding:6px;margin-top:0;font-size:10px}
+}
+@media (max-width:760px){body{overflow:auto}.card{overflow:visible}}
+</style>
+</head>
+<body>
+<header><h1>⚡ Twee weerstanden in serie</h1><p>Interactieve simulatie – Wet van Ohm, stroom, spanning en vermogen</p><p>Gemaakt door Joeri Houben voor Sint-Martinus Herk-de-Stad</p></header>
+<main><a class="back" href="index.html">← Terug naar de technische leeromgeving</a>
+<div class="grid">
+<section class="card"><h2>1. Interactieve berekening</h2>
+<div class="switches"><button id="modeU" onclick="setMode('U')">Spanning U instellen</button><button id="modeI" onclick="setMode('I')">Stroom I instellen</button><button id="modeP" onclick="setMode('P')">Totaal vermogen P instellen</button></div>
+<label id="sourceLabel" for="sourceNum">Voedingsspanning U (V)</label><div class="control"><input id="sourceRange" type="range" oninput="fromRange('source')"><input id="sourceNum" type="number" step="any" min="0" oninput="calculate()"></div>
+<label for="r1Num">Weerstand R₁ (Ω)</label><div class="control"><input id="r1Range" type="range" min="0.1" max="500" step="0.1" oninput="fromRange('r1')"><input id="r1Num" type="number" min="0.1" step="any" oninput="calculate()"></div>
+<label for="r2Num">Weerstand R₂ (Ω)</label><div class="control"><input id="r2Range" type="range" min="0.1" max="500" step="0.1" oninput="fromRange('r2')"><input id="r2Num" type="number" min="0.1" step="any" oninput="calculate()"></div>
+<div class="result"><div id="mainResult" class="big"></div><div id="mainFormula"></div></div>
+<div class="stats"><div class="stat"><small>Totale weerstand</small><b id="rt"></b></div><div class="stat"><small>Stroom I = I₁ = I₂</small><b id="it"></b></div><div class="stat"><small>Spanning U₁</small><b id="u1"></b></div><div class="stat"><small>Spanning U₂</small><b id="u2"></b></div><div class="stat"><small>Vermogen P₁</small><b id="p1"></b></div><div class="stat"><small>Vermogen P₂</small><b id="p2"></b></div><div class="stat"><small>Totaal vermogen</small><b id="pt"></b></div><div class="stat"><small>Voedingsspanning</small><b id="ut"></b></div></div>
+</section>
+<section class="card"><h2>2. Elektrische kring</h2><div class="circuit"><svg viewBox="0 0 600 275" role="img" aria-label="Gesloten serieschakeling met spanningsbron en twee weerstanden">
+<path id="wire" d="M90 70 H510 V215 H90 Z" stroke="#29465c" stroke-width="4" fill="none" stroke-linejoin="round"/>
+<rect x="55" y="120" width="70" height="52" rx="7" fill="#eaf3ff" stroke="#1765a5" stroke-width="3"/><text x="90" y="143" text-anchor="middle" font-size="20" fill="#1765a5">⎓</text><text x="90" y="160" text-anchor="middle" font-size="12">Bron</text>
+<rect x="195" y="49" width="85" height="42" fill="#ffe4a3" stroke="#ad7300" stroke-width="3" rx="3"/><text x="237" y="75" text-anchor="middle" font-size="17" font-weight="bold">R₁</text>
+<rect x="355" y="49" width="85" height="42" fill="#d6e9ff" stroke="#1765a5" stroke-width="3" rx="3"/><text x="397" y="75" text-anchor="middle" font-size="17" font-weight="bold">R₂</text>
+<text id="svgU" x="14" y="112" font-size="14" fill="#1765a5" font-weight="bold"></text><text id="svgI" x="300" y="29" text-anchor="middle" font-size="14" fill="#168257" font-weight="bold"></text><text id="svgR1" x="237" y="112" text-anchor="middle" font-size="13"></text><text id="svgR2" x="397" y="112" text-anchor="middle" font-size="13"></text><text id="svgU1" x="237" y="133" text-anchor="middle" font-size="12" fill="#a46d00"></text><text id="svgU2" x="397" y="133" text-anchor="middle" font-size="12" fill="#1765a5"></text><text id="svgP1" x="237" y="152" text-anchor="middle" font-size="12"></text><text id="svgP2" x="397" y="152" text-anchor="middle" font-size="12"></text>
+<circle id="electron" cx="90" cy="70" r="7" fill="#e74c3c"/>
+<text x="300" y="246" text-anchor="middle" font-size="13" fill="#536779">Dezelfde stroom loopt door beide weerstanden</text></svg></div>
+<div class="equation"><b>Bij een serieschakeling geldt:</b><br>R<sub>t</sub> = R₁ + R₂<br>I<sub>t</sub> = I₁ = I₂<br>U<sub>t</sub> = U₁ + U₂<br>P<sub>t</sub> = P₁ + P₂</div><p class="hint">De rode stip beweegt schematisch door de stroomkring. Bij een grotere stroomsterkte beweegt hij sneller. De tekening is niet op schaal.</p></section>
+<section class="card"><h2>3. Gegeven – Gevraagd – Oplossing</h2><div class="step"><strong>Gegeven</strong><div id="given"></div></div><div class="step"><strong>Gevraagd</strong><div id="asked"></div></div><div class="step solution"><strong>Oplossing – stap voor stap</strong><div id="solution"></div></div></section>
+<section class="card"><h2>4. Oefeningen</h2><div class="question" id="question"></div><label for="exerciseAnswer">Jouw antwoord</label><div class="answer"><input id="exerciseAnswer" type="number" step="any" placeholder="Vul je antwoord in"><strong id="exerciseUnit"></strong></div><div class="switches"><button onclick="checkExercise()">Controleer</button><button onclick="newExercise()">Nieuwe oefening</button><button onclick="showExerciseSolution()">Toon oplossing</button></div><div class="message" id="feedback">Vul je antwoord in en klik op Controleer.</div><p class="hint">De oefeningen behandelen totale weerstand, stroomsterkte, deelspanningen en vermogen.</p></section>
+</div></main><footer>Gemaakt door Joeri Houben voor Sint-Martinus Herk-de-Stad</footer>
+<script>
+'use strict';
+let mode='U', current={U:24,R1:10,R2:20,Rt:30,I:.8,U1:8,U2:16,P1:6.4,P2:12.8,Pt:19.2}, exercise=null;
+const $=id=>document.getElementById(id);
+function fmt(n){return Number.isFinite(n)?Number(n.toFixed(4)).toLocaleString('nl-BE',{maximumFractionDigits:4}):'—'}
+function setMode(m){mode=m;['U','I','P'].forEach(x=>$('mode'+x).classList.toggle('active',x===m));const config={U:['Voedingsspanning U (V)',0,230,24],I:['Stroomsterkte I (A)',0,20,2],P:['Totaal vermogen P (W)',0,5000,100]}[m];$('sourceLabel').textContent=config[0];$('sourceRange').min=config[1];$('sourceRange').max=config[2];$('sourceRange').step='.1';$('sourceRange').value=config[3];$('sourceNum').value=config[3];calculate()}
+function fromRange(id){$(id+'Num').value=$(id+'Range').value;calculate()}
+function calculate(){let x=Number($('sourceNum').value),r1=Number($('r1Num').value),r2=Number($('r2Num').value);['source','r1','r2'].forEach(k=>{let v=Number($(k+'Num').value);if(Number.isFinite(v))$(k+'Range').value=v});if([x,r1,r2].some(v=>!Number.isFinite(v))||x<0||r1<=0||r2<=0||['sourceNum','r1Num','r2Num'].some(k=>$(k).value.trim()==='')){$('mainResult').textContent='Vul geldige waarden in';['rt','it','u1','u2','p1','p2','pt','ut','given','asked','solution'].forEach(k=>$(k).textContent='—');current=null;return}
+let Rt=r1+r2,U,I,Pt;if(mode==='U'){U=x;I=U/Rt;Pt=U*I}else if(mode==='I'){I=x;U=I*Rt;Pt=U*I}else{Pt=x;I=Math.sqrt(Pt/Rt);U=I*Rt}let U1=I*r1,U2=I*r2,P1=I*I*r1,P2=I*I*r2;current={U,R1:r1,R2:r2,Rt,I,U1,U2,P1,P2,Pt};
+const items={rt:[Rt,'Ω'],it:[I,'A'],u1:[U1,'V'],u2:[U2,'V'],p1:[P1,'W'],p2:[P2,'W'],pt:[Pt,'W'],ut:[U,'V']};Object.entries(items).forEach(([k,v])=>$(k).textContent=fmt(v[0])+' '+v[1]);
+$('mainResult').textContent=mode==='U'?'I = '+fmt(I)+' A':mode==='I'?'U = '+fmt(U)+' V':'I = '+fmt(I)+' A';$('mainFormula').textContent=mode==='U'?'I = U / (R₁ + R₂)':mode==='I'?'U = I × (R₁ + R₂)':'I = √(P / (R₁ + R₂))';
+$('given').innerHTML=(mode==='U'?'U = '+fmt(U)+' V':mode==='I'?'I = '+fmt(I)+' A':'Pₜ = '+fmt(Pt)+' W')+'<br>R₁ = '+fmt(r1)+' Ω<br>R₂ = '+fmt(r2)+' Ω';
+$('asked').innerHTML='Rₜ, I, Uₜ, U₁, U₂, P₁, P₂ en Pₜ';
+let start=mode==='U'?'I = U / Rₜ = '+fmt(U)+' / '+fmt(Rt)+' = '+fmt(I)+' A':mode==='I'?'Uₜ = I × Rₜ = '+fmt(I)+' × '+fmt(Rt)+' = '+fmt(U)+' V':'I = √(Pₜ / Rₜ) = √('+fmt(Pt)+' / '+fmt(Rt)+') = '+fmt(I)+' A';
+$('solution').innerHTML='<b>1. Totale weerstand</b><br>Rₜ = R₁ + R₂ = '+fmt(r1)+' + '+fmt(r2)+' = <b>'+fmt(Rt)+' Ω</b><br><br><b>2. Stroom en voedingsspanning</b><br>'+start+'<br>I₁ = I₂ = Iₜ = '+fmt(I)+' A<br><br><b>3. Spanning over iedere weerstand</b><br>U₁ = I × R₁ = '+fmt(I)+' × '+fmt(r1)+' = <b>'+fmt(U1)+' V</b><br>U₂ = I × R₂ = '+fmt(I)+' × '+fmt(r2)+' = <b>'+fmt(U2)+' V</b><br>Controle: U₁ + U₂ = '+fmt(U1)+' + '+fmt(U2)+' = '+fmt(U)+' V<br><br><b>4. Vermogen per weerstand</b><br>P₁ = I² × R₁ = '+fmt(I)+'² × '+fmt(r1)+' = <b>'+fmt(P1)+' W</b><br>P₂ = I² × R₂ = '+fmt(I)+'² × '+fmt(r2)+' = <b>'+fmt(P2)+' W</b><br><br><b>5. Totaal vermogen</b><br>Pₜ = P₁ + P₂ = '+fmt(P1)+' + '+fmt(P2)+' = <b>'+fmt(Pt)+' W</b><br>Controle: Uₜ × I = '+fmt(U)+' × '+fmt(I)+' = '+fmt(Pt)+' W';
+[['svgU','U = '+fmt(U)+' V'],['svgI','I = '+fmt(I)+' A'],['svgR1',fmt(r1)+' Ω'],['svgR2',fmt(r2)+' Ω'],['svgU1','U₁ = '+fmt(U1)+' V'],['svgU2','U₂ = '+fmt(U2)+' V'],['svgP1','P₁ = '+fmt(P1)+' W'],['svgP2','P₂ = '+fmt(P2)+' W']].forEach(([k,v])=>$(k).textContent=v)
+}
+function newExercise(){let R1=[2,4,5,10,15,20,30,40][Math.floor(Math.random()*8)],R2=[3,5,6,10,15,20,25,50][Math.floor(Math.random()*8)],I=[.5,1,1.5,2,3][Math.floor(Math.random()*5)],U=I*(R1+R2),Rt=R1+R2,U1=I*R1,U2=I*R2,P1=I*I*R1,P2=I*I*R2,Pt=P1+P2;let types=['Rt','I','U1','U2','P1','P2','Pt'];let type=types[Math.floor(Math.random()*types.length)];let units={Rt:'Ω',I:'A',U1:'V',U2:'V',P1:'W',P2:'W',Pt:'W'};let labels={Rt:'de totale weerstand Rₜ',I:'de stroomsterkte I',U1:'de spanning U₁ over R₁',U2:'de spanning U₂ over R₂',P1:'het vermogen P₁ van R₁',P2:'het vermogen P₂ van R₂',Pt:'het totale vermogen Pₜ'};exercise={R1,R2,I,U,Rt,U1,U2,P1,P2,Pt,type,unit:units[type]};$('question').innerHTML='<b>Gegeven:</b> U = '+fmt(U)+' V, R₁ = '+fmt(R1)+' Ω en R₂ = '+fmt(R2)+' Ω.<br><b>Gevraagd:</b> Bereken '+labels[type]+'.';$('exerciseUnit').textContent=units[type];$('exerciseAnswer').value='';$('feedback').style.background='#eaf3ff';$('feedback').textContent='Vul je antwoord in en klik op Controleer.'}
+function checkExercise(){if(!exercise)return;let el=$('exerciseAnswer');if(el.value.trim()===''){$('feedback').textContent='Vul eerst een antwoord in.';$('feedback').style.background='#fff0c9';return}let answer=Number(el.value),correct=exercise[exercise.type];if(Math.abs(answer-correct)<=Math.max(.01,Math.abs(correct)*.001)){$('feedback').textContent='✓ Juist! Goed gewerkt.';$('feedback').style.background='#d9f5e7'}else{$('feedback').textContent='✗ Niet juist. Controleer de formule en probeer opnieuw.';$('feedback').style.background='#ffe5e5'}}
+function showExerciseSolution(){if(!exercise)return;let e=exercise,base='Rₜ = R₁ + R₂ = '+fmt(e.R1)+' + '+fmt(e.R2)+' = '+fmt(e.Rt)+' Ω; I = U / Rₜ = '+fmt(e.U)+' / '+fmt(e.Rt)+' = '+fmt(e.I)+' A';let extras={Rt:'',I:'',U1:'; U₁ = I × R₁ = '+fmt(e.I)+' × '+fmt(e.R1),U2:'; U₂ = I × R₂ = '+fmt(e.I)+' × '+fmt(e.R2),P1:'; P₁ = I² × R₁ = '+fmt(e.I)+'² × '+fmt(e.R1),P2:'; P₂ = I² × R₂ = '+fmt(e.I)+'² × '+fmt(e.R2),Pt:'; Pₜ = U × I = '+fmt(e.U)+' × '+fmt(e.I)};$('feedback').textContent=base+extras[e.type]+'; antwoord: '+fmt(e[e.type])+' '+e.unit;$('feedback').style.background='#eaf3ff'}
+let progress=0,prev=null;const coords=[[90,70],[510,70],[510,215],[90,215],[90,70]];function animate(t){if(prev===null)prev=t;let dt=Math.min(50,t-prev);prev=t;if(current){progress=(progress+dt*(.00007+Math.min(current.I,20)*.00007))%4}let segment=Math.floor(progress),fraction=progress-segment,a=coords[segment],b=coords[segment+1];$('electron').setAttribute('cx',a[0]+(b[0]-a[0])*fraction);$('electron').setAttribute('cy',a[1]+(b[1]-a[1])*fraction);requestAnimationFrame(animate)}
+$('r1Num').value=10;$('r2Num').value=20;$('r1Range').value=10;$('r2Range').value=20;setMode('U');newExercise();requestAnimationFrame(animate);
+</script>
+</body></html>
