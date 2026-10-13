@@ -8,105 +8,120 @@
 
 <style>
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+
 body{
  margin:0;
  font-family:Arial,sans-serif;
  background:#eef3f9;
  color:#243447;
 }
+
 header{
  background:linear-gradient(135deg,#102d50,#1765a5);
  color:white;
  text-align:center;
- padding:45px 20px;
+ padding:16px;
 }
-header h1{font-size:42px;margin:0 0 12px}
-header p{font-size:19px;margin:8px 0}
-nav{
- background:#102d50;
- text-align:center;
- padding:18px;
- display:flex;
- justify-content:center;
- gap:24px;
- flex-wrap:wrap;
+
+header h1{
+ margin:0 0 5px;
+ font-size:28px;
 }
-nav a{color:white;text-decoration:none;font-weight:bold}
-nav a:hover{text-decoration:underline}
-main{max-width:1250px;margin:35px auto;padding:0 20px}
-h2{color:#123e70}
-.welkom{text-align:center;margin-bottom:35px}
-.rubriek{margin:35px 0;scroll-margin-top:20px}
-.rubriek h2{
- border-bottom:3px solid #1765a5;
- padding-bottom:12px;
- margin-bottom:22px;
+
+header p{
+ margin:3px;
+ font-size:14px;
 }
-.grid{
+
+main{
+ max-width:1600px;
+ margin:auto;
+ padding:14px;
+}
+
+.dashboard{
  display:grid;
  grid-template-columns:repeat(4,minmax(0,1fr));
- gap:20px;
+ gap:14px;
+ align-items:start;
 }
-.kaart{
- background:white;
- padding:25px 18px;
- border-radius:14px;
+
+.hoofdrubriek{
+ background:#fff;
+ border-radius:12px;
+ padding:12px;
+ box-shadow:0 3px 12px #00000012;
+}
+
+.hoofdrubriek h2{
+ margin:0 0 12px;
+ padding:10px;
+ background:#123e70;
+ color:white;
+ border-radius:8px;
  text-align:center;
- box-shadow:0 4px 15px #00000012;
- display:flex;
- flex-direction:column;
+ font-size:19px;
 }
-.kaart h3{color:#14558c;font-size:21px;margin:14px 0}
-.icoon{font-size:42px}
-.kaart p{line-height:1.5;flex:1}
-.knoppen{
- display:flex;
- flex-direction:column;
- gap:10px;
- margin-top:18px;
+
+.onderdeel{
+ background:#f4f8fc;
+ border:1px solid #dce6f0;
+ border-radius:9px;
+ padding:10px;
+ margin-bottom:10px;
 }
+
+.onderdeel:last-child{margin-bottom:0}
+
+.onderdeel h3{
+ color:#14558c;
+ margin:0 0 8px;
+ font-size:16px;
+}
+
 .knop{
  display:block;
- padding:12px 10px;
  background:#1765a5;
  color:white;
- border-radius:8px;
  text-decoration:none;
+ border-radius:6px;
+ padding:9px 8px;
+ margin-top:7px;
+ font-size:13px;
  font-weight:bold;
- line-height:1.35;
+ text-align:center;
+ line-height:1.3;
 }
-.knop:hover,.knop:focus{background:#103d6b}
+
+.knop:hover,
+.knop:focus{
+ background:#103d6b;
+}
+
 .binnenkort{
- display:block;
- margin-top:20px;
- padding:12px;
- background:#eef3f9;
- border-radius:8px;
- color:#53657a;
+ font-size:12px;
+ color:#718096;
+ font-style:italic;
 }
-.info{
- background:white;
- border-left:5px solid #1765a5;
- border-radius:10px;
- padding:25px;
- margin-top:40px;
- line-height:1.6;
-}
+
 footer{
  text-align:center;
- background:#102d50;
- color:white;
- padding:25px;
- margin-top:50px;
+ color:#53657a;
+ font-size:12px;
+ padding:12px;
 }
-@media(max-width:1000px){
- .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+@media(max-width:1100px){
+ .dashboard{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+ }
 }
+
 @media(max-width:600px){
- header h1{font-size:32px}
- .grid{grid-template-columns:1fr}
- main{margin-top:25px}
+ .dashboard{
+  grid-template-columns:1fr;
+ }
+ header h1{font-size:24px}
 }
 </style>
 </head>
@@ -119,162 +134,111 @@ footer{
 <p>Leren • Oefenen • Simuleren</p>
 </header>
 
-<nav>
-<a href="#verwarming">Verwarming</a>
-<a href="#sanitair">Sanitair</a>
-<a href="#elektriciteit">Elektriciteit</a>
-<a href="#ventilatie">Ventilatie</a>
-</nav>
-
 <main>
+<div class="dashboard">
 
-<h2 class="welkom">Welkom bij de technische tools</h2>
-
-<!-- =========================== -->
-<!-- VERWARMING                  -->
-<!-- =========================== -->
-
-<section class="rubriek" id="verwarming">
+<!-- VERWARMING -->
+<section class="hoofdrubriek">
 <h2>🔥 Verwarming</h2>
 
-<div class="grid">
-
-<div class="kaart">
-<div class="icoon">🔥</div>
+<div class="onderdeel">
 <h3>Stookolie</h3>
-<p>Stookoliebranders, huisbrandolie en elektrische brandersturingen.</p>
-<div class="knoppen">
-<a class="knop" href="7Ti-stookolie_V51_nieuwe_doorsnede.html">Stookoliebrander – simulatie</a>
-<a class="knop" href="Huisbrandolie_7TI%20%281%29.html">Theorie huisbrandolie – 7 TI</a>
-<a class="knop" href="Elektrische_werking_stookoliebrander_7TI.html">Elektrische werking stookoliebrander</a>
-</div>
+<a class="knop" href="7Ti-stookolie_V51_nieuwe_doorsnede.html">
+Stookoliebrander – simulatie
+</a>
+<a class="knop" href="Huisbrandolie_7TI%20%281%29.html">
+Theorie huisbrandolie
+</a>
+<a class="knop" href="Elektrische_werking_stookoliebrander_7TI.html">
+Elektrische werking brander
+</a>
 </div>
 
-<div class="kaart">
-<div class="icoon">🔥</div>
+<div class="onderdeel">
 <h3>Gasketels</h3>
-<p>Werking, onderdelen en regeltechniek van gasketels.</p>
-<div class="knoppen">
-<a class="knop" href="Gasketel_7TI%20%281%29.html">Gasketel – interactieve simulatie</a>
-</div>
+<a class="knop" href="Gasketel_7TI%20%281%29.html">
+Gasketel – simulatie
+</a>
 </div>
 
-<div class="kaart">
-<div class="icoon">♨️</div>
+<div class="onderdeel">
 <h3>Warmtepompen</h3>
-<p>Werking, onderdelen, koelkring en toepassingen van warmtepompen.</p>
 <span class="binnenkort">Binnenkort beschikbaar</span>
 </div>
 
-</div>
 </section>
 
-<!-- =========================== -->
-<!-- SANITAIR                    -->
-<!-- =========================== -->
-
-<section class="rubriek" id="sanitair">
+<!-- SANITAIR -->
+<section class="hoofdrubriek">
 <h2>💧 Sanitair</h2>
 
-<div class="grid">
-
-<div class="kaart">
-<div class="icoon">🚿</div>
+<div class="onderdeel">
 <h3>Warmwaterbereiding</h3>
-<p>Productie, opslag en berekening van sanitair warm water.</p>
-<div class="knoppen">
-<a class="knop" href="sanitair-warmwaterbereiding.html">Sanitair warmwaterbereiding</a>
-<a class="knop" href="boiler-rekentrainer.html">Boiler rekentrainers</a>
-</div>
+<a class="knop" href="sanitair-warmwaterbereiding.html">
+Sanitair warmwaterbereiding
+</a>
+<a class="knop" href="boiler-rekentrainer.html">
+Boiler rekentrainers
+</a>
 </div>
 
-<div class="kaart">
-<div class="icoon">💧</div>
+<div class="onderdeel">
 <h3>Aanvoer</h3>
-<p>Drinkwaterleidingen, materialen, druk, debiet en aansluitingen.</p>
 <span class="binnenkort">Binnenkort beschikbaar</span>
 </div>
 
-<div class="kaart">
-<div class="icoon">🛠️</div>
+<div class="onderdeel">
 <h3>Afvoer</h3>
-<p>Afvoerleidingen, riolering, afschot en dimensionering.</p>
 <span class="binnenkort">Binnenkort beschikbaar</span>
 </div>
 
-<div class="kaart">
-<div class="icoon">🚰</div>
+<div class="onderdeel">
 <h3>Kraanwerk</h3>
-<p>Afsluitkranen, mengkranen, regelkranen en montage.</p>
 <span class="binnenkort">Binnenkort beschikbaar</span>
 </div>
 
-</div>
 </section>
 
-<!-- =========================== -->
-<!-- ELEKTRICITEIT               -->
-<!-- =========================== -->
-
-<section class="rubriek" id="elektriciteit">
+<!-- ELEKTRICITEIT -->
+<section class="hoofdrubriek">
 <h2>⚡ Elektriciteit</h2>
 
-<div class="grid">
-
-<div class="kaart">
-<div class="icoon">📐</div>
+<div class="onderdeel">
 <h3>Berekeningen en metingen</h3>
-<p>Wet van Ohm, vermogen, elektrische grootheden en meettoestellen.</p>
 <span class="binnenkort">Binnenkort beschikbaar</span>
 </div>
 
-<div class="kaart">
-<div class="icoon">⚡</div>
+<div class="onderdeel">
 <h3>Elektrische installaties</h3>
-<p>Elektrische schema's, beveiligingen, schakelingen en installatietechniek.</p>
 <span class="binnenkort">Binnenkort beschikbaar</span>
 </div>
 
-<div class="kaart">
-<div class="icoon">🌐</div>
+<div class="onderdeel">
 <h3>Data en netwerken</h3>
-<p>Databekabeling, netwerktechnieken en communicatie.</p>
 <span class="binnenkort">Binnenkort beschikbaar</span>
 </div>
 
-</div>
 </section>
 
-<!-- =========================== -->
-<!-- VENTILATIE                  -->
-<!-- =========================== -->
-
-<section class="rubriek" id="ventilatie">
+<!-- VENTILATIE -->
+<section class="hoofdrubriek">
 <h2>🌬️ Ventilatie</h2>
 
-<div class="grid">
-
-<div class="kaart">
-<div class="icoon">🌬️</div>
+<div class="onderdeel">
 <h3>Ventilatiesystemen</h3>
-<p>Luchtdebieten, ventilatiesystemen en interactieve oefeningen.</p>
-<div class="knoppen">
-<a class="knop" href="ventilatiesysteem_C.html">Ventilatiesysteem C – interactieve simulatie</a>
-</div>
+<a class="knop" href="ventilatiesysteem_C.html">
+Ventilatiesysteem C – simulatie
+</a>
 </div>
 
-</div>
 </section>
 
-<div class="info">
-<h3>Over deze leeromgeving</h3>
-<p>Deze website is ontwikkeld door Joeri Houben als ondersteuning bij de technische lessen.</p>
-<p>Leerlingen kunnen hier zelfstandig oefenen, technische installaties simuleren en hun kennis verder ontwikkelen.</p>
 </div>
-
 </main>
 
-<footer>Joeri Houben | Technische leeromgeving</footer>
+<footer>
+Joeri Houben | Technische leeromgeving
+</footer>
 
 </body>
 </html>
