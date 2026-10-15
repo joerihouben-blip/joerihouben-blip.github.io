@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Joeri Houben | Technische leeromgeving</title>
 
 <style>
@@ -25,6 +26,8 @@ body{
  min-height:100vh;
 }
 
+/* HEADER */
+
 header{
  background:linear-gradient(135deg,#102d50,#1765a5);
  color:white;
@@ -44,6 +47,8 @@ header p{
  margin:0;
  font-size:13px;
 }
+
+/* HOOFDINHOUD */
 
 main{
  width:100%;
@@ -121,12 +126,12 @@ main{
  font-style:italic;
 }
 
-/* INFORMATIE OVER DE WEBSITE */
+/* INFORMATIEVAK */
 
 .info-website{
  max-width:1250px;
  margin:16px auto 8px;
- padding:15px 22px;
+ padding:14px 20px;
  background:#e0effb;
  border:1px solid #b5d4ec;
  border-left:5px solid #1765a5;
@@ -136,7 +141,7 @@ main{
 }
 
 .info-website h2{
- margin:0 0 9px;
+ margin:0 0 8px;
  color:#123e70;
  font-size:17px;
 }
@@ -152,7 +157,7 @@ main{
  font-weight:bold;
 }
 
-/* VOETTEKST */
+/* FOOTER */
 
 footer{
  background:#102d50;
@@ -164,16 +169,16 @@ footer{
  flex-direction:column;
  align-items:center;
  justify-content:center;
- gap:10px;
+ gap:9px;
 }
 
-/* NIEUWE BEZOEKERSTELLER */
+/* DIGITALE BEZOEKERSTELLER */
 
 .teller-kader{
  display:flex;
  flex-direction:column;
  align-items:center;
- gap:8px;
+ gap:9px;
  padding:13px 24px;
  border-radius:12px;
  background:linear-gradient(135deg,#0a223b,#164c78);
@@ -183,38 +188,45 @@ footer{
 
 .teller-titel{
  color:#c9e8ff;
- font-size:12px;
+ font-size:11px;
  font-weight:bold;
  letter-spacing:1px;
 }
 
-.teller-display{
- background:#071b30;
- border:1px solid #4184b5;
- border-radius:8px;
- padding:10px 18px;
- min-width:175px;
- min-height:45px;
+.teller-cijfers{
  display:flex;
  align-items:center;
  justify-content:center;
- box-shadow:inset 0 0 12px #00000060;
+ gap:5px;
 }
 
-.teller-display img{
- display:block;
- max-width:100%;
- height:auto;
+.cijfer{
+ width:35px;
+ height:47px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ background:linear-gradient(180deg,#245681,#0b2946);
+ color:white;
+ border:1px solid #4d94c4;
+ border-radius:5px;
+ font-size:27px;
+ font-family:Consolas,monospace;
+ font-weight:bold;
+ font-variant-numeric:tabular-nums;
+ text-shadow:0 0 8px #7acbff;
+ box-shadow:inset 0 1px 3px #ffffff16;
 }
 
 .teller-status{
- font-size:10px;
  color:#b4d3ea;
+ font-size:10px;
 }
 
 /* RESPONSIVE */
 
 @media(min-width:1101px) and (max-height:750px){
+
  header{
   padding:7px 15px;
  }
@@ -265,11 +277,17 @@ footer{
  }
 
  footer{
-  padding:7px;
+  padding:6px;
  }
 
  .teller-kader{
-  padding:9px 18px;
+  padding:8px 18px;
+ }
+
+ .cijfer{
+  width:28px;
+  height:36px;
+  font-size:22px;
  }
 }
 
@@ -280,6 +298,7 @@ footer{
 }
 
 @media(max-width:600px){
+
  header{
   flex-direction:column;
   text-align:center;
@@ -297,6 +316,12 @@ footer{
   max-width:100%;
   padding:10px;
  }
+
+ .cijfer{
+  width:29px;
+  height:40px;
+  font-size:23px;
+ }
 }
 </style>
 </head>
@@ -305,7 +330,9 @@ footer{
 
 <header>
 <h1>Joeri Houben</h1>
-<p>Technische leeromgeving | Leren • Oefenen • Simuleren</p>
+<p>
+Technische leeromgeving | Leren • Oefenen • Simuleren
+</p>
 </header>
 
 <main>
@@ -323,18 +350,18 @@ footer{
 <h3>Stookolie</h3>
 
 <a class="knop"
-   href="7Ti-stookolie_V51_nieuwe_doorsnede.html">
-Stookoliebrander – simulatie
+ href="7Ti-stookolie_V51_nieuwe_doorsnede.html">
+ Stookoliebrander – simulatie
 </a>
 
 <a class="knop"
-   href="Huisbrandolie_7TI%20%281%29.html">
-Theorie huisbrandolie
+ href="Huisbrandolie_7TI%20%281%29.html">
+ Theorie huisbrandolie
 </a>
 
 <a class="knop"
-   href="Elektrische_werking_stookoliebrander_7TI.html">
-Elektrische werking brander
+ href="Elektrische_werking_stookoliebrander_7TI.html">
+ Elektrische werking brander
 </a>
 </div>
 
@@ -342,8 +369,8 @@ Elektrische werking brander
 <h3>Gasketels</h3>
 
 <a class="knop"
-   href="Gasketel_7TI%20%281%29.html">
-Gasketel – simulatie
+ href="Gasketel_7TI%20%281%29.html">
+ Gasketel – simulatie
 </a>
 </div>
 
@@ -358,8 +385,8 @@ Binnenkort beschikbaar
 <h3>Hydraulica</h3>
 
 <a class="knop"
-   href="expansievat_cv_simulatie_bovenaansluiting.html">
-Expansievat
+ href="expansievat_cv_simulatie_bovenaansluiting.html">
+ Expansievat
 </a>
 </div>
 
@@ -376,13 +403,13 @@ Expansievat
 <h3>Warmwaterbereiding</h3>
 
 <a class="knop"
-   href="sanitair-warmwaterbereiding.html">
-Sanitair warmwaterbereiding
+ href="sanitair-warmwaterbereiding.html">
+ Sanitair warmwaterbereiding
 </a>
 
 <a class="knop"
-   href="boiler-rekentrainer.html">
-Boiler rekentrainers
+ href="boiler-rekentrainer.html">
+ Boiler rekentrainers
 </a>
 </div>
 
@@ -420,30 +447,29 @@ Binnenkort beschikbaar
 <h3>Berekeningen en metingen</h3>
 
 <a class="knop"
-   href="Wet_van_Ohm_interactief%20%283%29.html">
-⚡ Wet van Ohm – interactieve simulatie
+ href="Wet_van_Ohm_interactief%20%283%29.html">
+ ⚡ Wet van Ohm – interactieve simulatie
 </a>
 
 <a class="knop"
-   href="vermogensberekening.html">
-⚡ Vermogensberekening
+ href="vermogensberekening.html">
+ ⚡ Vermogensberekening
 </a>
 
 <a class="knop"
-   href="twee_weerstanden_serie_compact%20%281%29.html">
-⚡ Twee weerstanden in serie
+ href="twee_weerstanden_serie_compact%20%281%29.html">
+ ⚡ Twee weerstanden in serie
 </a>
 
 <a class="knop"
-   href="wet_van_pouillet%20%282%29.html">
-⚡ Wet van Pouillet – Kabelberekening
+ href="wet_van_pouillet%20%282%29.html">
+ ⚡ Wet van Pouillet – Kabelberekening
 </a>
 
 <a class="knop"
-   href="wet_van_pouillet_uitgebreid.html">
-⚡ Poulet spanning en stroom
+ href="wet_van_pouillet_uitgebreid.html">
+ ⚡ Poulet spanning en stroom
 </a>
-
 </div>
 
 <div class="onderdeel">
@@ -473,15 +499,14 @@ Binnenkort beschikbaar
 <h3>Ventilatiesystemen</h3>
 
 <a class="knop"
-   href="ventilatiesysteem_C.html">
-Ventilatiesysteem C – simulatie
+ href="ventilatiesysteem_C.html">
+ Ventilatiesysteem C – simulatie
 </a>
 
 <a class="knop"
-   href="ventilatiesysteem_D_zonder_uitlegteksten.html">
-Ventilatiesysteem D – simulatie
+ href="ventilatiesysteem_D_zonder_uitlegteksten.html">
+ Ventilatiesysteem D – simulatie
 </a>
-
 </div>
 
 </section>
@@ -534,7 +559,7 @@ Joeri.houben@st-martinus.be
 </main>
 
 <!-- ================================== -->
-<!-- DIGITALE BEZOEKERSTELLER           -->
+<!-- BEZOEKERSTELLER EN FOOTER          -->
 <!-- ================================== -->
 
 <footer>
@@ -545,15 +570,21 @@ Joeri.houben@st-martinus.be
   👁 BEZOEKEN TECHNISCHE LEEROMGEVING
  </div>
 
- <div class="teller-display">
-  <img
-   id="bezoekersteller"
-   alt="Aantal bezoeken aan de technische leeromgeving"
-   referrerpolicy="no-referrer">
+ <div class="teller-cijfers"
+      id="tellerCijfers"
+      aria-label="Aantal paginaweergaven">
+
+  <span class="cijfer">–</span>
+  <span class="cijfer">–</span>
+  <span class="cijfer">–</span>
+  <span class="cijfer">–</span>
+  <span class="cijfer">–</span>
+  <span class="cijfer">–</span>
+
  </div>
 
  <div class="teller-status" id="tellerStatus">
-  Totaal aantal paginaweergaven
+  Teller wordt geladen...
  </div>
 
 </div>
@@ -565,40 +596,141 @@ Joeri.houben@st-martinus.be
 </footer>
 
 <!-- ================================== -->
-<!-- BEZOEKERSTELLER JAVASCRIPT         -->
+<!-- DIGITALE TELLER JAVASCRIPT         -->
 <!-- ================================== -->
 
 <script>
 (function(){
 
- const teller = document.getElementById("bezoekersteller");
- const status = document.getElementById("tellerStatus");
+ const tellerCijfers =
+  document.getElementById("tellerCijfers");
 
- // Vast adres zodat index.html en de hoofdpagina
- // dezelfde teller gebruiken.
- const website = "https://joerihouben-blip.github.io/";
+ const tellerStatus =
+  document.getElementById("tellerStatus");
 
- const url = new URL("https://hitscounter.dev/api/hit");
+ /*
+  Externe tellerdienst.
+  Deze API geeft een numerieke tellerwaarde terug.
 
- url.searchParams.set("url", website);
- url.searchParams.set("label", "");
- url.searchParams.set("icon", "eye");
- url.searchParams.set("color", "#ffffff");
- url.searchParams.set("message", "");
- url.searchParams.set("style", "flat");
- url.searchParams.set("tz", "Europe/Brussels");
+  Let op:
+  Beschikbaarheid van deze externe dienst
+  moet op de gepubliceerde website worden getest.
+ */
 
- teller.onload = function(){
-  status.textContent = "Totaal aantal paginaweergaven";
- };
+ const API =
+  "https://my-own-counter-api-production.up.railway.app";
 
- teller.onerror = function(){
-  teller.style.display = "none";
-  status.textContent =
-   "Bezoekersteller tijdelijk niet beschikbaar";
- };
+ const namespace = "joerihouben-blip-github-io";
+ const sleutel = "technische-leeromgeving-bezoeken";
 
- teller.src = url.toString();
+ function toonGetal(getal){
+
+  const tekst = String(Math.floor(getal))
+   .padStart(6,"0");
+
+  tellerCijfers.innerHTML = "";
+
+  for(const karakter of tekst){
+
+   const vak = document.createElement("span");
+
+   vak.className = "cijfer";
+   vak.textContent = karakter;
+
+   tellerCijfers.appendChild(vak);
+  }
+ }
+
+ function animeerGetal(eindwaarde){
+
+  const start = performance.now();
+  const duur = 1400;
+
+  function stap(tijd){
+
+   const voortgang =
+    Math.min((tijd-start)/duur,1);
+
+   const vloeiend =
+    1-Math.pow(1-voortgang,3);
+
+   const waarde =
+    Math.floor(eindwaarde*vloeiend);
+
+   toonGetal(waarde);
+
+   if(voortgang<1){
+    requestAnimationFrame(stap);
+   }else{
+    toonGetal(eindwaarde);
+   }
+  }
+
+  requestAnimationFrame(stap);
+ }
+
+ async function laadBezoekers(){
+
+  try{
+
+   const adres =
+    API + "/hit/" +
+    encodeURIComponent(namespace) + "/" +
+    encodeURIComponent(sleutel);
+
+   const antwoord = await fetch(adres,{
+    method:"GET",
+    cache:"no-store",
+    signal:AbortSignal.timeout(10000)
+   });
+
+   if(!antwoord.ok){
+    throw new Error("HTTP " + antwoord.status);
+   }
+
+   const data = await antwoord.json();
+
+   /*
+    Ondersteuning voor de meest gebruikelijke
+    antwoordformaten van tellerservices.
+   */
+
+   let aantal;
+
+   if(typeof data === "number"){
+    aantal = data;
+   }else{
+    aantal =
+     data.count ??
+     data.value ??
+     data.visits ??
+     data.hits ??
+     data.data?.count ??
+     data.data?.value;
+   }
+
+   aantal = Number(aantal);
+
+   if(!Number.isSafeInteger(aantal) || aantal<0){
+    throw new Error("Ongeldig bezoekersaantal");
+   }
+
+   animeerGetal(aantal);
+
+   tellerStatus.textContent =
+    "Totaal aantal paginaweergaven";
+
+  }catch(fout){
+
+   console.error("Bezoekersteller:",fout);
+
+   tellerStatus.textContent =
+    "Bezoekersteller tijdelijk niet beschikbaar";
+
+  }
+ }
+
+ laadBezoekers();
 
 })();
 </script>
