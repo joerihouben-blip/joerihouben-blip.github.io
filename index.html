@@ -9,128 +9,376 @@
 <style>
 *{box-sizing:border-box}
 
+:root{
+ --navy:#082849;
+ --blue:#0864ae;
+ --background:#eaf2f9;
+}
+
 html,body{
  margin:0;
  min-height:100%;
- font-family:Arial,sans-serif;
- background:#eaf0f7;
- color:#243447;
+ font-family:Arial,Helvetica,sans-serif;
+ background:var(--background);
+ color:#17334f;
 }
 
 body{
+ min-height:100vh;
  display:flex;
  flex-direction:column;
- min-height:100vh;
 }
+
+/* BANNER */
 
 header{
- background:linear-gradient(135deg,#102d50,#1765a5);
+ background:
+ radial-gradient(ellipse at 65% 110%,#087bc8 0%,transparent 50%),
+ linear-gradient(120deg,#08284c,#075497 70%,#092b55);
  color:white;
+ padding:18px max(22px,4vw);
  display:flex;
- justify-content:space-between;
  align-items:center;
- gap:12px;
- padding:10px 20px;
+ justify-content:space-between;
+ gap:20px;
 }
 
-header h1{margin:0;font-size:22px}
-header p{margin:0;font-size:13px}
+header h1{
+ font-size:clamp(25px,3vw,38px);
+ margin:0;
+ letter-spacing:-.7px;
+}
+
+header h2{
+ margin:2px 0 7px;
+ font-size:19px;
+ color:#c4e5ff;
+}
+
+header p{
+ margin:0;
+ font-size:13px;
+ color:#e0f0ff;
+}
+
+.header-icons{
+ display:flex;
+ align-items:center;
+ gap:23px;
+ font-size:38px;
+}
+
+/* NAVIGATIE */
+
+nav{
+ background:#08294d;
+ display:flex;
+ align-items:center;
+ gap:6px;
+ padding:8px max(18px,4vw);
+ flex-wrap:wrap;
+}
+
+nav a{
+ color:#e5f2ff;
+ text-decoration:none;
+ padding:11px 14px;
+ border-radius:7px;
+ font-size:14px;
+ font-weight:bold;
+}
+
+nav a:hover,
+nav a.active{
+ background:#1379c3;
+ color:white;
+}
+
+.search{
+ margin-left:auto;
+}
+
+.search input{
+ width:240px;
+ max-width:100%;
+ padding:10px 14px;
+ border-radius:7px;
+ border:1px solid #487da7;
+ background:#173e66;
+ color:white;
+ outline:none;
+}
+
+.search input::placeholder{color:#c8dced}
+
+/* HOOFDINHOUD */
 
 main{
  width:100%;
  max-width:1800px;
- margin:0 auto;
- padding:10px;
+ margin:auto;
+ padding:16px;
  flex:1;
 }
 
 .dashboard{
  display:grid;
  grid-template-columns:repeat(4,minmax(0,1fr));
- gap:10px;
- align-items:start;
+ gap:14px;
+ align-items:stretch;
 }
 
-.hoofdrubriek{
+.category{
  background:white;
- border-radius:9px;
- padding:9px;
- box-shadow:0 2px 8px #00000012;
+ border-radius:12px;
+ overflow:hidden;
+ box-shadow:0 4px 15px #17334f19;
+ border:1px solid #d6e4f0;
  min-width:0;
 }
 
-.hoofdrubriek h2{
- margin:0 0 9px;
- padding:9px;
- background:#123e70;
+.category-header{
+ padding:16px;
+ display:flex;
+ align-items:center;
+ gap:13px;
  color:white;
- border-radius:6px;
+ min-height:83px;
+}
+
+.category-header .symbol{
+ font-size:39px;
+ line-height:1;
+}
+
+.category-header h2{
+ margin:0 0 5px;
+ font-size:23px;
+}
+
+.category-header p{
+ margin:0;
+ font-size:12px;
+ opacity:.95;
+}
+
+.sanitair .category-header{
+ background:linear-gradient(125deg,#00428e,#128bd2);
+}
+
+.cv .category-header{
+ background:linear-gradient(125deg,#a50000,#e43c25);
+}
+
+.energie .category-header{
+ background:linear-gradient(125deg,#006a43,#11a96d);
+}
+
+.elektriciteit .category-header{
+ background:linear-gradient(125deg,#c27b00,#f9b600);
+}
+
+/* TECHNISCHE ILLUSTRATIES */
+
+.visual{
+ height:112px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:18px;
+ position:relative;
+ overflow:hidden;
+}
+
+.visual span{
+ font-size:48px;
+ filter:drop-shadow(0 3px 5px #0002);
+}
+
+.sanitair .visual{
+ background:linear-gradient(130deg,#d6efff,#8cc7ed);
+}
+
+.cv .visual{
+ background:linear-gradient(130deg,#ffdfd8,#f7a39a);
+}
+
+.energie .visual{
+ background:linear-gradient(130deg,#d7f7e6,#91dfb2);
+}
+
+.elektriciteit .visual{
+ background:linear-gradient(130deg,#fff2c1,#ffd975);
+}
+
+/* LINKS */
+
+.category-content{
+ padding:9px;
+}
+
+.group-label{
+ font-size:12px;
+ font-weight:bold;
+ color:#47617b;
+ margin:11px 4px 6px;
+}
+
+.lesson{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ min-height:37px;
+ padding:8px 10px;
+ margin-bottom:5px;
+ border-radius:7px;
+ text-decoration:none;
+ font-size:12px;
+ font-weight:bold;
+ border:1px solid transparent;
+ transition:background .15s,transform .15s;
+}
+
+.lesson:hover{
+ transform:translateX(3px);
+}
+
+.lesson .ico{
+ font-size:17px;
+ width:25px;
+ flex-shrink:0;
  text-align:center;
+}
+
+.lesson .name{
+ flex:1;
+}
+
+.lesson .arrow{
+ font-size:20px;
+ font-weight:normal;
+}
+
+.sanitair .lesson{
+ background:#e1f1ff;
+ color:#084d91;
+ border-color:#b9ddfa;
+}
+
+.sanitair .lesson:hover{background:#c9e7ff}
+
+.cv .lesson{
+ background:#ffe5e2;
+ color:#a52619;
+ border-color:#ffc8c2;
+}
+
+.cv .lesson:hover{background:#ffd2cc}
+
+.energie .lesson{
+ background:#dff5e8;
+ color:#07693f;
+ border-color:#bde9d0;
+}
+
+.energie .lesson:hover{background:#c8eed8}
+
+.elektriciteit .lesson{
+ background:#fff1c5;
+ color:#825200;
+ border-color:#ffdf8b;
+}
+
+.elektriciteit .lesson:hover{background:#ffe49c}
+
+.coming{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ padding:9px 10px;
+ margin-bottom:5px;
+ border-radius:7px;
+ background:#f1f5f9;
+ color:#63768a;
+ font-size:12px;
+ border:1px solid #e0e8f0;
+}
+
+.coming span:first-child{
  font-size:17px;
 }
 
-.onderdeel{
- background:#f4f8fc;
- border:1px solid #dce6f0;
- border-radius:7px;
- padding:8px;
- margin-bottom:8px;
+.coming em{
+ margin-left:auto;
+ font-size:10px;
 }
 
-.onderdeel:last-child{margin-bottom:0}
+/* EXTRA RUBRIEKEN */
 
-.onderdeel h3{
- color:#14558c;
- margin:0 0 5px;
- font-size:14px;
+.extras{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:14px;
+ margin-top:14px;
 }
 
-.knop{
- display:block;
- background:#1765a5;
+.extra-card{
+ background:white;
+ border-radius:12px;
+ overflow:hidden;
+ border:1px solid #d6e4f0;
+ box-shadow:0 3px 12px #17334f12;
+}
+
+.extra-title{
+ background:linear-gradient(110deg,#086b9e,#14a8bc);
  color:white;
- text-decoration:none;
- border-radius:5px;
- padding:7px 8px;
- margin-top:5px;
- font-size:12px;
+ padding:12px 16px;
+ font-size:19px;
  font-weight:bold;
- text-align:center;
- line-height:1.25;
 }
 
-.knop:hover,.knop:focus{
- background:#103d6b;
+.extra-card:nth-child(2) .extra-title{
+ background:linear-gradient(110deg,#344f80,#6679bb);
 }
 
-.binnenkort{
- font-size:11px;
- color:#718096;
- font-style:italic;
+.extra-content{
+ padding:10px;
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:7px;
 }
+
+.extra-content .lesson{
+ margin:0;
+ background:#e9f2fa;
+ color:#164c7c;
+ border-color:#d3e3f1;
+}
+
+/* INFORMATIE */
 
 .info-website{
- max-width:1250px;
- margin:16px auto 8px;
- padding:14px 20px;
- background:#e0effb;
- border:1px solid #b5d4ec;
- border-left:5px solid #1765a5;
- border-radius:9px;
- text-align:center;
- box-shadow:0 2px 8px #0000000c;
+ margin-top:16px;
+ background:linear-gradient(110deg,#e1f0ff,#f4faff);
+ border:1px solid #b9d9f3;
+ border-radius:11px;
+ padding:20px 25px;
+ display:grid;
+ grid-template-columns:1fr 280px;
+ gap:20px;
 }
 
 .info-website h2{
- margin:0 0 8px;
- color:#123e70;
- font-size:17px;
+ margin:0 0 10px;
+ font-size:18px;
+ color:#0b427a;
 }
 
 .info-website p{
- font-size:13px;
- line-height:1.5;
  margin:7px 0;
+ line-height:1.5;
+ font-size:13px;
 }
 
 .info-website a{
@@ -138,48 +386,71 @@ main{
  font-weight:bold;
 }
 
-footer{
- background:#102d50;
- color:white;
+.quote{
+ border-left:1px solid #b7d6ee;
+ padding:20px;
  text-align:center;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ gap:10px;
+ color:#0b4d8a;
+}
+
+.quote strong{
+ font-size:17px;
+ font-style:italic;
+}
+
+.quote span{
  font-size:12px;
- padding:12px;
+}
+
+/* FOOTER */
+
+footer{
+ background:#09294e;
+ color:#e3f0fc;
+ padding:17px 24px;
+ text-align:center;
  display:flex;
  flex-direction:column;
  align-items:center;
- justify-content:center;
- gap:9px;
+ gap:10px;
+ font-size:12px;
+}
+
+footer a{
+ color:#b8e0ff;
+ text-decoration:none;
 }
 
 .teller-kader{
  display:flex;
  flex-direction:column;
  align-items:center;
- gap:9px;
- padding:13px 24px;
- border-radius:12px;
+ gap:7px;
+ padding:11px 22px;
+ border-radius:11px;
  background:linear-gradient(135deg,#0a223b,#164c78);
  border:1px solid #3978a6;
- box-shadow:0 0 15px #4db8ff35;
 }
 
 .teller-titel{
  color:#c9e8ff;
  font-size:11px;
  font-weight:bold;
- letter-spacing:1px;
+ letter-spacing:.5px;
 }
 
 .teller-cijfers{
  display:flex;
- align-items:center;
- justify-content:center;
  gap:5px;
 }
 
 .cijfer{
- width:35px;
- height:47px;
+ width:30px;
+ height:39px;
  display:flex;
  align-items:center;
  justify-content:center;
@@ -187,12 +458,10 @@ footer{
  color:white;
  border:1px solid #4d94c4;
  border-radius:5px;
- font-size:27px;
+ font-size:23px;
  font-family:Consolas,monospace;
  font-weight:bold;
  font-variant-numeric:tabular-nums;
- text-shadow:0 0 8px #7acbff;
- box-shadow:inset 0 1px 3px #ffffff16;
 }
 
 .teller-status{
@@ -200,38 +469,23 @@ footer{
  font-size:10px;
 }
 
-@media(min-width:1101px) and (max-height:750px){
- header{padding:7px 15px}
- header h1{font-size:19px}
- header p{font-size:11px}
- main{padding:7px}
- .dashboard{gap:7px}
- .hoofdrubriek{padding:7px}
- .hoofdrubriek h2{padding:6px;margin-bottom:6px}
- .onderdeel{padding:6px;margin-bottom:6px}
- .knop{padding:5px;margin-top:4px}
- .info-website{padding:9px 15px;margin-top:10px}
- .info-website p{font-size:12px;margin:4px 0}
- footer{padding:6px}
- .teller-kader{padding:8px 18px}
- .cijfer{width:28px;height:36px;font-size:22px}
+/* RESPONSIEF */
+
+@media(max-width:1150px){
+ .dashboard{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 
-@media(max-width:1100px){
- .dashboard{
-  grid-template-columns:repeat(2,minmax(0,1fr));
- }
-}
-
-@media(max-width:600px){
- header{
-  flex-direction:column;
-  text-align:center;
- }
- .dashboard{grid-template-columns:1fr}
- .info-website{padding:12px}
- .teller-kader{max-width:100%;padding:10px}
- .cijfer{width:29px;height:40px;font-size:23px}
+@media(max-width:700px){
+ header{flex-direction:column;align-items:flex-start}
+ .header-icons{font-size:28px}
+ nav{padding:8px}
+ nav a{padding:9px}
+ .search{width:100%;margin:5px 0}
+ .search input{width:100%}
+ main{padding:10px}
+ .dashboard,.extras{grid-template-columns:1fr}
+ .info-website{grid-template-columns:1fr}
+ .quote{border-left:0;border-top:1px solid #b7d6ee}
 }
 </style>
 </head>
@@ -239,253 +493,435 @@ footer{
 <body>
 
 <header>
- <h1>Joeri Houben</h1>
- <p>Technische leeromgeving | Leren • Oefenen • Simuleren</p>
+ <div>
+  <h1>Joeri Houben</h1>
+  <h2>Technische leeromgeving</h2>
+  <p>Sanitair • CV • Energie • Elektriciteit • Ventilatie • Leren • Oefenen • Simuleren</p>
+ </div>
+ <div class="header-icons" aria-hidden="true">
+  💧 🔥 🌿 ⚡ 🌬️
+ </div>
 </header>
 
+<nav>
+ <a href="#" class="active">⌂ Home</a>
+ <a href="#theorie">▣ Theorie</a>
+ <a href="#simulaties">▶ Simulaties</a>
+ <a href="#tools">⚙ Tools</a>
+ <a href="#praktijk">⚒ Praktijk</a>
+ <a href="#cursussen">▤ Cursussen</a>
+ <a href="#links">🔗 Links</a>
+ <div class="search">
+  <input id="zoekveld" type="search"
+   placeholder="Zoek een onderwerp..."
+   aria-label="Zoek een onderwerp">
+ </div>
+</nav>
+
 <main>
-<div class="dashboard">
 
-<!-- VERWARMING -->
-<section class="hoofdrubriek">
-<h2>🔥 Verwarming</h2>
-
-<div class="onderdeel">
-<h3>Stookolie</h3>
-
-<a class="knop" href="7Ti-stookolie_V51_nieuwe_doorsnede.html">
- Stookoliebrander – simulatie
-</a>
-
-<a class="knop" href="Huisbrandolie_7TI%20%281%29.html">
- Theorie huisbrandolie
-</a>
-
-<a class="knop" href="Elektrische_werking_stookoliebrander_7TI.html">
- Elektrische werking brander
-</a>
-</div>
-
-<div class="onderdeel">
-<h3>Gasketels</h3>
-
-<a class="knop" href="Gasketel_7TI%20%281%29.html">
- Gasketel – simulatie
-</a>
-</div>
-
-<div class="onderdeel">
-<h3>Warmtepompen</h3>
-<span class="binnenkort">Binnenkort beschikbaar</span>
-</div>
-
-<div class="onderdeel">
-<h3>Hydraulica</h3>
-
-<a class="knop" href="expansievat_cv_simulatie_bovenaansluiting.html">
- Expansievat
-</a>
-</div>
-</section>
+<div class="dashboard" id="simulaties">
 
 <!-- SANITAIR -->
-<section class="hoofdrubriek">
-<h2>💧 Sanitair</h2>
 
-<div class="onderdeel">
-<h3>Warmwaterbereiding</h3>
+<section class="category sanitair">
+ <div class="category-header">
+  <div class="symbol">💧</div>
+  <div>
+   <h2>Sanitair</h2>
+   <p>Drinkwater, afvoer en warmwater</p>
+  </div>
+ </div>
 
-<a class="knop" href="sanitair-warmwaterbereiding.html">
- Sanitair warmwaterbereiding
-</a>
+ <div class="visual" aria-hidden="true">
+  <span>🚰</span><span>💦</span><span>🚿</span>
+ </div>
 
-<a class="knop" href="boiler-rekentrainer.html">
- Boiler rekentrainers
-</a>
-</div>
+ <div class="category-content">
 
-<div class="onderdeel">
-<h3>Aanvoer</h3>
-<span class="binnenkort">Binnenkort beschikbaar</span>
-</div>
+  <a class="lesson" href="sanitair-warmwaterbereiding.html">
+   <span class="ico">🚿</span>
+   <span class="name">Sanitair warmwaterbereiding</span>
+   <span class="arrow">›</span>
+  </a>
 
-<div class="onderdeel">
-<h3>Afvoer</h3>
-<span class="binnenkort">Binnenkort beschikbaar</span>
-</div>
+  <a class="lesson" href="boiler-rekentrainer.html">
+   <span class="ico">🧮</span>
+   <span class="name">Boiler rekentrainers</span>
+   <span class="arrow">›</span>
+  </a>
 
-<div class="onderdeel">
-<h3>Kraanwerk</h3>
-<span class="binnenkort">Binnenkort beschikbaar</span>
-</div>
+  <div class="coming">
+   <span>🚰</span>Aanvoer (drinkwater)
+   <em>Binnenkort</em>
+  </div>
+
+  <div class="coming">
+   <span>🔧</span>Afvoer (riolering)
+   <em>Binnenkort</em>
+  </div>
+
+  <div class="coming">
+   <span>🔩</span>Kraanwerk
+   <em>Binnenkort</em>
+  </div>
+
+ </div>
+</section>
+
+<!-- CV VERWARMING -->
+
+<section class="category cv">
+ <div class="category-header">
+  <div class="symbol">🔥</div>
+  <div>
+   <h2>CV – Verwarming</h2>
+   <p>Ketels, branders en warmtepompen</p>
+  </div>
+ </div>
+
+ <div class="visual" aria-hidden="true">
+  <span>🔥</span><span>🌡️</span><span>♨️</span>
+ </div>
+
+ <div class="category-content">
+
+  <a class="lesson" href="7Ti-stookolie_V51_nieuwe_doorsnede.html">
+   <span class="ico">🔥</span>
+   <span class="name">Stookoliebrander – simulatie</span>
+   <span class="arrow">›</span>
+  </a>
+
+  <a class="lesson" href="Huisbrandolie_7TI%20%281%29.html">
+   <span class="ico">📖</span>
+   <span class="name">Theorie huisbrandolie</span>
+   <span class="arrow">›</span>
+  </a>
+
+  <a class="lesson" href="Elektrische_werking_stookoliebrander_7TI.html">
+   <span class="ico">⚡</span>
+   <span class="name">Elektrische werking brander</span>
+   <span class="arrow">›</span>
+  </a>
+
+  <a class="lesson" href="Gasketel_7TI%20%281%29.html">
+   <span class="ico">🔥</span>
+   <span class="name">Gasketel – simulatie</span>
+   <span class="arrow">›</span>
+  </a>
+
+  <a class="lesson" href="expansievat_cv_simulatie_bovenaansluiting.html">
+   <span class="ico">🔴</span>
+   <span class="name">Expansievat – simulatie</span>
+   <span class="arrow">›</span>
+  </a>
+
+  <div class="coming">
+   <span>♨️</span>CV-installaties en regeling
+   <em>Binnenkort</em>
+  </div>
+
+  <div class="coming">
+   <span>🌡️</span>Warmtepompen
+   <em>Binnenkort</em>
+  </div>
+
+ </div>
+</section>
+
+<!-- ENERGIE -->
+
+<section class="category energie">
+ <div class="category-header">
+  <div class="symbol">🌿</div>
+  <div>
+   <h2>Energie</h2>
+   <p>Hernieuwbare energie en efficiëntie</p>
+  </div>
+ </div>
+
+ <div class="visual" aria-hidden="true">
+  <span>☀️</span><span>🔋</span><span>🌱</span>
+ </div>
+
+ <div class="category-content">
+
+  <div class="coming">
+   <span>☀️</span>Zonnepanelen
+   <em>Binnenkort</em>
+  </div>
+
+  <div class="coming">
+   <span>♨️</span>Warmtepompen en energie
+   <em>Binnenkort</em>
+  </div>
+
+  <div class="coming">
+   <span>🧮</span>Energie-berekeningen
+   <em>Binnenkort</em>
+  </div>
+
+  <div class="coming">
+   <span>🏠</span>EPB en regelgeving
+   <em>Binnenkort</em>
+  </div>
+
+  <div class="coming">
+   <span>📊</span>Energie-efficiëntie
+   <em>Binnenkort</em>
+  </div>
+
+  <div class="coming">
+   <span>⚙️</span>Praktische toepassingen
+   <em>Binnenkort</em>
+  </div>
+
+ </div>
 </section>
 
 <!-- ELEKTRICITEIT -->
-<section class="hoofdrubriek">
-<h2>⚡ Elektriciteit</h2>
 
-<div class="onderdeel">
-<h3>Berekeningen en metingen</h3>
+<section class="category elektriciteit">
+ <div class="category-header">
+  <div class="symbol">⚡</div>
+  <div>
+   <h2>Elektriciteit</h2>
+   <p>Berekeningen, metingen en sturingen</p>
+  </div>
+ </div>
 
-<a class="knop" href="Wet_van_Ohm_interactief%20%283%29.html">
- ⚡ Wet van Ohm – interactieve simulatie
-</a>
+ <div class="visual" aria-hidden="true">
+  <span>⚡</span><span>🔌</span><span>🔧</span>
+ </div>
 
-<a class="knop" href="vermogensberekening.html">
- ⚡ Vermogensberekening
-</a>
+ <div class="category-content">
 
-<a class="knop" href="twee_weerstanden_serie_compact%20%281%29.html">
- ⚡ Twee weerstanden in serie
-</a>
+  <a class="lesson" href="Wet_van_Ohm_interactief%20%283%29.html">
+   <span class="ico">Ω</span>
+   <span class="name">Wet van Ohm – interactieve simulatie</span>
+   <span class="arrow">›</span>
+  </a>
 
-<a class="knop" href="wet_van_pouillet%20%282%29.html">
- ⚡ Wet van Pouillet – Kabelberekening
-</a>
+  <a class="lesson" href="vermogensberekening.html">
+   <span class="ico">📊</span>
+   <span class="name">Vermogensberekening</span>
+   <span class="arrow">›</span>
+  </a>
 
-<a class="knop" href="wet_van_pouillet_uitgebreid.html">
- ⚡ Poulet spanning en stroom
-</a>
+  <a class="lesson" href="twee_weerstanden_serie_compact%20%281%29.html">
+   <span class="ico">⚡</span>
+   <span class="name">Twee weerstanden in serie</span>
+   <span class="arrow">›</span>
+  </a>
 
-<!-- STER / DRIEHOEK -->
-<a class="knop" href="Ster_Driehoek_Leerlingen_V2.html">
- ⚡ Ster / driehoek
-</a>
+  <a class="lesson" href="wet_van_pouillet%20%282%29.html">
+   <span class="ico">📏</span>
+   <span class="name">Wet van Pouillet – Kabelberekening</span>
+   <span class="arrow">›</span>
+  </a>
 
-</div>
+  <a class="lesson" href="wet_van_pouillet_uitgebreid.html">
+   <span class="ico">🔌</span>
+   <span class="name">Pouillet spanning en stroom</span>
+   <span class="arrow">›</span>
+  </a>
 
-<div class="onderdeel">
-<h3>Elektrische installaties</h3>
-<span class="binnenkort">Binnenkort beschikbaar</span>
-</div>
+  <a class="lesson" href="Ster_Driehoek_Leerlingen_V2.html">
+   <span class="ico">⚙️</span>
+   <span class="name">Ster / driehoek</span>
+   <span class="arrow">›</span>
+  </a>
 
-<div class="onderdeel">
-<h3>Data en netwerken</h3>
-<span class="binnenkort">Binnenkort beschikbaar</span>
-</div>
+  <div class="coming">
+   <span>🔧</span>Elektrische installaties
+   <em>Binnenkort</em>
+  </div>
+
+  <div class="coming">
+   <span>🌐</span>Data en netwerken
+   <em>Binnenkort</em>
+  </div>
+
+ </div>
 </section>
 
-<!-- VENTILATIE -->
-<section class="hoofdrubriek">
-<h2>🌬️ Ventilatie</h2>
-
-<div class="onderdeel">
-<h3>Ventilatiesystemen</h3>
-
-<a class="knop" href="ventilatiesysteem_C.html">
- Ventilatiesysteem C – simulatie
-</a>
-
-<a class="knop" href="ventilatiesysteem_D_zonder_uitlegteksten.html">
- Ventilatiesysteem D – simulatie
-</a>
-</div>
-</section>
-
 </div>
 
-<!-- WEBSITE INFORMATIE -->
-<section class="info-website">
-<h2>Over deze technische leeromgeving</h2>
+<!-- EXTRA RUBRIEKEN -->
 
-<p>
-Deze technische leeromgeving werd samengesteld door
-<strong>Joeri Houben</strong> voor de leerlingen van
-<strong>Sanitaire en Verwarmingstechnieken</strong> en
-<strong>Technische Installaties</strong> van
-Sint-Martinus Herk-de-Stad.
-</p>
+<div class="extras">
 
-<p>
-Het doel van deze website is om technische leerstof
-op een duidelijke, interactieve en praktijkgerichte
-manier aan te bieden. Met behulp van simulaties,
-berekeningen en theoretische ondersteuning kunnen
-leerlingen hun technische kennis verder ontwikkelen
-en verdiepen.
-</p>
+ <section class="extra-card" id="praktijk">
+  <div class="extra-title">🌬️ Ventilatie</div>
+  <div class="extra-content">
+   <a class="lesson" href="ventilatiesysteem_C.html">
+    <span class="ico">🌬️</span>
+    <span class="name">Ventilatiesysteem C – simulatie</span>
+    <span class="arrow">›</span>
+   </a>
+   <a class="lesson" href="ventilatiesysteem_D_zonder_uitlegteksten.html">
+    <span class="ico">🌬️</span>
+    <span class="name">Ventilatiesysteem D – simulatie</span>
+    <span class="arrow">›</span>
+   </a>
+  </div>
+ </section>
 
-<p>
-Hoewel alle inhoud met de grootste zorg werd
-samengesteld en gecontroleerd, kunnen er toch
-fouten of onvolkomenheden voorkomen.
-</p>
+ <section class="extra-card" id="tools">
+  <div class="extra-title">⚙️ Tools en berekeningen</div>
+  <div class="extra-content">
+   <div class="coming">
+    <span>🔧</span>Afvoerberekening
+    <em>Binnenkort</em>
+   </div>
+   <div class="coming">
+    <span>🧮</span>Rekenmodules
+    <em>Binnenkort</em>
+   </div>
+  </div>
+ </section>
 
-<p>
-<strong>Heb je een fout ontdekt of een suggestie ter verbetering?</strong>
-Dan hoor ik dat graag via
-<a href="mailto:Joeri.houben@st-martinus.be">
-Joeri.houben@st-martinus.be
-</a>.
-</p>
+</div>
+
+<!-- INFORMATIE -->
+
+<section class="info-website" id="theorie">
+ <div>
+  <h2>ℹ️ Over deze technische leeromgeving</h2>
+  <p>
+   Deze technische leeromgeving werd samengesteld door
+   <strong>Joeri Houben</strong> voor de leerlingen van
+   <strong>Sanitaire en Verwarmingstechnieken</strong> en
+   <strong>Technische Installaties</strong> van
+   Sint-Martinus Herk-de-Stad.
+  </p>
+
+  <p>
+   Het doel van deze website is om technische leerstof op
+   een duidelijke, interactieve en praktijkgerichte manier
+   aan te bieden. Met behulp van simulaties, berekeningen
+   en theoretische ondersteuning kunnen leerlingen hun
+   technische kennis verder ontwikkelen en verdiepen.
+  </p>
+
+  <p>
+   Hoewel alle inhoud met de grootste zorg werd samengesteld
+   en gecontroleerd, kunnen er toch fouten of
+   onvolkomenheden voorkomen.
+  </p>
+
+  <p id="links">
+   <strong>Heb je een fout ontdekt of een suggestie?</strong>
+   Mail naar
+   <a href="mailto:Joeri.houben@st-martinus.be">
+    Joeri.houben@st-martinus.be
+   </a>.
+  </p>
+ </div>
+
+ <div class="quote" id="cursussen">
+  <div style="font-size:35px">🎓</div>
+  <strong>“Leren door te doen,<br>
+   simuleren om te begrijpen.”</strong>
+  <span>Joeri Houben<br>Sint-Martinus Herk-de-Stad</span>
+ </div>
 </section>
+
 </main>
 
-<!-- FOOTER EN BEZOEKERSTELLER -->
+<!-- FOOTER -->
+
 <footer>
 
-<div class="teller-kader">
- <div class="teller-titel">
-  👁 BEZOEKEN TECHNISCHE LEEROMGEVING
+ <div class="teller-kader">
+  <div class="teller-titel">
+   👁 BEZOEKEN TECHNISCHE LEEROMGEVING
+  </div>
+
+  <div class="teller-cijfers"
+       id="tellerCijfers"
+       aria-label="Aantal paginaweergaven">
+   <span class="cijfer">–</span>
+   <span class="cijfer">–</span>
+   <span class="cijfer">–</span>
+   <span class="cijfer">–</span>
+   <span class="cijfer">–</span>
+   <span class="cijfer">–</span>
+  </div>
+
+  <div class="teller-status" id="tellerStatus">
+   Teller wordt geladen...
+  </div>
  </div>
 
- <div class="teller-cijfers"
-      id="tellerCijfers"
-      aria-label="Aantal paginaweergaven">
-  <span class="cijfer">–</span>
-  <span class="cijfer">–</span>
-  <span class="cijfer">–</span>
-  <span class="cijfer">–</span>
-  <span class="cijfer">–</span>
-  <span class="cijfer">–</span>
+ <div>
+  © 2026 – Gemaakt door Joeri Houben voor
+  Sint-Martinus Herk-de-Stad
  </div>
 
- <div class="teller-status" id="tellerStatus">
-  Teller wordt geladen...
- </div>
-</div>
-
-<div>
- Gemaakt door Joeri Houben voor Sint-Martinus Herk-de-Stad
-</div>
+ <a href="mailto:Joeri.houben@st-martinus.be">
+  ✉ Joeri.houben@st-martinus.be
+ </a>
 
 </footer>
 
 <script>
+
+/* ZOEKFUNCTIE */
+
+const zoekveld=document.getElementById("zoekveld");
+
+zoekveld.addEventListener("input",function(){
+ const term=this.value.toLowerCase().trim();
+
+ document.querySelectorAll(".lesson,.coming").forEach(item=>{
+  const gevonden=item.textContent.toLowerCase().includes(term);
+  item.style.display=gevonden?"":"none";
+ });
+
+ document.querySelectorAll(".category,.extra-card").forEach(card=>{
+  const items=[...card.querySelectorAll(".lesson,.coming")];
+  const zichtbaar=items.some(item=>item.style.display!=="none");
+  card.style.display=zichtbaar?"":"none";
+ });
+});
+
+/* BESTAANDE BEZOEKERSTELLER */
+
 (function(){
 
- const tellerCijfers =
+ const tellerCijfers=
   document.getElementById("tellerCijfers");
 
- const tellerStatus =
+ const tellerStatus=
   document.getElementById("tellerStatus");
 
- const API =
+ const API=
   "https://my-own-counter-api-production.up.railway.app";
 
- const namespace = "joerihouben-blip-github-io";
- const sleutel = "technische-leeromgeving-bezoeken";
+ const namespace="joerihouben-blip-github-io";
+ const sleutel="technische-leeromgeving-bezoeken";
 
  function toonGetal(getal){
-  const tekst = String(Math.floor(getal)).padStart(6,"0");
-  tellerCijfers.innerHTML = "";
+  const tekst=String(Math.floor(getal)).padStart(6,"0");
+  tellerCijfers.innerHTML="";
 
   for(const karakter of tekst){
-   const vak = document.createElement("span");
-   vak.className = "cijfer";
-   vak.textContent = karakter;
+   const vak=document.createElement("span");
+   vak.className="cijfer";
+   vak.textContent=karakter;
    tellerCijfers.appendChild(vak);
   }
  }
 
  function animeerGetal(eindwaarde){
-  const start = performance.now();
-  const duur = 1400;
+  const start=performance.now();
+  const duur=1400;
 
   function stap(tijd){
-   const voortgang = Math.min((tijd-start)/duur,1);
-   const vloeiend = 1-Math.pow(1-voortgang,3);
-   const waarde = Math.floor(eindwaarde*vloeiend);
+   const voortgang=Math.min((tijd-start)/duur,1);
+   const vloeiend=1-Math.pow(1-voortgang,3);
+   const waarde=Math.floor(eindwaarde*vloeiend);
 
    toonGetal(waarde);
 
@@ -501,19 +937,20 @@ Joeri.houben@st-martinus.be
 
  async function laadBezoekers(){
   try{
-   const adres =
-    API + "/hit/" +
-    encodeURIComponent(namespace) + "/" +
+   const adres=
+    API+"/hit/"+
+    encodeURIComponent(namespace)+"/"+
     encodeURIComponent(sleutel);
 
-   const controller = new AbortController();
-   const timeout = setTimeout(
+   const controller=new AbortController();
+   const timeout=setTimeout(
     ()=>controller.abort(),10000
    );
 
    let antwoord;
+
    try{
-    antwoord = await fetch(adres,{
+    antwoord=await fetch(adres,{
      method:"GET",
      cache:"no-store",
      signal:controller.signal
@@ -523,16 +960,16 @@ Joeri.houben@st-martinus.be
    }
 
    if(!antwoord.ok){
-    throw new Error("HTTP " + antwoord.status);
+    throw new Error("HTTP "+antwoord.status);
    }
 
-   const data = await antwoord.json();
+   const data=await antwoord.json();
    let aantal;
 
-   if(typeof data === "number"){
-    aantal = data;
+   if(typeof data==="number"){
+    aantal=data;
    }else{
-    aantal =
+    aantal=
      data.count ??
      data.value ??
      data.visits ??
@@ -541,20 +978,19 @@ Joeri.houben@st-martinus.be
      data.data?.value;
    }
 
-   aantal = Number(aantal);
+   aantal=Number(aantal);
 
-   if(!Number.isSafeInteger(aantal) || aantal<0){
+   if(!Number.isSafeInteger(aantal)||aantal<0){
     throw new Error("Ongeldig bezoekersaantal");
    }
 
    animeerGetal(aantal);
-   tellerStatus.textContent =
+   tellerStatus.textContent=
     "Totaal aantal paginaweergaven";
 
   }catch(fout){
    console.error("Bezoekersteller:",fout);
-
-   tellerStatus.textContent =
+   tellerStatus.textContent=
     "Bezoekersteller tijdelijk niet beschikbaar";
   }
  }
@@ -562,6 +998,7 @@ Joeri.houben@st-martinus.be
  laadBezoekers();
 
 })();
+
 </script>
 
 </body>
