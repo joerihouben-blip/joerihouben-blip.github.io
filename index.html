@@ -121,12 +121,12 @@ main{
  font-style:italic;
 }
 
-/* INFORMATIEVAK */
+/* INFORMATIE OVER DE WEBSITE */
 
 .info-website{
  max-width:1250px;
- margin:14px auto 5px;
- padding:14px 20px;
+ margin:16px auto 8px;
+ padding:15px 22px;
  background:#e0effb;
  border:1px solid #b5d4ec;
  border-left:5px solid #1765a5;
@@ -136,7 +136,7 @@ main{
 }
 
 .info-website h2{
- margin:0 0 8px;
+ margin:0 0 9px;
  color:#123e70;
  font-size:17px;
 }
@@ -164,55 +164,47 @@ footer{
  flex-direction:column;
  align-items:center;
  justify-content:center;
- gap:9px;
+ gap:10px;
 }
 
-/* NIEUWE DIGITALE BEZOEKERSTELLER */
+/* NIEUWE BEZOEKERSTELLER */
 
 .teller-kader{
  display:flex;
  flex-direction:column;
  align-items:center;
- gap:7px;
- padding:12px 22px;
+ gap:8px;
+ padding:13px 24px;
  border-radius:12px;
  background:linear-gradient(135deg,#0a223b,#164c78);
  border:1px solid #3978a6;
- box-shadow:0 0 14px #4db8ff35;
+ box-shadow:0 0 15px #4db8ff35;
 }
 
 .teller-titel{
- display:flex;
- align-items:center;
- gap:7px;
  color:#c9e8ff;
- font-size:11px;
+ font-size:12px;
  font-weight:bold;
  letter-spacing:1px;
 }
 
-.teller-cijfers{
- display:flex;
- justify-content:center;
- gap:4px;
-}
-
-.cijfer{
- width:32px;
- height:43px;
+.teller-display{
+ background:#071b30;
+ border:1px solid #4184b5;
+ border-radius:8px;
+ padding:10px 18px;
+ min-width:175px;
+ min-height:45px;
  display:flex;
  align-items:center;
  justify-content:center;
- background:linear-gradient(180deg,#245681,#0b2946);
- color:#ffffff;
- border:1px solid #4d94c4;
- border-radius:5px;
- font-size:25px;
- font-family:Consolas,monospace;
- font-weight:bold;
- font-variant-numeric:tabular-nums;
- text-shadow:0 0 7px #7acbff;
- box-shadow:inset 0 1px 3px #ffffff16;
+ box-shadow:inset 0 0 12px #00000060;
+}
+
+.teller-display img{
+ display:block;
+ max-width:100%;
+ height:auto;
 }
 
 .teller-status{
@@ -263,8 +255,8 @@ footer{
  }
 
  .info-website{
-  padding:8px 14px;
-  margin-top:9px;
+  padding:9px 15px;
+  margin-top:10px;
  }
 
  .info-website p{
@@ -273,17 +265,11 @@ footer{
  }
 
  footer{
-  padding:6px;
+  padding:7px;
  }
 
  .teller-kader{
-  padding:7px 15px;
- }
-
- .cijfer{
-  width:26px;
-  height:34px;
-  font-size:20px;
+  padding:9px 18px;
  }
 }
 
@@ -310,12 +296,6 @@ footer{
  .teller-kader{
   max-width:100%;
   padding:10px;
- }
-
- .cijfer{
-  width:29px;
-  height:39px;
-  font-size:23px;
  }
 }
 </style>
@@ -554,7 +534,7 @@ Joeri.houben@st-martinus.be
 </main>
 
 <!-- ================================== -->
-<!-- NIEUWE DIGITALE BEZOEKERSTELLER    -->
+<!-- DIGITALE BEZOEKERSTELLER           -->
 <!-- ================================== -->
 
 <footer>
@@ -565,21 +545,15 @@ Joeri.houben@st-martinus.be
   👁 BEZOEKEN TECHNISCHE LEEROMGEVING
  </div>
 
- <div class="teller-cijfers"
-      id="tellerCijfers"
-      aria-label="Aantal bezoeken">
-
-  <span class="cijfer">–</span>
-  <span class="cijfer">–</span>
-  <span class="cijfer">–</span>
-  <span class="cijfer">–</span>
-  <span class="cijfer">–</span>
-  <span class="cijfer">–</span>
-
+ <div class="teller-display">
+  <img
+   id="bezoekersteller"
+   alt="Aantal bezoeken aan de technische leeromgeving"
+   referrerpolicy="no-referrer">
  </div>
 
  <div class="teller-status" id="tellerStatus">
-  Bezoekersaantal wordt geladen...
+  Totaal aantal paginaweergaven
  </div>
 
 </div>
@@ -591,142 +565,40 @@ Joeri.houben@st-martinus.be
 </footer>
 
 <!-- ================================== -->
-<!-- DIGITALE TELLER - JAVASCRIPT       -->
+<!-- BEZOEKERSTELLER JAVASCRIPT         -->
 <!-- ================================== -->
 
 <script>
 (function(){
 
- const cijfers = document.getElementById("tellerCijfers");
+ const teller = document.getElementById("bezoekersteller");
  const status = document.getElementById("tellerStatus");
 
- // Teller op basis van de GitHub Pages startpagina.
- // De externe dienst bewaart de telling.
- const website = window.location.origin +
-                 window.location.pathname;
+ // Vast adres zodat index.html en de hoofdpagina
+ // dezelfde teller gebruiken.
+ const website = "https://joerihouben-blip.github.io/";
 
- const tellerURL = new URL(
-  "https://hitscounter.dev/api/hit"
- );
+ const url = new URL("https://hitscounter.dev/api/hit");
 
- tellerURL.searchParams.set("url", website);
- tellerURL.searchParams.set("label", "");
- tellerURL.searchParams.set("icon", "eye");
- tellerURL.searchParams.set("color", "#ffffff");
- tellerURL.searchParams.set("message", "");
- tellerURL.searchParams.set("style", "flat");
- tellerURL.searchParams.set("tz", "Europe/Brussels");
+ url.searchParams.set("url", website);
+ url.searchParams.set("label", "");
+ url.searchParams.set("icon", "eye");
+ url.searchParams.set("color", "#ffffff");
+ url.searchParams.set("message", "");
+ url.searchParams.set("style", "flat");
+ url.searchParams.set("tz", "Europe/Brussels");
 
- // De gebruikte tellerservice levert een SVG-afbeelding.
- // We halen het getal eruit voor de digitale vormgeving.
- async function laadTeller(){
+ teller.onload = function(){
+  status.textContent = "Totaal aantal paginaweergaven";
+ };
 
-  try{
+ teller.onerror = function(){
+  teller.style.display = "none";
+  status.textContent =
+   "Bezoekersteller tijdelijk niet beschikbaar";
+ };
 
-   const antwoord = await fetch(tellerURL.toString(), {
-    cache:"no-store"
-   });
-
-   if(!antwoord.ok){
-    throw new Error("Tellerservice niet beschikbaar");
-   }
-
-   const svg = await antwoord.text();
-
-   const parser = new DOMParser();
-   const documentSVG = parser.parseFromString(
-    svg,
-    "image/svg+xml"
-   );
-
-   if(documentSVG.querySelector("parsererror")){
-    throw new Error("Ongeldige tellergegevens");
-   }
-
-   const teksten = Array.from(
-    documentSVG.querySelectorAll("text")
-   ).map(element => element.textContent.trim());
-
-   const getallen = teksten
-    .map(tekst => tekst.replace(/[\s.,]/g,""))
-    .filter(tekst => /^\d+$/.test(tekst));
-
-   if(getallen.length === 0){
-    throw new Error("Geen getal gevonden");
-   }
-
-   const aantal = Number(getallen[getallen.length-1]);
-
-   if(!Number.isSafeInteger(aantal)){
-    throw new Error("Ongeldig bezoekersaantal");
-   }
-
-   animeerTeller(aantal);
-   status.textContent = "Totaal aantal paginaweergaven";
-
-  }catch(fout){
-
-   cijfers.innerHTML = "";
-
-   for(let i=0;i<6;i++){
-    const vak = document.createElement("span");
-    vak.className = "cijfer";
-    vak.textContent = "–";
-    cijfers.appendChild(vak);
-   }
-
-   status.textContent =
-    "Bezoekersteller tijdelijk niet beschikbaar";
-
-   console.warn("Teller:", fout.message);
-  }
- }
-
- function toonGetal(waarde){
-
-  const tekst = Math.floor(waarde)
-   .toString()
-   .padStart(6,"0");
-
-  cijfers.innerHTML = "";
-
-  for(const karakter of tekst){
-
-   const vak = document.createElement("span");
-   vak.className = "cijfer";
-   vak.textContent = karakter;
-
-   cijfers.appendChild(vak);
-  }
- }
-
- function animeerTeller(doel){
-
-  const start = performance.now();
-  const duur = 1400;
-
-  function frame(tijd){
-
-   const verloop = Math.min(
-    (tijd-start)/duur,
-    1
-   );
-
-   const vloeiend = 1-Math.pow(1-verloop,3);
-
-   toonGetal(doel*vloeiend);
-
-   if(verloop<1){
-    requestAnimationFrame(frame);
-   }else{
-    toonGetal(doel);
-   }
-  }
-
-  requestAnimationFrame(frame);
- }
-
- laadTeller();
+ teller.src = url.toString();
 
 })();
 </script>
