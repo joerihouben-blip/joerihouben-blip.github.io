@@ -8,103 +8,197 @@
 
 <style>
 *{box-sizing:border-box}
+
 html,body{
- margin:0;min-height:100%;
+ margin:0;
+ min-height:100%;
  font-family:Arial,sans-serif;
- background:#eaf0f7;color:#243447;
+ background:#eaf0f7;
+ color:#243447;
 }
-body{display:flex;flex-direction:column;min-height:100vh}
+
+body{
+ display:flex;
+ flex-direction:column;
+ min-height:100vh;
+}
+
 header{
  background:linear-gradient(135deg,#102d50,#1765a5);
- color:white;display:flex;justify-content:space-between;
- align-items:center;gap:12px;padding:10px 20px;
+ color:white;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:12px;
+ padding:10px 20px;
 }
+
 header h1{margin:0;font-size:22px}
 header p{margin:0;font-size:13px}
+
 main{
- width:100%;max-width:1800px;
- margin:0 auto;padding:10px;flex:1;
+ width:100%;
+ max-width:1800px;
+ margin:0 auto;
+ padding:10px;
+ flex:1;
 }
+
 .dashboard{
  display:grid;
  grid-template-columns:repeat(4,minmax(0,1fr));
- gap:10px;align-items:start;
+ gap:10px;
+ align-items:start;
 }
+
 .hoofdrubriek{
- background:white;border-radius:9px;padding:9px;
- box-shadow:0 2px 8px #00000012;min-width:0;
+ background:white;
+ border-radius:9px;
+ padding:9px;
+ box-shadow:0 2px 8px #00000012;
+ min-width:0;
 }
+
 .hoofdrubriek h2{
- margin:0 0 9px;padding:9px;background:#123e70;
- color:white;border-radius:6px;text-align:center;
+ margin:0 0 9px;
+ padding:9px;
+ background:#123e70;
+ color:white;
+ border-radius:6px;
+ text-align:center;
  font-size:17px;
 }
+
 .onderdeel{
- background:#f4f8fc;border:1px solid #dce6f0;
- border-radius:7px;padding:8px;margin-bottom:8px;
+ background:#f4f8fc;
+ border:1px solid #dce6f0;
+ border-radius:7px;
+ padding:8px;
+ margin-bottom:8px;
 }
+
 .onderdeel:last-child{margin-bottom:0}
+
 .onderdeel h3{
- color:#14558c;margin:0 0 5px;font-size:14px;
+ color:#14558c;
+ margin:0 0 5px;
+ font-size:14px;
 }
+
 .knop{
- display:block;background:#1765a5;color:white;
- text-decoration:none;border-radius:5px;
- padding:7px 8px;margin-top:5px;font-size:12px;
- font-weight:bold;text-align:center;line-height:1.25;
+ display:block;
+ background:#1765a5;
+ color:white;
+ text-decoration:none;
+ border-radius:5px;
+ padding:7px 8px;
+ margin-top:5px;
+ font-size:12px;
+ font-weight:bold;
+ text-align:center;
+ line-height:1.25;
 }
-.knop:hover,.knop:focus{background:#103d6b}
+
+.knop:hover,.knop:focus{
+ background:#103d6b;
+}
+
 .binnenkort{
- font-size:11px;color:#718096;font-style:italic;
+ font-size:11px;
+ color:#718096;
+ font-style:italic;
 }
+
 .info-website{
- max-width:1250px;margin:16px auto 8px;
- padding:14px 20px;background:#e0effb;
+ max-width:1250px;
+ margin:16px auto 8px;
+ padding:14px 20px;
+ background:#e0effb;
  border:1px solid #b5d4ec;
  border-left:5px solid #1765a5;
- border-radius:9px;text-align:center;
+ border-radius:9px;
+ text-align:center;
  box-shadow:0 2px 8px #0000000c;
 }
+
 .info-website h2{
- margin:0 0 8px;color:#123e70;font-size:17px;
+ margin:0 0 8px;
+ color:#123e70;
+ font-size:17px;
 }
+
 .info-website p{
- font-size:13px;line-height:1.5;margin:7px 0;
+ font-size:13px;
+ line-height:1.5;
+ margin:7px 0;
 }
-.info-website a{color:#075b9e;font-weight:bold}
+
+.info-website a{
+ color:#075b9e;
+ font-weight:bold;
+}
+
 footer{
- background:#102d50;color:white;text-align:center;
- font-size:12px;padding:12px;display:flex;
- flex-direction:column;align-items:center;
- justify-content:center;gap:9px;
+ background:#102d50;
+ color:white;
+ text-align:center;
+ font-size:12px;
+ padding:12px;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ gap:9px;
 }
+
 .teller-kader{
- display:flex;flex-direction:column;align-items:center;
- gap:9px;padding:13px 24px;border-radius:12px;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ gap:9px;
+ padding:13px 24px;
+ border-radius:12px;
  background:linear-gradient(135deg,#0a223b,#164c78);
  border:1px solid #3978a6;
  box-shadow:0 0 15px #4db8ff35;
 }
+
 .teller-titel{
- color:#c9e8ff;font-size:11px;
- font-weight:bold;letter-spacing:1px;
+ color:#c9e8ff;
+ font-size:11px;
+ font-weight:bold;
+ letter-spacing:1px;
 }
+
 .teller-cijfers{
- display:flex;align-items:center;
- justify-content:center;gap:5px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:5px;
 }
+
 .cijfer{
- width:35px;height:47px;display:flex;
- align-items:center;justify-content:center;
+ width:35px;
+ height:47px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
  background:linear-gradient(180deg,#245681,#0b2946);
- color:white;border:1px solid #4d94c4;
- border-radius:5px;font-size:27px;
- font-family:Consolas,monospace;font-weight:bold;
+ color:white;
+ border:1px solid #4d94c4;
+ border-radius:5px;
+ font-size:27px;
+ font-family:Consolas,monospace;
+ font-weight:bold;
  font-variant-numeric:tabular-nums;
  text-shadow:0 0 8px #7acbff;
  box-shadow:inset 0 1px 3px #ffffff16;
 }
-.teller-status{color:#b4d3ea;font-size:10px}
+
+.teller-status{
+ color:#b4d3ea;
+ font-size:10px;
+}
 
 @media(min-width:1101px) and (max-height:750px){
  header{padding:7px 15px}
@@ -122,11 +216,18 @@ footer{
  .teller-kader{padding:8px 18px}
  .cijfer{width:28px;height:36px;font-size:22px}
 }
+
 @media(max-width:1100px){
- .dashboard{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .dashboard{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+ }
 }
+
 @media(max-width:600px){
- header{flex-direction:column;text-align:center}
+ header{
+  flex-direction:column;
+  text-align:center;
+ }
  .dashboard{grid-template-columns:1fr}
  .info-website{padding:12px}
  .teller-kader{max-width:100%;padding:10px}
@@ -136,6 +237,7 @@ footer{
 </head>
 
 <body>
+
 <header>
  <h1>Joeri Houben</h1>
  <p>Technische leeromgeving | Leren • Oefenen • Simuleren</p>
@@ -150,12 +252,15 @@ footer{
 
 <div class="onderdeel">
 <h3>Stookolie</h3>
+
 <a class="knop" href="7Ti-stookolie_V51_nieuwe_doorsnede.html">
  Stookoliebrander – simulatie
 </a>
+
 <a class="knop" href="Huisbrandolie_7TI%20%281%29.html">
  Theorie huisbrandolie
 </a>
+
 <a class="knop" href="Elektrische_werking_stookoliebrander_7TI.html">
  Elektrische werking brander
 </a>
@@ -163,6 +268,7 @@ footer{
 
 <div class="onderdeel">
 <h3>Gasketels</h3>
+
 <a class="knop" href="Gasketel_7TI%20%281%29.html">
  Gasketel – simulatie
 </a>
@@ -175,6 +281,7 @@ footer{
 
 <div class="onderdeel">
 <h3>Hydraulica</h3>
+
 <a class="knop" href="expansievat_cv_simulatie_bovenaansluiting.html">
  Expansievat
 </a>
@@ -187,9 +294,11 @@ footer{
 
 <div class="onderdeel">
 <h3>Warmwaterbereiding</h3>
+
 <a class="knop" href="sanitair-warmwaterbereiding.html">
  Sanitair warmwaterbereiding
 </a>
+
 <a class="knop" href="boiler-rekentrainer.html">
  Boiler rekentrainers
 </a>
@@ -238,7 +347,7 @@ footer{
  ⚡ Poulet spanning en stroom
 </a>
 
-<!-- NIEUW: STER / DRIEHOEK -->
+<!-- STER / DRIEHOEK -->
 <a class="knop" href="Ster_Driehoek_Leerlingen_V2.html">
  ⚡ Ster / driehoek
 </a>
@@ -262,9 +371,11 @@ footer{
 
 <div class="onderdeel">
 <h3>Ventilatiesystemen</h3>
+
 <a class="knop" href="ventilatiesysteem_C.html">
  Ventilatiesysteem C – simulatie
 </a>
+
 <a class="knop" href="ventilatiesysteem_D_zonder_uitlegteksten.html">
  Ventilatiesysteem D – simulatie
 </a>
@@ -312,10 +423,12 @@ Joeri.houben@st-martinus.be
 
 <!-- FOOTER EN BEZOEKERSTELLER -->
 <footer>
+
 <div class="teller-kader">
  <div class="teller-titel">
   👁 BEZOEKEN TECHNISCHE LEEROMGEVING
  </div>
+
  <div class="teller-cijfers"
       id="tellerCijfers"
       aria-label="Aantal paginaweergaven">
@@ -326,6 +439,7 @@ Joeri.houben@st-martinus.be
   <span class="cijfer">–</span>
   <span class="cijfer">–</span>
  </div>
+
  <div class="teller-status" id="tellerStatus">
   Teller wordt geladen...
  </div>
@@ -334,23 +448,28 @@ Joeri.houben@st-martinus.be
 <div>
  Gemaakt door Joeri Houben voor Sint-Martinus Herk-de-Stad
 </div>
+
 </footer>
 
 <script>
 (function(){
+
  const tellerCijfers =
   document.getElementById("tellerCijfers");
+
  const tellerStatus =
   document.getElementById("tellerStatus");
 
  const API =
   "https://my-own-counter-api-production.up.railway.app";
+
  const namespace = "joerihouben-blip-github-io";
  const sleutel = "technische-leeromgeving-bezoeken";
 
  function toonGetal(getal){
   const tekst = String(Math.floor(getal)).padStart(6,"0");
   tellerCijfers.innerHTML = "";
+
   for(const karakter of tekst){
    const vak = document.createElement("span");
    vak.className = "cijfer";
@@ -362,17 +481,21 @@ Joeri.houben@st-martinus.be
  function animeerGetal(eindwaarde){
   const start = performance.now();
   const duur = 1400;
+
   function stap(tijd){
    const voortgang = Math.min((tijd-start)/duur,1);
    const vloeiend = 1-Math.pow(1-voortgang,3);
    const waarde = Math.floor(eindwaarde*vloeiend);
+
    toonGetal(waarde);
+
    if(voortgang<1){
     requestAnimationFrame(stap);
    }else{
     toonGetal(eindwaarde);
    }
   }
+
   requestAnimationFrame(stap);
  }
 
@@ -383,11 +506,21 @@ Joeri.houben@st-martinus.be
     encodeURIComponent(namespace) + "/" +
     encodeURIComponent(sleutel);
 
-   const antwoord = await fetch(adres,{
-    method:"GET",
-    cache:"no-store",
-    signal:AbortSignal.timeout(10000)
-   });
+   const controller = new AbortController();
+   const timeout = setTimeout(
+    ()=>controller.abort(),10000
+   );
+
+   let antwoord;
+   try{
+    antwoord = await fetch(adres,{
+     method:"GET",
+     cache:"no-store",
+     signal:controller.signal
+    });
+   }finally{
+    clearTimeout(timeout);
+   }
 
    if(!antwoord.ok){
     throw new Error("HTTP " + antwoord.status);
@@ -420,13 +553,16 @@ Joeri.houben@st-martinus.be
 
   }catch(fout){
    console.error("Bezoekersteller:",fout);
+
    tellerStatus.textContent =
     "Bezoekersteller tijdelijk niet beschikbaar";
   }
  }
 
  laadBezoekers();
+
 })();
 </script>
+
 </body>
 </html>
