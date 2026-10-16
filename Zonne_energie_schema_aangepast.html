@@ -39,7 +39,6 @@ footer{text-align:center;background:#102d50;color:white;padding:5px;font-size:11
 .yieldhead b{color:#168257}
 .yieldbox .muted{font-size:10px;margin-top:3px}
 
-/* Compact dashboard op één desktopscherm */
 @media(min-width:851px){
  html,body{height:100%;overflow:hidden}
  main{grid-template-columns:minmax(285px,340px) minmax(0,1fr);height:100%;overflow:hidden}
@@ -116,10 +115,8 @@ footer{text-align:center;background:#102d50;color:white;padding:5px;font-size:11
 </select>
 </div>
 <div class="field">
-<label for="pvbreaker">PV-automaat (A)</label>
-<select id="pvbreaker">
-<option>10</option><option selected>20</option><option>25</option><option>32</option><option>40</option><option>50</option><option>63</option>
-</select>
+<label for="pvbreaker">PV-automaat (automatisch)</label>
+<input id="pvbreaker" type="text" value="20 A" readonly>
 </div>
 <div class="field">
 <label for="diff">Differentieel vochtige kringen (A)</label>
@@ -219,29 +216,56 @@ Gemaakt door Joeri Houben voor Sint-Martinus School Herk-de-Stad — didactische
 
 <script>
 const $=id=>document.getElementById(id);
-const ids=['count','wp','voltage','series','phase','inv','mainbreaker','pvbreaker','diff','orientation','tilt'];
+const ids=['count','wp','voltage','series','phase','inv','mainbreaker','diff','orientation','tilt'];
 ids.forEach(id=>$(id).addEventListener('input',update));
 
 function update(){
  const n=+$('count').value,w=+$('wp').value,v=+$('voltage').value,s=+$('series').value;
  const p=+$('inv').value,net=$('phase').value,m=+$('mainbreaker').value;
- const pv=+$('pvbreaker').value,d=+$('diff').value;
- if(![n,w,v,s,p,m,pv,d].every(x=>Number.isFinite(x)&&x>0)||!Number.isInteger(n)||!Number.isInteger(s)||n>100){
+ const d=+$('diff').value;
+
+ if(![n,w,v,s,p,m,d].every(x=>Number.isFinite(x)&&x>0)||!Number.isInteger(n)||!Number.isInteger(s)||n>100){
   $('status').textContent='Vul geldige positieve waarden in (maximaal 100 panelen).';
   $('status').className='status danger';
   return;
  }
+
  const strings=n/s,seriesV=s*v,dc=n*w;
- const acI=net==='230'?p/230:net==='400'?p/(Math.sqrt(3)*400):p/(Math.sqrt(3)*230);
- const sum=m+pv,need=sum>d;
- const nominal=[10,13,16,20,25,32,40,50,63,80,100].filter(x=>x<=d).at(-1);
+
+ // AC-stroom berekenen
+ const acI=net==='230'
+   ?p/230
+   :net==='400'
+     ?p/(Math.sqrt(3)*400)
+     :p/(Math.sqrt(3)*230);
+
+ // PV-automaat automatisch kiezen
+ const ratings=[6,10,16,20,25,32,40,50,63,80,100,125];
+ const pv=ratings.find(a=>a>=acI);
+
+ $('pvbreaker').value=pv?pv+' A':'Buiten bereik';
+
+ // Conservatieve som van net- en PV-beveiliging
+ const sum=m+(pv||0);
+ const need=!!pv&&sum>d;
+ const nominal=[10,13,16,20,25,32,40,50,63,80,100]
+   .filter(x=>x<=d).at(-1);
+
  $('total').textContent=(dc/1000).toLocaleString('nl-BE',{maximumFractionDigits:2})+' kWp';
  $('dcvolt').textContent=seriesV.toLocaleString('nl-BE',{maximumFractionDigits:1})+' V';
  $('amps').textContent=acI.toLocaleString('nl-BE',{maximumFractionDigits:1})+' A';
- $('stringinfo').textContent=`${n} panelen × ${w} Wp = ${dc} Wp. ${s} in serie × ${v} V = ${seriesV} V. ${strings} string(s). *AC-stroom benaderd bij cos φ = 1; controleer de maximale uitgangsstroom van de omvormer.`;
- $('panels').replaceChildren(...Array.from({length:n},()=>{const e=document.createElement('div');e.className='module';return e}));
+
+ $('stringinfo').textContent=
+ `${n} panelen × ${w} Wp = ${dc} Wp. ${s} in serie × ${v} V = ${seriesV} V. ${strings} string(s). *AC-stroom benaderd bij cos φ = 1; controleer de maximale uitgangsstroom van de omvormer.`;
+
+ $('panels').replaceChildren(...Array.from({length:n},()=>{
+  const e=document.createElement('div');
+  e.className='module';
+  return e;
+ }));
+
  $('mainlabel').textContent=m+' A';
- $('pvlabel').textContent='PV-automaat '+pv+' A';
+ $('pvlabel').textContent='PV-automaat '+(pv?pv+' A':'te bepalen');
  $('invlabel').textContent=(p/1000).toLocaleString('nl-BE')+' kW';
  $('difflabel').textContent='30 mA · '+d+' A';
  $('brakelabel').textContent=nominal+' A';
@@ -250,35 +274,46 @@ function update(){
 
  let warnings=[];
  if(n%s!==0)warnings.push('Het aantal panelen is niet deelbaar door het aantal panelen per string.');
- if(acI>pv)warnings.push('De berekende AC-stroom overschrijdt de gekozen PV-automaat: controleer de dimensionering.');
+ if(!pv)warnings.push('De berekende AC-stroom is hoger dan de beschikbare automaatwaarden. Controleer de dimensionering.');
  if(dc>p)warnings.push('Het DC-piekvermogen ligt boven het AC-vermogen: clipping is mogelijk.');
- if(need){
+
+ if(!pv){
+  $('status').className='status danger';
+  $('status').innerHTML='<b>Geen passende PV-automaat binnen het bereik.</b> Controleer het omvormervermogen en de dimensionering.';
+ }else if(need){
   $('status').className='status warn';
   $('status').innerHTML=`<b>Extra stroombeperking te controleren.</b><br>Conservatieve som: ${m} A + ${pv} A = ${sum} A, groter dan differentieel ${d} A. In dit principeschema verschijnt daarom een remautomaat van <b>${nominal} A</b> vóór de betrokken verbruikersgroep. Controleer ook de bescherming van de hoofddifferentieel, rails en bedrading.`;
  }else{
   $('status').className='status ok';
   $('status').innerHTML=`<b>Volgens de vereenvoudigde som geen extra remautomaat nodig.</b><br>${m} A + ${pv} A = ${sum} A ≤ ${d} A. Dit bevestigt nog niet dat de volledige installatie conform is.`;
  }
+
  if(warnings.length)$('status').innerHTML+='<br><b>Let op:</b> '+warnings.join(' ');
  updateYield(dc,p);
 }
 
 function updateYield(dc,p){
  const orient=$('orientation').value,tilt=Number($('tilt').value);
-const factors={S:1,SE:.90,SW:.90,E:.75,W:.75,N:.115};
+ const factors={S:1,SE:.90,SW:.90,E:.75,W:.75,N:.115};
+
  if(!Number.isFinite(tilt)||tilt<0||tilt>90){
   $('annual').textContent='Ongeldige dakhelling';
   $('yieldchart').replaceChildren();
   return;
  }
+
  const tiltFactor=Math.max(.55,1-.00019*Math.pow(tilt-35,2));
  const months=[.025,.045,.075,.105,.125,.135,.135,.12,.095,.07,.045,.025];
  const annual=Math.max(0,dc/1000*950*factors[orient]*tiltFactor*Math.min(1,p/dc*1.16));
+
  $('annual').textContent=Math.round(annual).toLocaleString('nl-BE')+' kWh/jaar';
+
  const vals=months.map(f=>annual*f),max=Math.max(...vals,1);
  const names=['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
- const svg=$('yieldchart');svg.replaceChildren();
+ const svg=$('yieldchart');
+ svg.replaceChildren();
  const ns='http://www.w3.org/2000/svg';
+
  const add=(tag,attrs,txt)=>{
   const e=document.createElementNS(ns,tag);
   for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);
@@ -286,7 +321,9 @@ const factors={S:1,SE:.90,SW:.90,E:.75,W:.75,N:.115};
   svg.appendChild(e);
   return e;
  };
+
  add('line',{x1:30,y1:118,x2:642,y2:118,stroke:'#b4c6d8','stroke-width':1});
+
  vals.forEach((v,i)=>{
   const x=36+i*50,h=v/max*86;
   add('rect',{x,y:118-h,width:33,height:h,rx:3,fill:'#249d66'});
@@ -294,12 +331,8 @@ const factors={S:1,SE:.90,SW:.90,E:.75,W:.75,N:.115};
   add('text',{x:x+16.5,y:Math.max(12,113-h),'text-anchor':'middle','font-size':10,fill:'#24425d'},String(Math.round(v)));
  });
 }
+
 update();
 </script>
 </body>
 </html>
-
-<footer>
-  © 2026 – Gemaakt door Joeri Houben voor
-  Sint-Martinus School Herk-de-Stad
-</footer>
