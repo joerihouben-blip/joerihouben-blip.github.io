@@ -47,3 +47,8 @@ function update(){const g=$('gas').value,e=+$('evap').value,c=+$('cond').value;c
 function makeParticles(){const ns='http://www.w3.org/2000/svg';const segments=[['hotPath',10,'gasparticle'],['condPath',20,'gasparticle'],['liqPath',14,'liquidparticle'],['mixPath',7,'mixparticle'],['evapPath',22,'mixparticle'],['suctionPath',12,'gasparticle']];for(const [path,count,cls] of segments){for(let i=0;i<count;i++){const circle=document.createElementNS(ns,'circle');circle.setAttribute('r',cls==='mixparticle'?String(3+i%3):String(2+i%2));circle.setAttribute('class','particle '+cls);const motion=document.createElementNS(ns,'animateMotion');motion.setAttribute('dur',path==='evapPath'?'8s':'6s');motion.setAttribute('repeatCount','indefinite');motion.setAttribute('begin',(-i/count*(path==='evapPath'?8:6))+'s');const mp=document.createElementNS(ns,'mpath');mp.setAttribute('href','#'+path);motion.appendChild(mp);circle.appendChild(motion);$('particles').appendChild(circle)}}}makeParticles();
 ['gas','evap','cond'].forEach(id=>$(id).addEventListener('input',update));let paused=false;$('toggle').onclick=()=>{paused=!paused;const svg=document.querySelector('.stage svg');if(paused)svg.pauseAnimations();else svg.unpauseAnimations();$('toggle').textContent=paused?'▶ Start':'⏸ Pauze'};$('reset').onclick=()=>{$('gas').value='R134a';$('evap').value=-5;$('cond').value=40;paused=false;document.querySelector('.stage svg').unpauseAnimations();$('toggle').textContent='⏸ Pauze';update()};update();
 </script></body></html>
+
+<span>
+ © 2026 · Gemaakt door Joeri Houben voor
+ Sint-Martinus School Herk-de-Stad
+</span>
