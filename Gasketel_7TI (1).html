@@ -372,7 +372,7 @@ m26-166v166m26-166v166m26-166v166m26-166v166"/>
 <p class="small">
  De retourtemperatuur hangt af van de doorstroming en
  warmteafgifte. Bij een gesloten radiatorkraan koelt de
- retourmeting af naar 25 °C.
+ retourmeting af naar 22 °C.
 </p>
 </div>
 
@@ -476,7 +476,6 @@ function getState(now=performance.now()){
 
 function update(){
  const s=getState();
- const now=performance.now();
 
  $('roomOut').textContent=s.room+' °C';
  $('setOut').textContent=s.set+' °C';
@@ -494,8 +493,7 @@ function update(){
  $('returnRead').textContent=
   returnActual.toFixed(1)+' °C';
 
- const delta=s.rad===0?0:
-   Math.max(0,departureActual-returnActual)*s.rad/5;
+ const delta=Math.max(0,departureActual-returnActual);
  $('dt').textContent=delta.toFixed(1);
 
  $('power').textContent=s.power+'%';
@@ -707,16 +705,40 @@ setInterval(()=>{
  departureActual+=(departureTarget-departureActual)*
    Math.min(1,dtSec*1.1);
 
- const desired=tapOpen?
-   Math.min(boilerTemp,50):
-   s.cv?
-   Math.max(25,Math.min(departureActual,
-     departureActual-24*s.emission*Math.sqrt(flow))):
-   25;
+ // Radiatorkraan stuurt de retourtemperatuur aan.
+ // Stand 5 = klein temperatuurverschil.
+ // Stand 1 = groot temperatuurverschil.
+ // Stand 0 = geen stroming door radiator.
 
- returnActual+=(desired-returnActual)*
-   Math.min(1,dtSec*(s.rad===0&&!tapOpen?.22:.11));
- returnActual=Math.min(returnActual,boilerTemp);
+ const radiatorDelta = {
+   0:0,
+   1:32,
+   2:25,
+   3:18,
+   4:11,
+   5:5
+ }[s.rad];
+
+ const desired = tapOpen ? 25 :
+   (!s.heat || s.rad===0) ? 22 :
+   Math.max(
+     22,
+     departureActual -
+     radiatorDelta*(0.35+0.65*s.emission)
+   );
+
+ // Temperatuur reageert zichtbaar binnen enkele seconden.
+ const responseSpeed=2.4;
+
+ returnActual +=
+   (desired-returnActual)*
+   (1-Math.exp(-responseSpeed*dtSec));
+
+ returnActual=Math.min(
+   returnActual,
+   departureActual,
+   boilerTemp
+ );
 
  update();
 },100);
