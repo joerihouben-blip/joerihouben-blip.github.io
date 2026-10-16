@@ -265,14 +265,7 @@ function update(){
 
 function updateYield(dc,p){
  const orient=$('orientation').value,tilt=Number($('tilt').value);
- const factors={
- S:1,
- SE:.90,
- SW:.90,
- E:.75,
- W:.75,
- N:.115
-};
+const factors={S:1,SE:.90,SW:.90,E:.75,W:.75,N:.115};
  if(!Number.isFinite(tilt)||tilt<0||tilt>90){
   $('annual').textContent='Ongeldige dakhelling';
   $('yieldchart').replaceChildren();
