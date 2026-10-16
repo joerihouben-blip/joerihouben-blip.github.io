@@ -19,6 +19,7 @@ h2{font-size:16px;margin:2px 0 10px;color:#123e70}
 h3{font-size:13px;color:#123e70;margin:12px 0 6px}
 .field{display:grid;grid-template-columns:1fr 105px;align-items:center;gap:8px;margin:8px 0}
 input,select{width:100%;padding:6px;border:1px solid #c6d5e5;border-radius:5px}
+input[readonly]{background:#e8f4ed;color:#12633c;font-weight:bold}
 .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .metric{background:#eaf3ff;border-radius:7px;text-align:center;padding:8px 3px}
 .metric b{display:block;color:#12548d;font-size:18px}
@@ -79,12 +80,29 @@ footer{text-align:center;background:#102d50;color:white;padding:5px;font-size:11
 <main>
 <section class="panel">
 <h2>1. Zonnepanelen instellen</h2>
-<div class="field"><label for="count">Aantal panelen</label><input id="count" type="number" min="1" max="100" value="10"></div>
-<div class="field"><label for="wp">Piekvermogen per paneel (Wp)</label><input id="wp" type="number" min="1" value="460"></div>
-<div class="field"><label for="voltage">Spanning per paneel bij MPP (V)</label><input id="voltage" type="number" min="1" value="35"></div>
-<div class="field"><label for="series">Panelen per string (serie)</label><input id="series" type="number" min="1" value="10"></div>
+
+<div class="field">
+<label for="count">Aantal panelen</label>
+<input id="count" type="number" min="1" max="100" value="10">
+</div>
+
+<div class="field">
+<label for="wp">Piekvermogen per paneel (Wp)</label>
+<input id="wp" type="number" min="1" value="460">
+</div>
+
+<div class="field">
+<label for="voltage">Spanning per paneel bij MPP (V)</label>
+<input id="voltage" type="number" min="1" value="35">
+</div>
+
+<div class="field">
+<label for="series">Panelen per string (serie)</label>
+<input id="series" type="number" min="1" value="10">
+</div>
 
 <h3>Oriëntatie en dakhelling</h3>
+
 <div class="field">
 <label for="orientation">Oriëntatie panelen</label>
 <select id="orientation">
@@ -96,9 +114,14 @@ footer{text-align:center;background:#102d50;color:white;padding:5px;font-size:11
 <option value="N">Noord</option>
 </select>
 </div>
-<div class="field"><label for="tilt">Dakhelling (°)</label><input id="tilt" type="number" min="0" max="90" value="35"></div>
+
+<div class="field">
+<label for="tilt">Dakhelling (°)</label>
+<input id="tilt" type="number" min="0" max="90" value="35">
+</div>
 
 <h3>2. Omvormer en beveiligingen</h3>
+
 <div class="field">
 <label for="phase">AC-net</label>
 <select id="phase">
@@ -107,36 +130,67 @@ footer{text-align:center;background:#102d50;color:white;padding:5px;font-size:11
 <option value="230three">3 × 230 V</option>
 </select>
 </div>
-<div class="field"><label for="inv">Maximaal AC-vermogen omvormer (W)</label><input id="inv" type="number" min="1" value="4000"></div>
+
+<div class="field">
+<label for="inv">Maximaal AC-vermogen omvormer (W)</label>
+<input id="inv" type="number" min="1" value="4000">
+</div>
+
 <div class="field">
 <label for="mainbreaker">Hoofdbeveiliging (A)</label>
 <select id="mainbreaker">
-<option>25</option><option>32</option><option selected>40</option><option>50</option><option>63</option>
+<option>25</option>
+<option>32</option>
+<option selected>40</option>
+<option>50</option>
+<option>63</option>
 </select>
 </div>
+
 <div class="field">
 <label for="pvbreaker">PV-automaat (automatisch)</label>
 <input id="pvbreaker" type="text" value="20 A" readonly>
 </div>
+
 <div class="field">
 <label for="diff">Differentieel vochtige kringen (A)</label>
 <select id="diff">
-<option selected>40</option><option>63</option><option>80</option><option>100</option>
+<option selected>40</option>
+<option>63</option>
+<option>80</option>
+<option>100</option>
 </select>
 </div>
+
 <div class="status" id="status"></div>
+
 <p class="muted">
-Didactisch model: de PV-aansluiting bevindt zich tussen de hoofddifferentieel en de differentieel van de vochtige kringen. De remautomaat beperkt enkel de stroom in de achterliggende groep; de automaat van 16 A beveiligt de getekende eindkring. De hoofddifferentieel, rails, kabels en overige kringen vereisen een afzonderlijke beveiligingscontrole volgens het AREI.
+Didactisch model: de PV-aansluiting bevindt zich tussen de
+hoofddifferentieel en de differentieel van de vochtige kringen.
+De remautomaat beperkt enkel de stroom in de achterliggende groep.
+De automaat van 16 A beveiligt de getekende eindkring.
+De hoofddifferentieel, rails, kabels en overige kringen vereisen
+een afzonderlijke beveiligingscontrole volgens het AREI.
 </p>
 </section>
 
 <section class="panel scene">
+
 <div class="metricsbox">
 <h2>3. Berekende waarden</h2>
 <div class="metrics">
-<div class="metric"><b id="total">—</b><span>DC-piekvermogen</span></div>
-<div class="metric"><b id="dcvolt">—</b><span>MPP-stringspanning</span></div>
-<div class="metric"><b id="amps">—</b><span>Max. AC-stroom*</span></div>
+<div class="metric">
+<b id="total">—</b>
+<span>DC-piekvermogen</span>
+</div>
+<div class="metric">
+<b id="dcvolt">—</b>
+<span>MPP-stringspanning</span>
+</div>
+<div class="metric">
+<b id="amps">—</b>
+<span>Max. AC-stroom*</span>
+</div>
 </div>
 <p class="muted" id="stringinfo"></p>
 </div>
@@ -148,53 +202,72 @@ Didactisch model: de PV-aansluiting bevindt zich tussen de hoofddifferentieel en
 
 <div class="box schemabox">
 <strong>Elektrisch principeschema – automatisch aangepast</strong>
-<svg viewBox="0 0 900 400" role="img" aria-label="Elektrisch principeschema">
-<g fill="#183c60" font-family="Arial" font-size="15" text-anchor="middle">
+
+<svg viewBox="0 0 900 400"
+role="img"
+aria-label="Elektrisch principeschema">
+
+<g fill="#183c60"
+font-family="Arial"
+font-size="15"
+text-anchor="middle">
+
 <text font-weight="bold" x="130" y="23">NET</text>
 <text font-weight="bold" x="710" y="23">ZONNEPANELEN</text>
 
-<rect x="45" y="35" width="170" height="47" rx="7" fill="#e6effb" stroke="#24629a" stroke-width="2"/>
+<rect x="45" y="35" width="170" height="47" rx="7"
+fill="#e6effb" stroke="#24629a" stroke-width="2"/>
 <text x="130" y="54">Hoofdbeveiliging</text>
 <text id="mainlabel" x="130" y="72">40 A</text>
 <path d="M130 82 V99" stroke="#24629a" stroke-width="4"/>
 
-<rect x="45" y="99" width="170" height="47" rx="7" fill="#e4f4e9" stroke="#25804a" stroke-width="2"/>
+<rect x="45" y="99" width="170" height="47" rx="7"
+fill="#e4f4e9" stroke="#25804a" stroke-width="2"/>
 <text x="130" y="118">Hoofddifferentieel</text>
 <text x="130" y="136">300 mA</text>
-<path d="M130 146 V174 H445" fill="none" stroke="#24629a" stroke-width="4"/>
+<path d="M130 146 V174 H445"
+fill="none" stroke="#24629a" stroke-width="4"/>
 
-<rect x="625" y="35" width="170" height="47" rx="7" fill="#fff0d2" stroke="#b87b13" stroke-width="2"/>
+<rect x="625" y="35" width="170" height="47" rx="7"
+fill="#fff0d2" stroke="#b87b13" stroke-width="2"/>
 <text x="710" y="54">Omvormer</text>
 <text id="invlabel" x="710" y="72">4,0 kW</text>
 <path d="M710 82 V100" stroke="#24629a" stroke-width="4"/>
 
-<rect x="625" y="100" width="170" height="43" rx="7" fill="#e8f1ff" stroke="#24629a" stroke-width="2"/>
+<rect x="625" y="100" width="170" height="43" rx="7"
+fill="#e8f1ff" stroke="#24629a" stroke-width="2"/>
 <text id="pvlabel" x="710" y="126">PV-automaat 20 A</text>
-<path d="M710 143 V174 H445" fill="none" stroke="#24629a" stroke-width="4"/>
+<path d="M710 143 V174 H445"
+fill="none" stroke="#24629a" stroke-width="4"/>
 
 <circle cx="445" cy="174" r="7" fill="#24629a"/>
 <text font-size="12" x="445" y="161">Aansluitpunt PV</text>
 <path d="M445 181 V197" stroke="#24629a" stroke-width="4"/>
 
 <g id="brakegroup">
-<rect x="355" y="197" width="180" height="48" rx="7" fill="#ffe5dc" stroke="#d4552f" stroke-width="3"/>
+<rect x="355" y="197" width="180" height="48" rx="7"
+fill="#ffe5dc" stroke="#d4552f" stroke-width="3"/>
 <text x="445" y="216">Remautomaat</text>
 <text id="brakelabel" x="445" y="234">40 A</text>
 <path d="M445 245 V258" stroke="#24629a" stroke-width="4"/>
 </g>
+
 <g id="nobrake">
 <path d="M445 197 V258" stroke="#24629a" stroke-width="4"/>
 </g>
 
-<rect x="345" y="258" width="200" height="48" rx="7" fill="#e4f4e9" stroke="#25804a" stroke-width="2"/>
+<rect x="345" y="258" width="200" height="48" rx="7"
+fill="#e4f4e9" stroke="#25804a" stroke-width="2"/>
 <text x="445" y="278">Differentieel vochtige kringen</text>
 <text id="difflabel" x="445" y="296">30 mA · 40 A</text>
 <path d="M445 306 V326" stroke="#24629a" stroke-width="4"/>
 
-<rect x="360" y="326" width="170" height="45" rx="7" fill="#e8f1ff" stroke="#24629a" stroke-width="2"/>
+<rect x="360" y="326" width="170" height="45" rx="7"
+fill="#e8f1ff" stroke="#24629a" stroke-width="2"/>
 <text x="445" y="344">Automaat 16 A</text>
 <text font-size="12" x="445" y="360">Verbruikerskring</text>
 <path d="M445 371 V390" stroke="#24629a" stroke-width="4"/>
+
 </g>
 </svg>
 </div>
@@ -204,97 +277,184 @@ Didactisch model: de PV-aansluiting bevindt zich tussen de hoofddifferentieel en
 <strong>Geschatte opbrengst per maand</strong>
 <b id="annual">— kWh/jaar</b>
 </div>
-<svg id="yieldchart" viewBox="0 0 650 145" preserveAspectRatio="none" aria-label="Maandelijkse zonne-opbrengst"></svg>
-<div class="muted">Indicatieve schatting voor België, zonder schaduw; geen weersvoorspelling of PVGIS-berekening.</div>
+
+<svg id="yieldchart"
+viewBox="0 0 650 145"
+preserveAspectRatio="none"
+aria-label="Maandelijkse zonne-opbrengst"></svg>
+
+<div class="muted">
+Indicatieve schatting voor België, zonder schaduw.
+Geen weersvoorspelling of PVGIS-berekening.
 </div>
+</div>
+
 </section>
 </main>
 
 <footer>
-Gemaakt door Joeri Houben voor Sint-Martinus School Herk-de-Stad — didactische simulatie, geen keuringsattest
+Gemaakt door Joeri Houben voor Sint-Martinus School Herk-de-Stad
+— didactische simulatie, geen keuringsattest
 </footer>
 
 <script>
 const $=id=>document.getElementById(id);
-const ids=['count','wp','voltage','series','phase','inv','mainbreaker','diff','orientation','tilt'];
+
+const ids=[
+ 'count','wp','voltage','series','phase',
+ 'inv','mainbreaker','diff','orientation','tilt'
+];
+
 ids.forEach(id=>$(id).addEventListener('input',update));
 
 function update(){
- const n=+$('count').value,w=+$('wp').value,v=+$('voltage').value,s=+$('series').value;
- const p=+$('inv').value,net=$('phase').value,m=+$('mainbreaker').value;
+
+ const n=+$('count').value;
+ const w=+$('wp').value;
+ const v=+$('voltage').value;
+ const s=+$('series').value;
+ const p=+$('inv').value;
+ const net=$('phase').value;
+ const m=+$('mainbreaker').value;
  const d=+$('diff').value;
 
- if(![n,w,v,s,p,m,d].every(x=>Number.isFinite(x)&&x>0)||!Number.isInteger(n)||!Number.isInteger(s)||n>100){
-  $('status').textContent='Vul geldige positieve waarden in (maximaal 100 panelen).';
+ if(![n,w,v,s,p,m,d].every(x=>Number.isFinite(x)&&x>0)
+    ||!Number.isInteger(n)
+    ||!Number.isInteger(s)
+    ||n>100){
+
+  $('status').textContent=
+   'Vul geldige positieve waarden in (maximaal 100 panelen).';
   $('status').className='status danger';
   return;
  }
 
- const strings=n/s,seriesV=s*v,dc=n*w;
+ const strings=n/s;
+ const seriesV=s*v;
+ const dc=n*w;
 
- // AC-stroom berekenen
+ // Maximale AC-stroom
  const acI=net==='230'
-   ?p/230
-   :net==='400'
-     ?p/(Math.sqrt(3)*400)
-     :p/(Math.sqrt(3)*230);
+  ?p/230
+  :net==='400'
+   ?p/(Math.sqrt(3)*400)
+   :p/(Math.sqrt(3)*230);
 
- // PV-automaat automatisch kiezen
+ // PV-automaat automatisch berekenen
  const ratings=[6,10,16,20,25,32,40,50,63,80,100,125];
  const pv=ratings.find(a=>a>=acI);
 
  $('pvbreaker').value=pv?pv+' A':'Buiten bereik';
 
- // Conservatieve som van net- en PV-beveiliging
+ // Controle differentieel
  const sum=m+(pv||0);
  const need=!!pv&&sum>d;
- const nominal=[10,13,16,20,25,32,40,50,63,80,100]
-   .filter(x=>x<=d).at(-1);
 
- $('total').textContent=(dc/1000).toLocaleString('nl-BE',{maximumFractionDigits:2})+' kWp';
- $('dcvolt').textContent=seriesV.toLocaleString('nl-BE',{maximumFractionDigits:1})+' V';
- $('amps').textContent=acI.toLocaleString('nl-BE',{maximumFractionDigits:1})+' A';
+ const nominal=[10,13,16,20,25,32,40,50,63,80,100]
+  .filter(x=>x<=d).at(-1);
+
+ $('total').textContent=
+  (dc/1000).toLocaleString('nl-BE',
+  {maximumFractionDigits:2})+' kWp';
+
+ $('dcvolt').textContent=
+  seriesV.toLocaleString('nl-BE',
+  {maximumFractionDigits:1})+' V';
+
+ $('amps').textContent=
+  acI.toLocaleString('nl-BE',
+  {maximumFractionDigits:1})+' A';
 
  $('stringinfo').textContent=
- `${n} panelen × ${w} Wp = ${dc} Wp. ${s} in serie × ${v} V = ${seriesV} V. ${strings} string(s). *AC-stroom benaderd bij cos φ = 1; controleer de maximale uitgangsstroom van de omvormer.`;
+  `${n} panelen × ${w} Wp = ${dc} Wp. `+
+  `${s} in serie × ${v} V = ${seriesV} V. `+
+  `${strings} string(s). `+
+  `*AC-stroom benaderd bij cos φ = 1; `+
+  `controleer de maximale uitgangsstroom van de omvormer.`;
 
- $('panels').replaceChildren(...Array.from({length:n},()=>{
-  const e=document.createElement('div');
-  e.className='module';
-  return e;
- }));
+ $('panels').replaceChildren(
+  ...Array.from({length:n},()=>{
+   const e=document.createElement('div');
+   e.className='module';
+   return e;
+  })
+ );
 
  $('mainlabel').textContent=m+' A';
- $('pvlabel').textContent='PV-automaat '+(pv?pv+' A':'te bepalen');
- $('invlabel').textContent=(p/1000).toLocaleString('nl-BE')+' kW';
+ $('pvlabel').textContent=
+  'PV-automaat '+(pv?pv+' A':'te bepalen');
+
+ $('invlabel').textContent=
+  (p/1000).toLocaleString('nl-BE')+' kW';
+
  $('difflabel').textContent='30 mA · '+d+' A';
  $('brakelabel').textContent=nominal+' A';
+
  $('brakegroup').style.display=need?'':'none';
  $('nobrake').style.display=need?'none':'';
 
  let warnings=[];
- if(n%s!==0)warnings.push('Het aantal panelen is niet deelbaar door het aantal panelen per string.');
- if(!pv)warnings.push('De berekende AC-stroom is hoger dan de beschikbare automaatwaarden. Controleer de dimensionering.');
- if(dc>p)warnings.push('Het DC-piekvermogen ligt boven het AC-vermogen: clipping is mogelijk.');
+
+ if(n%s!==0)
+  warnings.push(
+   'Het aantal panelen is niet deelbaar door het aantal panelen per string.'
+  );
+
+ if(!pv)
+  warnings.push(
+   'De berekende AC-stroom is hoger dan de beschikbare automaatwaarden.'
+  );
+
+ if(dc>p)
+  warnings.push(
+   'Het DC-piekvermogen ligt boven het AC-vermogen: clipping is mogelijk.'
+  );
 
  if(!pv){
   $('status').className='status danger';
-  $('status').innerHTML='<b>Geen passende PV-automaat binnen het bereik.</b> Controleer het omvormervermogen en de dimensionering.';
- }else if(need){
+  $('status').innerHTML=
+   '<b>Geen passende PV-automaat binnen het bereik.</b>';
+ }
+ else if(need){
   $('status').className='status warn';
-  $('status').innerHTML=`<b>Extra stroombeperking te controleren.</b><br>Conservatieve som: ${m} A + ${pv} A = ${sum} A, groter dan differentieel ${d} A. In dit principeschema verschijnt daarom een remautomaat van <b>${nominal} A</b> vóór de betrokken verbruikersgroep. Controleer ook de bescherming van de hoofddifferentieel, rails en bedrading.`;
- }else{
+  $('status').innerHTML=
+   `<b>Extra stroombeperking te controleren.</b><br>`+
+   `${m} A + ${pv} A = ${sum} A, `+
+   `groter dan differentieel ${d} A. `+
+   `Remautomaat van <b>${nominal} A</b> `+
+   `verschijnt in het schema. `+
+   `Controleer ook de hoofddifferentieel, rails en bedrading.`;
+ }
+ else{
   $('status').className='status ok';
-  $('status').innerHTML=`<b>Volgens de vereenvoudigde som geen extra remautomaat nodig.</b><br>${m} A + ${pv} A = ${sum} A ≤ ${d} A. Dit bevestigt nog niet dat de volledige installatie conform is.`;
+  $('status').innerHTML=
+   `<b>Volgens de vereenvoudigde som geen extra remautomaat nodig.</b><br>`+
+   `${m} A + ${pv} A = ${sum} A ≤ ${d} A. `+
+   `Dit bevestigt nog niet dat de installatie conform is.`;
  }
 
- if(warnings.length)$('status').innerHTML+='<br><b>Let op:</b> '+warnings.join(' ');
+ if(warnings.length)
+  $('status').innerHTML+=
+   '<br><b>Let op:</b> '+warnings.join(' ');
+
  updateYield(dc,p);
 }
 
 function updateYield(dc,p){
- const orient=$('orientation').value,tilt=Number($('tilt').value);
- const factors={S:1,SE:.90,SW:.90,E:.75,W:.75,N:.115};
+
+ const orient=$('orientation').value;
+ const tilt=Number($('tilt').value);
+
+ // AANGEPASTE ORIËNTATIEFACTOREN
+ // Iedere richting geeft een zichtbaar andere opbrengst.
+ const factors={
+  S:1.00,    // Zuid 100%
+  SE:0.94,   // Zuidoost 94%
+  SW:0.92,   // Zuidwest 92%
+  E:0.75,    // Oost 75%
+  W:0.73,    // West 73%
+  N:0.115    // Noord 11,5%
+ };
 
  if(!Number.isFinite(tilt)||tilt<0||tilt>90){
   $('annual').textContent='Ongeldige dakhelling';
@@ -302,33 +462,86 @@ function updateYield(dc,p){
   return;
  }
 
- const tiltFactor=Math.max(.55,1-.00019*Math.pow(tilt-35,2));
- const months=[.025,.045,.075,.105,.125,.135,.135,.12,.095,.07,.045,.025];
- const annual=Math.max(0,dc/1000*950*factors[orient]*tiltFactor*Math.min(1,p/dc*1.16));
+ const tiltFactor=Math.max(
+  .55,
+  1-.00019*Math.pow(tilt-35,2)
+ );
 
- $('annual').textContent=Math.round(annual).toLocaleString('nl-BE')+' kWh/jaar';
+ const months=[
+  .025,.045,.075,.105,.125,.135,
+  .135,.12,.095,.07,.045,.025
+ ];
 
- const vals=months.map(f=>annual*f),max=Math.max(...vals,1);
- const names=['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
+ const annual=Math.max(
+  0,
+  dc/1000*950*
+  factors[orient]*
+  tiltFactor*
+  Math.min(1,p/dc*1.16)
+ );
+
+ $('annual').textContent=
+  Math.round(annual).toLocaleString('nl-BE')+
+  ' kWh/jaar';
+
+ const vals=months.map(f=>annual*f);
+ const max=Math.max(...vals,1);
+
+ const names=[
+  'jan','feb','mrt','apr','mei','jun',
+  'jul','aug','sep','okt','nov','dec'
+ ];
+
  const svg=$('yieldchart');
  svg.replaceChildren();
+
  const ns='http://www.w3.org/2000/svg';
 
  const add=(tag,attrs,txt)=>{
   const e=document.createElementNS(ns,tag);
-  for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);
+  for(const [k,v] of Object.entries(attrs))
+   e.setAttribute(k,v);
+
   if(txt!==undefined)e.textContent=txt;
+
   svg.appendChild(e);
   return e;
  };
 
- add('line',{x1:30,y1:118,x2:642,y2:118,stroke:'#b4c6d8','stroke-width':1});
+ add('line',{
+  x1:30,y1:118,x2:642,y2:118,
+  stroke:'#b4c6d8',
+  'stroke-width':1
+ });
 
  vals.forEach((v,i)=>{
-  const x=36+i*50,h=v/max*86;
-  add('rect',{x,y:118-h,width:33,height:h,rx:3,fill:'#249d66'});
-  add('text',{x:x+16.5,y:133,'text-anchor':'middle','font-size':12,fill:'#24425d'},names[i]);
-  add('text',{x:x+16.5,y:Math.max(12,113-h),'text-anchor':'middle','font-size':10,fill:'#24425d'},String(Math.round(v)));
+  const x=36+i*50;
+  const h=v/max*86;
+
+  add('rect',{
+   x:x,
+   y:118-h,
+   width:33,
+   height:h,
+   rx:3,
+   fill:'#249d66'
+  });
+
+  add('text',{
+   x:x+16.5,
+   y:133,
+   'text-anchor':'middle',
+   'font-size':12,
+   fill:'#24425d'
+  },names[i]);
+
+  add('text',{
+   x:x+16.5,
+   y:Math.max(12,113-h),
+   'text-anchor':'middle',
+   'font-size':10,
+   fill:'#24425d'
+  },String(Math.round(v)));
  });
 }
 
