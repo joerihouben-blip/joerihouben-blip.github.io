@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Joeri Houben | Technische leeromgeving</title>
 
 <style>
@@ -14,7 +13,7 @@
 
 :root {
     --sanitair: #1689cb;
-    --cv: #df6b28;
+    --cv: #df7429;
     --energie: #239c50;
     --elektriciteit: #7955b5;
     --ventilatie: #169b9b;
@@ -34,16 +33,10 @@ body {
     min-height: 100vh;
 }
 
-/* BOVENBALK */
-
 header {
     background: linear-gradient(135deg, #102d50, #1765a5);
     color: white;
     padding: 12px 22px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
 }
 
 header h1 {
@@ -52,126 +45,115 @@ header h1 {
 }
 
 header p {
-    margin: 5px 0 0;
     font-size: 13px;
+    margin: 5px 0 0;
 }
-
-/* HOOFDINDELING */
 
 main {
     width: 100%;
     max-width: 1900px;
     margin: 0 auto;
-    padding: 16px 4px;
+    padding: 14px 8px;
     flex: 1;
 }
 
 .dashboard {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 16px;
+    gap: 12px;
     align-items: start;
 }
 
-/* KAARTEN */
-
 .card {
     background: white;
-    border-radius: 15px;
+    border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 8px 18px rgba(25, 50, 80, .09);
+    box-shadow: 0 6px 16px rgba(25, 50, 80, .10);
     min-width: 0;
 }
 
-.card-header {
-    color: white;
-    text-align: center;
-    padding: 22px 10px 18px;
-}
-
-.card-header .emoji {
-    display: block;
-    font-size: 30px;
-    margin-bottom: 10px;
-}
-
-.card-header h2 {
-    font-size: 24px;
-    margin: 0;
-}
-
-/* EIGEN KLEUR PER RUBRIEK */
-
 .sanitair {
     --accent: var(--sanitair);
+    --light: #e9f6ff;
 }
 
 .cv {
     --accent: var(--cv);
+    --light: #fff1e7;
 }
 
 .energie {
     --accent: var(--energie);
+    --light: #e8f8ed;
 }
 
 .elektriciteit {
     --accent: var(--elektriciteit);
+    --light: #f2edfb;
 }
 
 .ventilatie {
     --accent: var(--ventilatie);
+    --light: #e5f8f7;
 }
 
 .card-header {
     background: var(--accent);
+    color: white;
+    text-align: center;
+    padding: 17px 8px;
 }
 
-/* INHOUD */
+.emoji {
+    display: block;
+    font-size: 30px;
+    margin-bottom: 7px;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 22px;
+}
 
 .card-body {
-    padding: 15px;
+    padding: 12px;
 }
 
 .section-title {
-    color: #52749c;
-    font-size: 14px;
-    font-weight: bold;
+    color: var(--accent);
+    font-size: 13px;
     text-transform: uppercase;
     border-bottom: 1px solid #dce6f0;
-    padding-bottom: 7px;
-    margin: 0 0 9px;
+    padding-bottom: 6px;
+    margin: 4px 0 9px;
 }
 
 .section-title:not(:first-child) {
-    margin-top: 16px;
+    margin-top: 17px;
 }
-
-/* KNOPPEN */
 
 .tool-link {
     display: flex;
     align-items: center;
-    min-height: 46px;
-    padding: 11px 13px;
-    margin-bottom: 9px;
-    background: #eef4fa;
-    border: 1px solid #d5e4f2;
+    padding: 11px 12px;
+    min-height: 43px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    border: 1px solid #d9e5ef;
     border-left: 5px solid var(--accent);
-    border-radius: 9px;
+    background: var(--light);
+    color: #173b5d;
     text-decoration: none;
-    color: #10365e;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
-    transition: background .2s, transform .2s;
+    line-height: 1.3;
+    transition: .15s;
 }
 
 .tool-link:hover {
-    background: color-mix(
-        in srgb,
-        var(--accent) 12%,
-        white
-    );
-    transform: translateX(3px);
+    background: white;
+    border-color: var(--accent);
+    transform: translateX(2px);
 }
 
 .tool-link:focus-visible {
@@ -179,58 +161,48 @@ main {
     outline-offset: 2px;
 }
 
-/* INFORMATIE ONDERAAN */
-
 .about {
-    margin-top: 16px;
+    margin-top: 15px;
     background: white;
-    border-left: 6px solid #1765a5;
     border-radius: 12px;
-    padding: 15px 22px;
-    box-shadow: 0 5px 14px rgba(20, 45, 70, .05);
+    border-left: 6px solid #1765a5;
+    padding: 13px 20px;
 }
 
 .about h3 {
-    margin: 0 0 8px;
+    margin: 0 0 7px;
     color: #1765a5;
-    font-size: 18px;
+    font-size: 17px;
 }
 
 .about p {
     margin: 0;
+    font-size: 13px;
     line-height: 1.5;
 }
 
-/* VOETTEKST */
-
 footer {
     text-align: center;
-    padding: 12px;
-    color: #526780;
+    padding: 10px;
     font-size: 12px;
+    color: #526780;
 }
 
-/* RESPONSIEF */
-
-@media (max-width: 1250px) {
+@media (max-width: 1150px) {
     .dashboard {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 750px) {
     .dashboard {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 480px) {
     .dashboard {
         grid-template-columns: 1fr;
-    }
-
-    header h1 {
-        font-size: 19px;
     }
 }
 </style>
@@ -239,83 +211,67 @@ footer {
 <body>
 
 <header>
-    <div>
-        <h1>Technische leeromgeving</h1>
-        <p>
-            Sint-Martinus Herk-de-Stad |
-            Joeri Houben
-        </p>
-    </div>
+    <h1>Technische leeromgeving</h1>
+    <p>Sint-Martinus Herk-de-Stad | Joeri Houben</p>
 </header>
 
 <main>
-
 <div class="dashboard">
 
-<!-- ======================== -->
 <!-- SANITAIR -->
-<!-- ======================== -->
 
 <section class="card sanitair">
-
     <div class="card-header">
         <span class="emoji">💧</span>
         <h2>Sanitair</h2>
     </div>
 
     <div class="card-body">
-
         <h3 class="section-title">Warm water</h3>
 
         <a class="tool-link"
-           href="Sanitair_warmwaterbereiding.html">
+           href="sanitair-warmwaterbereiding.html">
             Sanitair warmwaterbereiding
         </a>
 
         <a class="tool-link"
-           href="Boiler_dimensioneren.html">
+           href="Hovan_Boiler_Rekentrainer_correcte_mengberekening.html">
             Boiler dimensioneren
         </a>
 
         <a class="tool-link"
-           href="Zonneboiler.html">
-            Zonneboiler
+           href="boiler-rekentrainer.html">
+            Boiler rekentrainer
         </a>
 
         <h3 class="section-title">Afvoer</h3>
 
         <a class="tool-link"
-           href="Afvoerberekening.html">
+           href="afvoerberekening_zonder_kruisingen.html">
             Afvoer berekenen
         </a>
-
-        <a class="tool-link"
-           href="Rioolsystemen.html">
-            Rioolsystemen
-        </a>
-
     </div>
 </section>
 
-
-<!-- ======================== -->
 <!-- CV - VERWARMING -->
-<!-- ======================== -->
 
 <section class="card cv">
-
     <div class="card-header">
         <span class="emoji">🔥</span>
         <h2>CV – Verwarming</h2>
     </div>
 
     <div class="card-body">
-
         <h3 class="section-title">Stookolie</h3>
 
         <a class="tool-link"
-           href="Stookoliebrander.html">
+           href="7Ti-stookolie_V54_aanzuigleiding_correctie.html">
             Stookoliebrander animatie
+        </a>
+
+        <a class="tool-link"
+           href="Huisbrandolie_7TI%20%281%29.html">
+            Cursus huisbrandolie
         </a>
 
         <a class="tool-link"
@@ -333,166 +289,125 @@ footer {
         <h3 class="section-title">Installaties</h3>
 
         <a class="tool-link"
-           href="Expansievat.html">
+           href="expansievat_cv_simulatie_bovenaansluiting.html">
             Werking expansievat
-        </a>
-
-        <a class="tool-link"
-           href="Radiator.html">
-            Werking radiator
-        </a>
-
-        <a class="tool-link"
-           href="Hydraulica.html">
-            Hydraulica
         </a>
 
         <h3 class="section-title">Warmtepompen</h3>
 
         <a class="tool-link"
-           href="Koeltechnische_cyclus.html">
+           href="Koelkring_V11_gecorrigeerd.html">
             Werking koeltechnische cyclus
         </a>
-
     </div>
 </section>
 
-
-<!-- ======================== -->
-<!-- ENERGIE - GROEN -->
-<!-- ======================== -->
+<!-- ENERGIE -->
 
 <section class="card energie">
-
     <div class="card-header">
         <span class="emoji">☀️</span>
         <h2>Energie</h2>
     </div>
 
     <div class="card-body">
-
         <h3 class="section-title">Zonne-energie</h3>
 
         <a class="tool-link"
-           href="Fotovoltaische_zonne_energie.html">
+           href="Zonne_energie_schema_aangepast.html">
             Fotovoltaïsche zonne-energie
         </a>
-
-        <h3 class="section-title">Duurzame energie</h3>
-
-        <a class="tool-link"
-           href="Groene_alternatieve_energie.html">
-            Groene alternatieve energie
-        </a>
-
     </div>
 </section>
 
-
-<!-- ======================== -->
 <!-- ELEKTRICITEIT -->
-<!-- ======================== -->
 
 <section class="card elektriciteit">
-
     <div class="card-header">
         <span class="emoji">⚡</span>
         <h2>Elektriciteit</h2>
     </div>
 
     <div class="card-body">
-
-        <h3 class="section-title">
-            Meten en berekenen
-        </h3>
+        <h3 class="section-title">Meten en berekenen</h3>
 
         <a class="tool-link"
-           href="Elektriciteit_meten_en_berekenen.html">
-            Elektriciteit meten en berekenen
+           href="Wet_van_Ohm_interactief%20%283%29.html">
+            Wet van Ohm
+        </a>
+
+        <a class="tool-link"
+           href="wet_van_pouillet_uitgebreid.html">
+            Wet van Pouillet
+        </a>
+
+        <a class="tool-link"
+           href="vermogensberekening.html">
+            Vermogensberekening
+        </a>
+
+        <a class="tool-link"
+           href="twee_weerstanden_serie_compact%20%281%29.html">
+            Weerstanden in serie
         </a>
 
         <h3 class="section-title">Motoren</h3>
 
         <a class="tool-link"
-           href="Ster_driehoek.html">
+           href="Ster_Driehoek_Leerlingen_V2.html">
             Ster / driehoek
-        </a>
-
-        <a class="tool-link"
-           href="Asynchrone_motor.html">
-            Asynchrone motor
         </a>
 
         <h3 class="section-title">Storingen</h3>
 
         <a class="tool-link"
-           href="Elektriciteit_stookoliebrander.html">
-            Elektriciteit stookoliebrander
+           href="Elektrische_werking_stookoliebrander_7TI.html">
+            Elektrische werking stookoliebrander
         </a>
-
     </div>
 </section>
 
-
-<!-- ======================== -->
 <!-- VENTILATIE -->
-<!-- ======================== -->
 
 <section class="card ventilatie">
-
     <div class="card-header">
         <span class="emoji">🌬️</span>
         <h2>Ventilatie</h2>
     </div>
 
     <div class="card-body">
-
-        <h3 class="section-title">
-            Ventilatiesystemen
-        </h3>
+        <h3 class="section-title">Ventilatiesystemen</h3>
 
         <a class="tool-link"
-           href="Ventilatiesysteem_D.html">
+           href="ventilatiesysteem_C.html">
+            Ventilatiesysteem C
+        </a>
+
+        <a class="tool-link"
+           href="ventilatiesysteem_D_zonder_uitlegteksten.html">
             Ventilatiesysteem D
         </a>
-
-        <h3 class="section-title">Berekeningen</h3>
-
-        <a class="tool-link"
-           href="Ventilatie_dimensioneren.html">
-            Ventilatie dimensioneren
-        </a>
-
     </div>
 </section>
 
 </div>
 
-
-<!-- ======================== -->
-<!-- OVER DE LEEROMGEVING -->
-<!-- ======================== -->
-
 <section class="about">
-
     <h3>Over deze leeromgeving</h3>
-
     <p>
-        Deze interactieve technische leeromgeving
-        werd ontwikkeld door Joeri Houben voor
+        Deze interactieve technische leeromgeving werd
+        ontwikkeld door Joeri Houben voor
         Sint-Martinus Herk-de-Stad.
-        Leerlingen kunnen hier technische installaties
-        bestuderen, berekeningen uitvoeren en
-        zelfstandig oefenen.
+        De toepassingen helpen leerlingen bij het
+        bestuderen, berekenen en begrijpen van
+        technische installaties.
     </p>
-
 </section>
 
 </main>
 
 <footer>
-    Gemaakt door Joeri Houben voor
-    Sint-Martinus Herk-de-Stad
+    Gemaakt door Joeri Houben voor Sint-Martinus Herk-de-Stad
 </footer>
 
 </body>
