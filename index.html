@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Joeri Houben | Technische leeromgeving</title>
 
 <style>
@@ -33,6 +34,8 @@ body {
     min-height: 100vh;
 }
 
+/* BOVENBALK */
+
 header {
     background: linear-gradient(135deg, #102d50, #1765a5);
     color: white;
@@ -49,6 +52,8 @@ header p {
     margin: 5px 0 0;
 }
 
+/* HOOFDINDELING */
+
 main {
     width: 100%;
     max-width: 1900px;
@@ -63,6 +68,8 @@ main {
     gap: 12px;
     align-items: start;
 }
+
+/* RUBRIEKEN */
 
 .card {
     background: white;
@@ -97,6 +104,8 @@ main {
     --light: #e5f8f7;
 }
 
+/* GEKLEURDE TITELBALK */
+
 .card-header {
     background: var(--accent);
     color: white;
@@ -119,6 +128,8 @@ main {
     padding: 12px;
 }
 
+/* SUBTITELS */
+
 .section-title {
     color: var(--accent);
     font-size: 13px;
@@ -131,6 +142,8 @@ main {
 .section-title:not(:first-child) {
     margin-top: 17px;
 }
+
+/* PROGRAMMAKNOPPEN */
 
 .tool-link {
     display: flex;
@@ -161,6 +174,8 @@ main {
     outline-offset: 2px;
 }
 
+/* INFORMATIE */
+
 .about {
     margin-top: 15px;
     background: white;
@@ -187,6 +202,8 @@ footer {
     font-size: 12px;
     color: #526780;
 }
+
+/* RESPONSIEF */
 
 @media (max-width: 1150px) {
     .dashboard {
@@ -216,17 +233,22 @@ footer {
 </header>
 
 <main>
+
 <div class="dashboard">
 
+<!-- ================================= -->
 <!-- SANITAIR -->
+<!-- ================================= -->
 
 <section class="card sanitair">
+
     <div class="card-header">
         <span class="emoji">💧</span>
         <h2>Sanitair</h2>
     </div>
 
     <div class="card-body">
+
         <h3 class="section-title">Warm water</h3>
 
         <a class="tool-link"
@@ -250,18 +272,24 @@ footer {
            href="afvoerberekening_zonder_kruisingen.html">
             Afvoer berekenen
         </a>
+
     </div>
 </section>
 
+
+<!-- ================================= -->
 <!-- CV - VERWARMING -->
+<!-- ================================= -->
 
 <section class="card cv">
+
     <div class="card-header">
         <span class="emoji">🔥</span>
         <h2>CV – Verwarming</h2>
     </div>
 
     <div class="card-body">
+
         <h3 class="section-title">Stookolie</h3>
 
         <a class="tool-link"
@@ -276,7 +304,7 @@ footer {
 
         <a class="tool-link"
            href="Cursus_Stookruimte_70kW_7TI_Theorie_zonder_vermelding.html">
-            stookplaats & stookoliepomp
+            Verluchting stookplaats
         </a>
 
         <h3 class="section-title">Gasketels</h3>
@@ -293,42 +321,54 @@ footer {
             Werking expansievat
         </a>
 
-        <h3 class="section-title">Warmtepompen</h3>
-
-        <a class="tool-link"
-           href="Koelkring_V11_gecorrigeerd.html">
-            Werking koeltechnische cyclus
-        </a>
     </div>
 </section>
 
-<!-- ENERGIE -->
+
+<!-- ================================= -->
+<!-- ENERGIE - GROEN -->
+<!-- ================================= -->
 
 <section class="card energie">
+
     <div class="card-header">
         <span class="emoji">☀️</span>
         <h2>Energie</h2>
     </div>
 
     <div class="card-body">
+
         <h3 class="section-title">Zonne-energie</h3>
 
         <a class="tool-link"
            href="Zonne_energie_schema_aangepast.html">
             Fotovoltaïsche zonne-energie
         </a>
+
+        <h3 class="section-title">Warmtepompen</h3>
+
+        <a class="tool-link"
+           href="Koelkring_V11_gecorrigeerd.html">
+            Werking koeltechnische cyclus
+        </a>
+
     </div>
 </section>
 
+
+<!-- ================================= -->
 <!-- ELEKTRICITEIT -->
+<!-- ================================= -->
 
 <section class="card elektriciteit">
+
     <div class="card-header">
         <span class="emoji">⚡</span>
         <h2>Elektriciteit</h2>
     </div>
 
     <div class="card-body">
+
         <h3 class="section-title">Meten en berekenen</h3>
 
         <a class="tool-link"
@@ -364,18 +404,24 @@ footer {
            href="Elektrische_werking_stookoliebrander_7TI.html">
             Elektrische werking stookoliebrander
         </a>
+
     </div>
 </section>
 
+
+<!-- ================================= -->
 <!-- VENTILATIE -->
+<!-- ================================= -->
 
 <section class="card ventilatie">
+
     <div class="card-header">
         <span class="emoji">🌬️</span>
         <h2>Ventilatie</h2>
     </div>
 
     <div class="card-body">
+
         <h3 class="section-title">Ventilatiesystemen</h3>
 
         <a class="tool-link"
@@ -387,13 +433,21 @@ footer {
            href="ventilatiesysteem_D_zonder_uitlegteksten.html">
             Ventilatiesysteem D
         </a>
+
     </div>
 </section>
 
 </div>
 
+
+<!-- ================================= -->
+<!-- OVER DE LEEROMGEVING -->
+<!-- ================================= -->
+
 <section class="about">
+
     <h3>Over deze leeromgeving</h3>
+
     <p>
         Deze interactieve technische leeromgeving werd
         ontwikkeld door Joeri Houben voor
@@ -402,6 +456,7 @@ footer {
         bestuderen, berekenen en begrijpen van
         technische installaties.
     </p>
+
 </section>
 
 </main>
