@@ -1,51 +1,991 @@
-<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Afvoerberekening – Sint-Martinus</title><style>
-:root{--blue:#123b67;--accent:#1976bd;--pale:#eaf3fc;--ink:#203448}*{box-sizing:border-box}body{margin:0;background:#edf2f8;color:var(--ink);font:15px Arial,sans-serif}header{background:linear-gradient(110deg,#102e52,#1765a5);color:white;padding:20px 3vw}header h1{margin:0 0 5px;font-size:27px}header p{margin:0;color:#e0efff}main{max-width:1700px;margin:auto;padding:18px}.top{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.panel{background:white;border:1px solid #d7e3ef;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 3px 13px #19334f0b}h2{font-size:20px;color:var(--blue);margin:0 0 14px}h3{margin:0;color:var(--blue);font-size:18px}button,select,input{font:inherit}button{cursor:pointer;border:0;border-radius:8px;padding:9px 13px;font-weight:bold;background:#1765a5;color:white}button:hover{filter:brightness(.91)}button.alt{background:#e5f0fa;color:#145487;border:1px solid #bdd7ec}button.del{background:#fff0f0;color:#b33b3b;border:1px solid #f0c6c6;padding:6px 9px}select,input{padding:8px;border:1px solid #b9cede;border-radius:7px;background:white}input{width:85px}.note{color:#526779;line-height:1.5}.floor{border:2px solid #c6d9ea;border-radius:12px;margin:15px 0;padding:14px;background:#f9fcff}.floorhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.floorhead span{font-size:12px;background:#dcecfb;color:#1a5785;padding:6px 10px;border-radius:20px}.floor.nested{margin-left:0;border-left:6px solid #e6a349}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:820px}th{background:#153e68;color:white;text-align:left;font-size:13px;padding:11px 9px}td{padding:9px;border-bottom:1px solid #e2eaf2;vertical-align:middle}tbody tr:nth-child(even){background:#f0f6fc}.floor tbody tr{background:var(--floor-tint)!important}.floor tbody tr:nth-child(even){background:var(--floor-tint-alt)!important}.floor thead th{background:var(--floor-color)!important}.floor .point{background:var(--floor-color)}.summary tbody tr{background:var(--row-tint)!important}.summary tbody tr:nth-child(even){background:var(--row-tint-alt)!important}.summary .point{background:var(--row-color)}.point{display:inline-flex;align-items:center;justify-content:center;background:#1765a5;color:white;width:30px;height:30px;border-radius:50%;font-weight:bold}.branchrow{background:#fff4df!important}.summary-floor tr[style]{-webkit-print-color-adjust:exact;print-color-adjust:exact}.buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.insert{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:9px 0 2px;border-top:1px dashed #c8d8e6;margin-top:12px}.insert select{max-width:260px}.legend{display:flex;gap:18px;flex-wrap:wrap;margin:10px 0;color:#456}.swatch{display:inline-block;width:18px;height:5px;vertical-align:middle;margin-right:5px;border-radius:5px}.drawing{overflow:auto;border:1px solid #dbe6ef;background:#fff;border-radius:10px;padding:8px;max-height:700px}.drawing svg{display:block;min-width:850px;width:100%;height:auto}.summary{overflow:auto}.summary table{min-width:750px}.small{font-size:13px;color:#567}.pill{background:#eaf3fc;color:#124d80;border-radius:8px;padding:8px 11px}footer{text-align:center;color:#627487;padding:12px 0 25px}@media(max-width:700px){main{padding:9px}.panel{padding:12px}.floor.nested{margin-left:9px}.floor{padding:9px}header h1{font-size:22px}}
-@media print{@page{size:A4 landscape;margin:11mm}body{background:white;color:#111;font-size:10pt}header{background:white!important;color:#123b67!important;padding:0 0 9px;border-bottom:2px solid #123b67}header p{color:#333!important}main{max-width:none;padding:6px 0}.panel{box-shadow:none;border:0;border-radius:0;padding:6px 0;margin:0 0 12px;break-inside:avoid}#inputPanel,#editorPanel,.printbutton{display:none!important}#drawingPanel{break-inside:avoid}#summaryPanel{break-before:page}.drawing{overflow:visible;max-height:none;border:0;padding:0}.drawing svg{min-width:0!important;width:100%!important;max-height:165mm;height:auto!important}table{min-width:0!important;font-size:9pt}th{background:#dce8f4!important;color:#111!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}td,th{padding:6px}footer{font-size:9pt}.point{background:white!important;color:#111!important;border:1px solid #111}.legend{font-size:9pt}.printmeta{display:block!important;margin:8px 0 14px;font-size:10pt}}.printmeta{display:none}@media print{.floor tbody tr,.floor tbody tr:nth-child(even),.floor thead th,.summary tbody tr,.summary tbody tr:nth-child(even){-webkit-print-color-adjust:exact;print-color-adjust:exact}}.summary-floor{margin:16px 0 24px;border:2px solid var(--fc);border-radius:12px;overflow:hidden;break-inside:avoid;background:#fff}.summary-floor h3{margin:0;padding:13px 16px;background:var(--fc);color:white}.summary-floor table{margin:0}.summary-floor th{background:var(--fc)!important}.summary-floor tbody tr{background:var(--ft)!important}.summary-floor tbody tr:nth-child(even){background:var(--fa)!important}.summary-floor tbody tr.branch-result,.summary-floor tbody tr.branch-result:nth-child(even){background:var(--branch-tint)!important;border-left:7px solid var(--branch-color)!important}.summary-floor tbody tr.branch-result .point{background:var(--branch-color)!important}@media print{.summary-floor{break-inside:avoid;print-color-adjust:exact;-webkit-print-color-adjust:exact}.summary-floor h3{color:white!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}}</style></head><body><header><h1>Afvoerberekening · standpijp per verdieping</h1><p>Interactieve oefentool · Sanitair · Sint-Martinus Herk-de-Stad</p></header><main>
-<section class="panel" id="inputPanel"><div class="top"><label>Materiaal <select id="material"><option>PVC</option><option>PE</option></select></label><label>Afschot (%) <input id="slope" type="number" min="0" max="15" step="0.5" value="1"></label><span class="pill">WD = 0,5 × √TD</span><button class="alt" id="reset">↺ Opnieuw beginnen</button><button class="printbutton" onclick="window.print()">🖨 Eindresultaat afdrukken / PDF</button></div><p class="note">Vul de toestellen in van de riolering naar het uiteinde van de leiding. Kies zelf waar een verdieping aftakt. Elke verdieping heeft een aparte, gekleurde tabel. Voeg een verdieping in na een zelfgekozen punt; ze verschijnt boven de onderliggende verdieping in het schema; je kunt daarna op de oorspronkelijke verdieping verder werken. TD is het toesteldebiet, Som TD is het debiet van alle toestellen stroomopwaarts van het leidingdeel richting riolering, WD = 0,5 × √(Som TD). De diameter wordt afgerond op de gekozen materiaalmaten. Debieten en diameters zijn didactische richtwaarden, geen volledige normberekening.</p></section>
-<section class="panel" id="editorPanel"><h2>1. Afzonderlijke invoertabel per verdieping</h2><div id="editor"></div></section>
-<div class="printmeta" id="printmeta"></div><section class="panel" id="drawingPanel"><h2>2. Automatisch afvoerplan</h2><div class="legend"><span><i class="swatch" style="background:#1765a5"></i>Afvoerleiding</span><span>Horizontale leidingen volgen hun eigen verdieping; verticale standpijpen volgen de bovenliggende verdieping</span><span>● Letter = punt in de tabel</span><span>Ø = diameter van het leidingdeel tussen twee punten; berekend vanaf het uiteinde naar de riolering</span><span>TD = opgeteld debiet op de leiding</span></div><div class="drawing" id="drawing"></div></section>
-<section class="panel" id="summaryPanel"><h2>3. Overzicht per leidingdeel</h2><div class="summary" id="summary"></div></section><footer>Gemaakt door Joeri Houben voor Sint-Martinus Herk-de-Stad</footer></main><script>
-const fixtures={Lavabo:[.5,40],"Dubbele lavabo":[1,50],WC:[2.5,90],Douche:[.8,50],Douchegoot:[.8,50],Bad:[.8,50],Keukenspoelbak:[.8,50],Wasmachine:[.8,50],Vaatwasser:[.8,50],Uitgietbak:[.8,50],Bidet:[.5,40],Urinoir:[.5,50],Vloerput:[.8,50],Condensafvoer:[.1,32]};let nextId=0,root,store={};const sizes={PVC:[32,40,50,75,90,110,125,160],PE:[32,40,50,56,63,75,90,110,125,160]};function nominal(d){return sizes[document.getElementById("material").value].find(v=>v>=d)||160}const makeId=()=>++nextId;function fresh(){nextId=0;root={id:makeId(),name:'Gelijkvloers',items:[{id:makeId(),type:'fixture',kind:'WC'},{id:makeId(),type:'fixture',kind:'Lavabo'}]};render()}function floors(f){return 1+f.items.reduce((n,x)=>n+(x.type==='branch'?floors(x.floor):0),0)}function findFloor(id,f=root){if(f.id===id)return f;for(const x of f.items)if(x.type==='branch'){const z=findFloor(id,x.floor);if(z)return z}return null}function add(fid,type,position){const f=findFloor(fid);if(!f)return;if(type==='branch'){if(floors(root)>=6){alert('Maximaal 6 niveaus.');return}const num=floors(root);f.items.splice(position,0,{id:makeId(),type,floor:{id:makeId(),name:'Verdieping '+num,items:[]}})}else f.items.splice(position,0,{id:makeId(),type,kind:'Lavabo'});render()}function removeItem(fid,id){let f=findFloor(fid);f.items=f.items.filter(x=>x.id!==id);render()}function setKind(fid,id,value){let x=findFloor(fid).items.find(x=>x.id===id);x.kind=value;render()}function letter(n){let a='';do{a=String.fromCharCode(65+n%26)+a;n=Math.floor(n/26)-1}while(n>=0);return a}function total(f){let td=0,wc=false;for(const x of f.items){if(x.type==='fixture'){td+=fixtures[x.kind][0];wc||=x.kind==='WC'}else{let z=total(x.floor);td+=z.td;wc||=z.wc}}return{td,wc}}function diameter(td,wc){let wd=.5*Math.sqrt(td),d=wd<=.5?40:wd<=.8?50:wd<=1.2?63:wd<=1.8?75:90;return nominal(wc?Math.max(d,90):d)}function calculate(){store={};let counter=1,rows=[];function visit(f){let td=0,wc=false;const calc=[];for(let i=f.items.length-1;i>=0;i--){const x=f.items[i];const z=x.type==='fixture'?{td:fixtures[x.kind][0],wc:x.kind==='WC'}:total(x.floor);td+=z.td;wc=wc||z.wc;calc[i]={item:x,debiet:z.td,td,wc,wd:.5*Math.sqrt(td),d:diameter(td,wc)}}for(const c of calc){let point=letter(counter++);store[c.item.id]={point,td:c.td,wd:c.wd,d:c.d};rows.push({point,floor:f.name,name:c.item.type==='fixture'?c.item.kind:'Aftakking → '+c.item.floor.name,debiet:c.debiet,td:c.td,wd:c.wd,d:c.d});if(c.item.type==='branch')visit(c.item.floor)}}visit(root);return rows}function opts(selected){return Object.keys(fixtures).map(k=>`<option ${k===selected?'selected':''}>${k}</option>`).join('')}function edit(f,depth=0){const color=floorColors[depth%floorColors.length];let html=`<div class="floor ${depth?'nested':''}" style="border-left:7px solid ${color};--floor-color:${color};--floor-tint:${color}16;--floor-tint-alt:${color}29"><div class="floorhead"><h3 style="color:${color}">${f.name}</h3><span>${f.items.length} onderdelen</span></div><div class="tablewrap"><table><thead><tr><th>Punt</th><th>Toestel / aftakking</th><th>Debiet toestel (TD)</th><th>Som TD</th><th>WD</th><th>Ø aansluiting</th><th>Ø leiding</th><th></th></tr></thead><tbody>`;for(const x of f.items){const v=store[x.id];const branch=x.type==='branch';html+=`<tr class="${branch?'branchrow':''}" style="${branch?`background:${color}24!important;border-left:6px solid ${color}`:''}"><td><span class="point" style="${branch?`background:${color}`:''}">${v.point}</span></td><td>${branch?`<strong style="color:${floorColors[(depth+1)%floorColors.length]}">↑ ${x.floor.name}</strong>`:`<select onchange="setKind(${f.id},${x.id},this.value)">${opts(x.kind)}</select>`}</td><td>${branch?total(x.floor).td.toFixed(2):fixtures[x.kind][0].toFixed(2)}</td><td>${v.td.toFixed(2)}</td><td>${v.wd.toFixed(2)}</td><td>${branch?'—':'Ø'+nominal(fixtures[x.kind][1])}</td><td><b>Ø${v.d}</b></td><td><button class="del" onclick="removeItem(${f.id},${x.id})">✕</button></td></tr>`}html+=`</tbody></table></div><div class="insert"><strong>Toevoegen:</strong><label>Positie <select id="pos${f.id}"><option value="0">Aan het begin</option>${f.items.map((x,i)=>`<option value="${i+1}" ${i===f.items.length-1?'selected':''}>Na punt ${store[x.id].point} (${x.type==='fixture'?x.kind:x.floor.name})</option>`).join('')}</select></label><button onclick="add(${f.id},'fixture',+document.getElementById('pos${f.id}').value)">+ Toestel</button><button class="alt" onclick="add(${f.id},'branch',+document.getElementById('pos${f.id}').value)">↑ Nieuwe verdieping invoegen op deze plaats</button></div>`;return html+'</div>'}
-const floorColors=["#1765a5","#d97706","#15803d","#7c3aed","#be185d","#0891b2"];function draw(){
-  // Reserveer horizontale ruimte voor elke volledige bovenliggende tak.
-  // Daardoor kan een latere standpijp nooit door een bestaande verdieping lopen.
-  const step=205, left=175, gapY=250, top=135;
-  const order=[];function collect(f,depth=0){order.push({f,depth});for(const it of f.items)if(it.type==='branch')collect(it.floor,depth+1)}collect(root);
-  const levels=new Map(order.map((o,i)=>[o.f.id,i]));
+
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Afvoerberekening – Sint-Martinus</title>
+
+<style>
+:root{
+  --blue:#123b67;
+  --accent:#1976bd;
+  --pale:#eaf3fc;
+  --ink:#203448;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:#edf2f8;
+  color:var(--ink);
+  font:15px Arial,sans-serif;
+}
+header{
+  background:linear-gradient(110deg,#102e52,#1765a5);
+  color:white;
+  padding:20px 3vw;
+}
+header h1{margin:0 0 5px;font-size:27px}
+header p{margin:0;color:#e0efff}
+main{max-width:1700px;margin:auto;padding:18px}
+.top{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.panel{
+  background:white;
+  border:1px solid #d7e3ef;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:16px;
+  box-shadow:0 3px 13px #19334f0b;
+}
+h2{font-size:20px;color:var(--blue);margin:0 0 14px}
+h3{margin:0;color:var(--blue);font-size:18px}
+button,select,input{font:inherit}
+button{
+  cursor:pointer;
+  border:0;
+  border-radius:8px;
+  padding:9px 13px;
+  font-weight:bold;
+  background:#1765a5;
+  color:white;
+}
+button:hover{filter:brightness(.91)}
+button.alt{
+  background:#e5f0fa;
+  color:#145487;
+  border:1px solid #bdd7ec;
+}
+button.del{
+  background:#fff0f0;
+  color:#b33b3b;
+  border:1px solid #f0c6c6;
+  padding:6px 9px;
+}
+select,input{
+  padding:8px;
+  border:1px solid #b9cede;
+  border-radius:7px;
+  background:white;
+}
+input{width:85px}
+.note{color:#526779;line-height:1.5}
+.floor{
+  border:2px solid #c6d9ea;
+  border-radius:12px;
+  margin:15px 0;
+  padding:14px;
+  background:#f9fcff;
+}
+.floorhead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:12px;
+}
+.floorhead span{
+  font-size:12px;
+  background:#dcecfb;
+  color:#1a5785;
+  padding:6px 10px;
+  border-radius:20px;
+}
+.floor.nested{
+  margin-left:0;
+  border-left:6px solid #e6a349;
+}
+.tablewrap{overflow-x:auto}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:820px;
+}
+th{
+  background:#153e68;
+  color:white;
+  text-align:left;
+  font-size:13px;
+  padding:11px 9px;
+}
+td{
+  padding:9px;
+  border-bottom:1px solid #e2eaf2;
+  vertical-align:middle;
+}
+tbody tr:nth-child(even){background:#f0f6fc}
+.floor tbody tr{background:var(--floor-tint)!important}
+.floor tbody tr:nth-child(even){
+  background:var(--floor-tint-alt)!important;
+}
+.floor thead th{background:var(--floor-color)!important}
+.floor .point{background:var(--floor-color)}
+.summary tbody tr{background:var(--row-tint)!important}
+.summary tbody tr:nth-child(even){
+  background:var(--row-tint-alt)!important;
+}
+.summary .point{background:var(--row-color)}
+.point{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#1765a5;
+  color:white;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  font-weight:bold;
+}
+.branchrow{background:#fff4df!important}
+.summary-floor tr[style]{
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+.buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.insert{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+  padding:9px 0 2px;
+  border-top:1px dashed #c8d8e6;
+  margin-top:12px;
+}
+.insert select{max-width:260px}
+.legend{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+  margin:10px 0;
+  color:#456;
+}
+.swatch{
+  display:inline-block;
+  width:18px;
+  height:5px;
+  vertical-align:middle;
+  margin-right:5px;
+  border-radius:5px;
+}
+.drawing{
+  overflow:auto;
+  border:1px solid #dbe6ef;
+  background:#fff;
+  border-radius:10px;
+  padding:8px;
+  max-height:700px;
+}
+.drawing svg{
+  display:block;
+  min-width:850px;
+  width:100%;
+  height:auto;
+}
+.summary{overflow:auto}
+.summary table{min-width:750px}
+.small{font-size:13px;color:#567}
+.pill{
+  background:#eaf3fc;
+  color:#124d80;
+  border-radius:8px;
+  padding:8px 11px;
+}
+footer{
+  text-align:center;
+  color:#627487;
+  padding:12px 0 25px;
+}
+.summary-floor{
+  margin:16px 0 24px;
+  border:2px solid var(--fc);
+  border-radius:12px;
+  overflow:hidden;
+  break-inside:avoid;
+  background:#fff;
+}
+.summary-floor h3{
+  margin:0;
+  padding:13px 16px;
+  background:var(--fc);
+  color:white;
+}
+.summary-floor table{margin:0}
+.summary-floor th{background:var(--fc)!important}
+.summary-floor tbody tr{background:var(--ft)!important}
+.summary-floor tbody tr:nth-child(even){
+  background:var(--fa)!important;
+}
+.summary-floor tbody tr.branch-result,
+.summary-floor tbody tr.branch-result:nth-child(even){
+  background:var(--branch-tint)!important;
+  border-left:7px solid var(--branch-color)!important;
+}
+.summary-floor tbody tr.branch-result .point{
+  background:var(--branch-color)!important;
+}
+.printmeta{display:none}
+
+@media(max-width:700px){
+  main{padding:9px}
+  .panel{padding:12px}
+  .floor.nested{margin-left:9px}
+  .floor{padding:9px}
+  header h1{font-size:22px}
+}
+
+@media print{
+  @page{size:A4 landscape;margin:11mm}
+  body{background:white;color:#111;font-size:10pt}
+  header{
+    background:white!important;
+    color:#123b67!important;
+    padding:0 0 9px;
+    border-bottom:2px solid #123b67;
+  }
+  header p{color:#333!important}
+  main{max-width:none;padding:6px 0}
+  .panel{
+    box-shadow:none;
+    border:0;
+    border-radius:0;
+    padding:6px 0;
+    margin:0 0 12px;
+    break-inside:avoid;
+  }
+  #inputPanel,#editorPanel,.printbutton{
+    display:none!important;
+  }
+  #drawingPanel{break-inside:avoid}
+  #summaryPanel{break-before:page}
+  .drawing{
+    overflow:visible;
+    max-height:none;
+    border:0;
+    padding:0;
+  }
+  .drawing svg{
+    min-width:0!important;
+    width:100%!important;
+    max-height:165mm;
+    height:auto!important;
+  }
+  table{min-width:0!important;font-size:9pt}
+  th{
+    background:#dce8f4!important;
+    color:#111!important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  td,th{padding:6px}
+  footer{font-size:9pt}
+  .point{
+    background:white!important;
+    color:#111!important;
+    border:1px solid #111;
+  }
+  .legend{font-size:9pt}
+  .printmeta{
+    display:block!important;
+    margin:8px 0 14px;
+    font-size:10pt;
+  }
+  .floor tbody tr,
+  .floor tbody tr:nth-child(even),
+  .floor thead th,
+  .summary tbody tr,
+  .summary tbody tr:nth-child(even){
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+  .summary-floor{
+    break-inside:avoid;
+    print-color-adjust:exact;
+    -webkit-print-color-adjust:exact;
+  }
+  .summary-floor h3{
+    color:white!important;
+    print-color-adjust:exact;
+    -webkit-print-color-adjust:exact;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Afvoerberekening · standpijp per verdieping</h1>
+  <p>Interactieve oefentool · Sanitair · Sint-Martinus Herk-de-Stad</p>
+</header>
+
+<main>
+
+<section class="panel" id="inputPanel">
+  <div class="top">
+    <label>Materiaal
+      <select id="material">
+        <option>PVC</option>
+        <option>PE</option>
+      </select>
+    </label>
+
+    <label>Afschot (%)
+      <input id="slope" type="number" min="0" max="15" step="0.5" value="1">
+    </label>
+
+    <span class="pill">WD = 0,5 × √TD</span>
+
+    <button class="alt" id="reset">↺ Opnieuw beginnen</button>
+    <button class="printbutton" onclick="window.print()">
+      🖨 Eindresultaat afdrukken / PDF
+    </button>
+  </div>
+
+  <p class="note">
+    Vul de toestellen in van de riolering naar het uiteinde van de leiding.
+    Kies zelf waar een verdieping aftakt. Elke verdieping heeft een aparte,
+    gekleurde tabel. Voeg een verdieping in na een zelfgekozen punt; ze
+    verschijnt boven de onderliggende verdieping in het schema; je kunt
+    daarna op de oorspronkelijke verdieping verder werken.
+    TD is het toesteldebiet, Som TD is het debiet van alle toestellen
+    stroomopwaarts van het leidingdeel richting riolering,
+    WD = 0,5 × √(Som TD). De diameter wordt afgerond op de gekozen
+    materiaalmaten. Debieten en diameters zijn didactische richtwaarden,
+    geen volledige normberekening.
+  </p>
+</section>
+
+<section class="panel" id="editorPanel">
+  <h2>1. Afzonderlijke invoertabel per verdieping</h2>
+  <div id="editor"></div>
+</section>
+
+<div class="printmeta" id="printmeta"></div>
+
+<section class="panel" id="drawingPanel">
+  <h2>2. Automatisch afvoerplan</h2>
+  <div class="legend">
+    <span>
+      <i class="swatch" style="background:#1765a5"></i>
+      Afvoerleiding
+    </span>
+    <span>
+      Horizontale leidingen volgen hun eigen verdieping;
+      verticale standpijpen volgen de bovenliggende verdieping
+    </span>
+    <span>● Letter = punt in de tabel</span>
+    <span>
+      Ø = diameter van het leidingdeel tussen twee punten;
+      berekend vanaf het uiteinde naar de riolering
+    </span>
+    <span>TD = opgeteld debiet op de leiding</span>
+  </div>
+  <div class="drawing" id="drawing"></div>
+</section>
+
+<section class="panel" id="summaryPanel">
+  <h2>3. Overzicht per leidingdeel</h2>
+  <div class="summary" id="summary"></div>
+</section>
+
+<footer>
+  Gemaakt door Joeri Houben voor Sint-Martinus Herk-de-Stad
+</footer>
+
+</main>
+
+<script>
+const fixtures={
+  Lavabo:[.5,40],
+  "Dubbele lavabo":[1,50],
+  WC:[2.5,90],
+  Douche:[.8,50],
+  Douchegoot:[.8,50],
+  Bad:[.8,50],
+  Keukenspoelbak:[.8,50],
+  Wasmachine:[.8,50],
+  Vaatwasser:[.8,50],
+  Uitgietbak:[.8,50],
+  Bidet:[.5,40],
+  Urinoir:[.5,50],
+  Vloerput:[.8,50],
+  Condensafvoer:[.1,32]
+};
+
+let nextId=0,root,store={};
+
+const sizes={
+  PVC:[32,40,50,75,90,110,125,160],
+  PE:[32,40,50,56,63,75,90,110,125,160]
+};
+
+const floorColors=[
+  "#1765a5",
+  "#d97706",
+  "#15803d",
+  "#7c3aed",
+  "#be185d",
+  "#0891b2"
+];
+
+function nominal(d){
+  return sizes[document.getElementById("material").value]
+    .find(v=>v>=d)||160;
+}
+
+const makeId=()=>++nextId;
+
+function fresh(){
+  nextId=0;
+  root={
+    id:makeId(),
+    name:'Gelijkvloers',
+    items:[
+      {id:makeId(),type:'fixture',kind:'WC'},
+      {id:makeId(),type:'fixture',kind:'Lavabo'}
+    ]
+  };
+  render();
+}
+
+function floors(f){
+  return 1+f.items.reduce(
+    (n,x)=>n+(x.type==='branch'?floors(x.floor):0),0
+  );
+}
+
+function findFloor(id,f=root){
+  if(f.id===id)return f;
+  for(const x of f.items){
+    if(x.type==='branch'){
+      const z=findFloor(id,x.floor);
+      if(z)return z;
+    }
+  }
+  return null;
+}
+
+function add(fid,type,position){
+  const f=findFloor(fid);
+  if(!f)return;
+
+  if(type==='branch'){
+    if(floors(root)>=6){
+      alert('Maximaal 6 niveaus.');
+      return;
+    }
+    const num=floors(root);
+    f.items.splice(position,0,{
+      id:makeId(),
+      type,
+      floor:{
+        id:makeId(),
+        name:'Verdieping '+num,
+        items:[]
+      }
+    });
+  }else{
+    f.items.splice(position,0,{
+      id:makeId(),
+      type,
+      kind:'Lavabo'
+    });
+  }
+  render();
+}
+
+function removeItem(fid,id){
+  let f=findFloor(fid);
+  f.items=f.items.filter(x=>x.id!==id);
+  render();
+}
+
+function setKind(fid,id,value){
+  let x=findFloor(fid).items.find(x=>x.id===id);
+  x.kind=value;
+  render();
+}
+
+function letter(n){
+  let a='';
+  do{
+    a=String.fromCharCode(65+n%26)+a;
+    n=Math.floor(n/26)-1;
+  }while(n>=0);
+  return a;
+}
+
+function total(f){
+  let td=0,wc=false;
+  for(const x of f.items){
+    if(x.type==='fixture'){
+      td+=fixtures[x.kind][0];
+      wc||=x.kind==='WC';
+    }else{
+      let z=total(x.floor);
+      td+=z.td;
+      wc||=z.wc;
+    }
+  }
+  return{td,wc};
+}
+
+function diameter(td,wc){
+  let wd=.5*Math.sqrt(td);
+  let d=wd<=.5?40:
+        wd<=.8?50:
+        wd<=1.2?63:
+        wd<=1.8?75:90;
+  return nominal(wc?Math.max(d,90):d);
+}
+
+function calculate(){
+  store={};
+  let counter=1,rows=[];
+
+  function visit(f){
+    let td=0,wc=false;
+    const calc=[];
+
+    for(let i=f.items.length-1;i>=0;i--){
+      const x=f.items[i];
+      const z=x.type==='fixture'
+        ?{td:fixtures[x.kind][0],wc:x.kind==='WC'}
+        :total(x.floor);
+
+      td+=z.td;
+      wc=wc||z.wc;
+
+      calc[i]={
+        item:x,
+        debiet:z.td,
+        td,
+        wc,
+        wd:.5*Math.sqrt(td),
+        d:diameter(td,wc)
+      };
+    }
+
+    for(const c of calc){
+      let point=letter(counter++);
+      store[c.item.id]={
+        point,
+        td:c.td,
+        wd:c.wd,
+        d:c.d
+      };
+
+      rows.push({
+        point,
+        floor:f.name,
+        name:c.item.type==='fixture'
+          ?c.item.kind
+          :'Aftakking → '+c.item.floor.name,
+        debiet:c.debiet,
+        td:c.td,
+        wd:c.wd,
+        d:c.d
+      });
+
+      if(c.item.type==='branch')visit(c.item.floor);
+    }
+  }
+
+  visit(root);
+  return rows;
+}
+
+function opts(selected){
+  return Object.keys(fixtures).map(
+    k=>`<option ${k===selected?'selected':''}>${k}</option>`
+  ).join('');
+}
+
+function edit(f,depth=0){
+  const color=floorColors[depth%floorColors.length];
+
+  let html=`
+  <div class="floor ${depth?'nested':''}"
+    style="border-left:7px solid ${color};
+    --floor-color:${color};
+    --floor-tint:${color}16;
+    --floor-tint-alt:${color}29">
+
+    <div class="floorhead">
+      <h3 style="color:${color}">${f.name}</h3>
+      <span>${f.items.length} onderdelen</span>
+    </div>
+
+    <div class="tablewrap">
+    <table>
+    <thead><tr>
+      <th>Punt</th>
+      <th>Toestel / aftakking</th>
+      <th>Debiet toestel (TD)</th>
+      <th>Som TD</th>
+      <th>WD</th>
+      <th>Ø aansluiting</th>
+      <th>Ø leiding</th>
+      <th></th>
+    </tr></thead><tbody>`;
+
+  for(const x of f.items){
+    const v=store[x.id];
+    const branch=x.type==='branch';
+
+    html+=`
+    <tr class="${branch?'branchrow':''}"
+      style="${branch?`background:${color}24!important;border-left:6px solid ${color}`:''}">
+      <td>
+        <span class="point"
+          style="${branch?`background:${color}`:''}">
+          ${v.point}
+        </span>
+      </td>
+      <td>
+        ${branch
+          ?`<strong style="color:${floorColors[(depth+1)%floorColors.length]}">↑ ${x.floor.name}</strong>`
+          :`<select onchange="setKind(${f.id},${x.id},this.value)">${opts(x.kind)}</select>`
+        }
+      </td>
+      <td>${branch?total(x.floor).td.toFixed(2):fixtures[x.kind][0].toFixed(2)}</td>
+      <td>${v.td.toFixed(2)}</td>
+      <td>${v.wd.toFixed(2)}</td>
+      <td>${branch?'—':'Ø'+nominal(fixtures[x.kind][1])}</td>
+      <td><b>Ø${v.d}</b></td>
+      <td>
+        <button class="del"
+          onclick="removeItem(${f.id},${x.id})">✕</button>
+      </td>
+    </tr>`;
+  }
+
+  html+=`</tbody></table></div>
+  <div class="insert">
+    <strong>Toevoegen:</strong>
+    <label>Positie
+      <select id="pos${f.id}">
+        <option value="0">Aan het begin</option>
+        ${f.items.map((x,i)=>`
+          <option value="${i+1}"
+            ${i===f.items.length-1?'selected':''}>
+            Na punt ${store[x.id].point}
+            (${x.type==='fixture'?x.kind:x.floor.name})
+          </option>
+        `).join('')}
+      </select>
+    </label>
+    <button onclick="add(${f.id},'fixture',+document.getElementById('pos${f.id}').value)">
+      + Toestel
+    </button>
+    <button class="alt" onclick="add(${f.id},'branch',+document.getElementById('pos${f.id}').value)">
+      ↑ Nieuwe verdieping invoegen op deze plaats
+    </button>
+  </div>`;
+
+  return html+'</div>';
+}
+
+/* ====================================================
+   AFVOERPLAN
+   ENIGE WIJZIGING: ONTBREKENDE VERBINDING TOEGEVOEGD
+   ==================================================== */
+
+function draw(){
+  const step=205;
+  const left=175;
+  const gapY=250;
+  const top=135;
+
+  const order=[];
+
+  function collect(f,depth=0){
+    order.push({f,depth});
+    for(const it of f.items){
+      if(it.type==='branch')collect(it.floor,depth+1);
+    }
+  }
+
+  collect(root);
+
+  const levels=new Map(
+    order.map((o,i)=>[o.f.id,i])
+  );
+
   const maxLevel=order.length-1;
   const yOf=f=>top+(maxLevel-levels.get(f.id))*gapY;
-  const colorOf=f=>floorColors[order.find(o=>o.f.id===f.id).depth%floorColors.length];
-  let far=left, paths=[],annotations=[],bands=[];
+  const colorOf=f=>floorColors[
+    order.find(o=>o.f.id===f.id).depth%floorColors.length
+  ];
+
+  let far=left;
+  let paths=[];
+  let annotations=[];
+  let bands=[];
+
   function drawFloor(f,start){
-    const y=yOf(f),c=colorOf(f);let x=start;
-    annotations.push(`<text x="${Math.max(12,start-45)}" y="${y-102}" font-size="18" font-weight="bold" fill="${c}">${f.name}</text>`);
-    if(f===root){paths.push(`<path d="M130 ${y} H${start}" stroke="${c}" stroke-width="7"/>`);annotations.push(`<rect x="5" y="${y-19}" width="125" height="38" rx="8" fill="#e4f1fc"/><text x="67" y="${y+5}" text-anchor="middle" font-size="14" font-weight="bold" fill="#174b76">A · RIOLERING</text>`)}
+    const y=yOf(f);
+    const c=colorOf(f);
+    let x=start;
+
+    annotations.push(`
+      <text x="${Math.max(12,start-45)}"
+        y="${y-102}"
+        font-size="18"
+        font-weight="bold"
+        fill="${c}">${f.name}</text>
+    `);
+
+    if(f===root){
+      paths.push(`
+        <path d="M130 ${y} H${start}"
+          stroke="${c}" stroke-width="7"/>
+      `);
+      annotations.push(`
+        <rect x="5" y="${y-19}" width="125"
+          height="38" rx="8" fill="#e4f1fc"/>
+        <text x="67" y="${y+5}"
+          text-anchor="middle" font-size="14"
+          font-weight="bold" fill="#174b76">
+          A · RIOLERING
+        </text>
+      `);
+    }
+
     for(const item of f.items){
-      const nx=x+step,v=store[item.id];far=Math.max(far,nx+165);
-      paths.push(`<path d="M${x} ${y} H${nx}" stroke="${c}" stroke-width="7" fill="none" stroke-linecap="round"/>`);
-      annotations.push(`<text x="${(x+nx)/2}" y="${y+30}" text-anchor="middle" font-size="14" font-weight="bold" fill="${c}">Ø${v.d} · ΣTD ${v.td.toFixed(2)}</text>`);
-      annotations.push(`<circle cx="${nx}" cy="${y}" r="18" fill="white" stroke="${c}" stroke-width="4"/><text x="${nx}" y="${y+6}" text-anchor="middle" font-size="16" font-weight="bold" fill="${c}">${v.point}</text>`);
+      const nx=x+step;
+      const v=store[item.id];
+      far=Math.max(far,nx+165);
+
+      paths.push(`
+        <path d="M${x} ${y} H${nx}"
+          stroke="${c}"
+          stroke-width="7"
+          fill="none"
+          stroke-linecap="round"/>
+      `);
+
+      annotations.push(`
+        <text x="${(x+nx)/2}" y="${y+30}"
+          text-anchor="middle" font-size="14"
+          font-weight="bold" fill="${c}">
+          Ø${v.d} · ΣTD ${v.td.toFixed(2)}
+        </text>
+      `);
+
+      annotations.push(`
+        <circle cx="${nx}" cy="${y}" r="18"
+          fill="white" stroke="${c}" stroke-width="4"/>
+        <text x="${nx}" y="${y+6}"
+          text-anchor="middle" font-size="16"
+          font-weight="bold" fill="${c}">
+          ${v.point}
+        </text>
+      `);
+
       if(item.type==='fixture'){
-        paths.push(`<path d="M${nx} ${y-18} v-24" stroke="#3c9a86" stroke-width="4"/>`);
-        annotations.push(`<text x="${nx}" y="${y-73}" text-anchor="middle" font-size="14" fill="#22594f">${item.kind}</text><text x="${nx}" y="${y-51}" text-anchor="middle" font-size="13" font-weight="bold" fill="#145487">Aansl. Ø${nominal(fixtures[item.kind][1])} mm</text>`);
+        paths.push(`
+          <path d="M${nx} ${y-18} v-24"
+            stroke="#3c9a86" stroke-width="4"/>
+        `);
+
+        annotations.push(`
+          <text x="${nx}" y="${y-73}"
+            text-anchor="middle" font-size="14"
+            fill="#22594f">${item.kind}</text>
+          <text x="${nx}" y="${y-51}"
+            text-anchor="middle" font-size="13"
+            font-weight="bold" fill="#145487">
+            Aansl. Ø${nominal(fixtures[item.kind][1])} mm
+          </text>
+        `);
+
         x=nx;
+
       }else{
-        const child=item.floor,by=yOf(child),cc=colorOf(child),t=total(child);
-        paths.push(`<path d="M${nx} ${y-18} V${by}" stroke="${cc}" stroke-width="9" fill="none" stroke-linecap="round"/>`);
-        annotations.push(`<rect x="${nx+12}" y="${(y+by)/2-17}" width="160" height="31" rx="5" fill="white" stroke="${cc}"/><text x="${nx+92}" y="${(y+by)/2+3}" text-anchor="middle" font-size="13" font-weight="bold" fill="${cc}">Standpijp Ø${diameter(t.td,t.wc)} mm</text>`);
+        const child=item.floor;
+        const by=yOf(child);
+        const cc=colorOf(child);
+        const t=total(child);
+
+        paths.push(`
+          <path d="M${nx} ${y-18} V${by}"
+            stroke="${cc}"
+            stroke-width="9"
+            fill="none"
+            stroke-linecap="round"/>
+        `);
+
+        annotations.push(`
+          <rect x="${nx+12}"
+            y="${(y+by)/2-17}"
+            width="160" height="31"
+            rx="5" fill="white" stroke="${cc}"/>
+          <text x="${nx+92}"
+            y="${(y+by)/2+3}"
+            text-anchor="middle" font-size="13"
+            font-weight="bold" fill="${cc}">
+            Standpijp Ø${diameter(t.td,t.wc)} mm
+          </text>
+        `);
+
         const childEnd=drawFloor(child,nx);
-        // Eerst volledige tak tekenen; daarna pas verder met de onderliggende leiding.
-        // Hierdoor komen standpijpen niet boven andere horizontale leidingen terecht.
-        x=Math.max(nx,childEnd)+step*0.35;
+
+        // Alleen de ontbrekende verbinding herstellen.
+        // Alle andere tekenregels blijven ongewijzigd.
+        const resumeX=Math.max(nx,childEnd)+step*0.35;
+
+        if(item!==f.items[f.items.length-1]){
+          paths.push(`
+            <path d="M${nx} ${y} H${resumeX}"
+              stroke="${c}"
+              stroke-width="7"
+              fill="none"
+              stroke-linecap="round"/>
+          `);
+        }
+
+        x=resumeX;
       }
     }
+
     far=Math.max(far,x+110);
     return x;
   }
+
   drawFloor(root,left);
-  const width=Math.max(950,far+60),height=top+order.length*gapY+40;
-  for(const {f} of order){const y=yOf(f),c=colorOf(f);bands.push(`<rect x="5" y="${y-119}" width="${width-10}" height="${gapY-35}" rx="8" fill="${c}" opacity="0.055"/>`)}
-  document.getElementById('drawing').innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" aria-label="Afvoerplan zonder kruisende leidingen"><rect width="100%" height="100%" fill="white"/>${bands.join('')}${paths.join('')}${annotations.join('')}</svg>`;
+
+  const width=Math.max(950,far+60);
+  const height=top+order.length*gapY+40;
+
+  for(const {f} of order){
+    const y=yOf(f);
+    const c=colorOf(f);
+    bands.push(`
+      <rect x="5" y="${y-119}"
+        width="${width-10}"
+        height="${gapY-35}"
+        rx="8"
+        fill="${c}"
+        opacity="0.055"/>
+    `);
+  }
+
+  document.getElementById('drawing').innerHTML=`
+    <svg xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 ${width} ${height}"
+      aria-label="Afvoerplan zonder kruisende leidingen">
+      <rect width="100%" height="100%" fill="white"/>
+      ${bands.join('')}
+      ${paths.join('')}
+      ${annotations.join('')}
+    </svg>
+  `;
 }
-function render(){let rows=calculate();const floorColorMap={};(function collect(f,depth){floorColorMap[f.name]=floorColors[depth%floorColors.length];for(const x of f.items)if(x.type==='branch')collect(x.floor,depth+1)})(root,0);document.getElementById("printmeta").textContent="Materiaal: "+document.getElementById("material").value+"  |  Afschot: "+document.getElementById("slope").value+"%  |  Berekening: WD = 0,5 × √TD";const floorTables=[];(function collectTables(f,depth){floorTables.push({f,depth});for(const x of f.items)if(x.type==='branch')collectTables(x.floor,depth+1)})(root,0);document.getElementById('editor').innerHTML=floorTables.map(({f,depth})=>edit(f,depth)).join('');document.getElementById('summary').innerHTML=floorTables.map(({f,depth})=>{const color=floorColors[depth%floorColors.length];const own=rows.filter(r=>r.floor===f.name);const branchColors={};for(const item of f.items)if(item.type==='branch')branchColors[store[item.id].point]=floorColors[(depth+1)%floorColors.length];return `<section class="summary-floor" style="--fc:${color};--ft:${color}16;--fa:${color}29"><h3>${f.name}</h3><div class="tablewrap"><table><thead><tr><th>Punt</th><th>Onderdeel</th><th>Debiet (TD)</th><th>Som TD</th><th>WD</th><th>Diameter (mm)</th></tr></thead><tbody>${own.map(r=>`<tr class="${branchColors[r.point]?'branch-result':''}" style="${branchColors[r.point]?`--branch-color:${branchColors[r.point]};--branch-tint:${branchColors[r.point]}26`: ''}"><td><span class="point" style="background:${branchColors[r.point]||color}">${r.point}</span></td><td style="${branchColors[r.point]?`color:${branchColors[r.point]};font-weight:bold`: ''}">${r.name}</td><td>${r.debiet.toFixed(2)}</td><td>${r.td.toFixed(2)}</td><td>${r.wd.toFixed(2)}</td><td><b>Ø${r.d}</b></td></tr>`).join('')}</tbody></table></div></section>`}).join('');draw()}document.getElementById("material").addEventListener("change",render);document.getElementById("slope").addEventListener("input",render);document.getElementById('reset').onclick=()=>{if(confirm('De volledige berekening wissen en opnieuw beginnen?'))fresh()};fresh();
-</script></body></html>
+
+function render(){
+  let rows=calculate();
+  const floorColorMap={};
+
+  (function collect(f,depth){
+    floorColorMap[f.name]=floorColors[depth%floorColors.length];
+    for(const x of f.items){
+      if(x.type==='branch')collect(x.floor,depth+1);
+    }
+  })(root,0);
+
+  document.getElementById("printmeta").textContent=
+    "Materiaal: "+document.getElementById("material").value+
+    "  |  Afschot: "+document.getElementById("slope").value+
+    "%  |  Berekening: WD = 0,5 × √TD";
+
+  const floorTables=[];
+
+  (function collectTables(f,depth){
+    floorTables.push({f,depth});
+    for(const x of f.items){
+      if(x.type==='branch')collectTables(x.floor,depth+1);
+    }
+  })(root,0);
+
+  document.getElementById('editor').innerHTML=
+    floorTables.map(({f,depth})=>edit(f,depth)).join('');
+
+  document.getElementById('summary').innerHTML=
+    floorTables.map(({f,depth})=>{
+      const color=floorColors[depth%floorColors.length];
+      const own=rows.filter(r=>r.floor===f.name);
+      const branchColors={};
+
+      for(const item of f.items){
+        if(item.type==='branch'){
+          branchColors[store[item.id].point]=
+            floorColors[(depth+1)%floorColors.length];
+        }
+      }
+
+      return `
+      <section class="summary-floor"
+        style="--fc:${color};--ft:${color}16;--fa:${color}29">
+        <h3>${f.name}</h3>
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Punt</th>
+                <th>Onderdeel</th>
+                <th>Debiet (TD)</th>
+                <th>Som TD</th>
+                <th>WD</th>
+                <th>Diameter (mm)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${own.map(r=>`
+                <tr class="${branchColors[r.point]?'branch-result':''}"
+                  style="${branchColors[r.point]
+                    ?`--branch-color:${branchColors[r.point]};
+                      --branch-tint:${branchColors[r.point]}26`
+                    :''}">
+                  <td>
+                    <span class="point"
+                      style="background:${branchColors[r.point]||color}">
+                      ${r.point}
+                    </span>
+                  </td>
+                  <td style="${branchColors[r.point]
+                    ?`color:${branchColors[r.point]};font-weight:bold`
+                    :''}">
+                    ${r.name}
+                  </td>
+                  <td>${r.debiet.toFixed(2)}</td>
+                  <td>${r.td.toFixed(2)}</td>
+                  <td>${r.wd.toFixed(2)}</td>
+                  <td><b>Ø${r.d}</b></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </section>`;
+    }).join('');
+
+  draw();
+}
+
+document.getElementById("material")
+  .addEventListener("change",render);
+
+document.getElementById("slope")
+  .addEventListener("input",render);
+
+document.getElementById('reset').onclick=()=>{
+  if(confirm('De volledige berekening wissen en opnieuw beginnen?')){
+    fresh();
+  }
+};
+
+fresh();
+</script>
+
+</body>
+</html>
