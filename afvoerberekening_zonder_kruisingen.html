@@ -231,7 +231,6 @@ footer{
   .floor{padding:9px}
   header h1{font-size:22px}
 }
-
 @media print{
   @page{size:A4 landscape;margin:11mm}
   body{background:white;color:#111;font-size:10pt}
@@ -311,14 +310,12 @@ footer{
 </head>
 
 <body>
-
 <header>
   <h1>Afvoerberekening · standpijp per verdieping</h1>
   <p>Interactieve oefentool · Sanitair · Sint-Martinus Herk-de-Stad</p>
 </header>
 
 <main>
-
 <section class="panel" id="inputPanel">
   <div class="top">
     <label>Materiaal
@@ -347,9 +344,12 @@ footer{
     verschijnt boven de onderliggende verdieping in het schema; je kunt
     daarna op de oorspronkelijke verdieping verder werken.
     TD is het toesteldebiet, Som TD is het debiet van alle toestellen
-    stroomopwaarts van het leidingdeel richting riolering,
-    WD = 0,5 × √(Som TD). De diameter wordt afgerond op de gekozen
-    materiaalmaten. Debieten en diameters zijn didactische richtwaarden,
+    stroomopwaarts van het leidingdeel richting riolering.
+    WD = 0,5 × √(Som TD).
+    De diameter wordt afgerond op de gekozen materiaalmaten.
+    Voor wc's geldt een minimale leidingdiameter van Ø90 bij 1 wc,
+    Ø110 bij 2 wc's en Ø125 bij 3 of meer wc's.
+    Debieten en diameters zijn didactische richtwaarden,
     geen volledige normberekening.
   </p>
 </section>
@@ -390,7 +390,6 @@ footer{
 <footer>
   Gemaakt door Joeri Houben voor Sint-Martinus Herk-de-Stad
 </footer>
-
 </main>
 
 <script>
@@ -514,28 +513,44 @@ function letter(n){
   return a;
 }
 
+/* ===========================================
+   NIEUWE WC-REGELS
+   1 WC     = minimaal Ø90
+   2 WC's   = minimaal Ø110
+   3+ WC's  = minimaal Ø125
+   =========================================== */
+
 function total(f){
-  let td=0,wc=false;
+  let td=0,wcCount=0;
+
   for(const x of f.items){
     if(x.type==='fixture'){
       td+=fixtures[x.kind][0];
-      wc||=x.kind==='WC';
+      if(x.kind==='WC')wcCount++;
     }else{
       let z=total(x.floor);
       td+=z.td;
-      wc||=z.wc;
+      wcCount+=z.wcCount;
     }
   }
-  return{td,wc};
+
+  return{td,wcCount};
 }
 
-function diameter(td,wc){
+function diameter(td,wcCount){
   let wd=.5*Math.sqrt(td);
+
   let d=wd<=.5?40:
         wd<=.8?50:
         wd<=1.2?63:
         wd<=1.8?75:90;
-  return nominal(wc?Math.max(d,90):d);
+
+  const wcMinimum=
+    wcCount>=3?125:
+    wcCount===2?110:
+    wcCount===1?90:0;
+
+  return nominal(Math.max(d,wcMinimum));
 }
 
 function calculate(){
@@ -543,30 +558,35 @@ function calculate(){
   let counter=1,rows=[];
 
   function visit(f){
-    let td=0,wc=false;
+    let td=0,wcCount=0;
     const calc=[];
 
     for(let i=f.items.length-1;i>=0;i--){
       const x=f.items[i];
+
       const z=x.type==='fixture'
-        ?{td:fixtures[x.kind][0],wc:x.kind==='WC'}
+        ?{
+            td:fixtures[x.kind][0],
+            wcCount:x.kind==='WC'?1:0
+          }
         :total(x.floor);
 
       td+=z.td;
-      wc=wc||z.wc;
+      wcCount+=z.wcCount;
 
       calc[i]={
         item:x,
         debiet:z.td,
         td,
-        wc,
+        wcCount,
         wd:.5*Math.sqrt(td),
-        d:diameter(td,wc)
+        d:diameter(td,wcCount)
       };
     }
 
     for(const c of calc){
       let point=letter(counter++);
+
       store[c.item.id]={
         point,
         td:c.td,
@@ -685,10 +705,9 @@ function edit(f,depth=0){
   return html+'</div>';
 }
 
-/* ====================================================
-   AFVOERPLAN
-   ENIGE WIJZIGING: ONTBREKENDE VERBINDING TOEGEVOEGD
-   ==================================================== */
+/* ===========================================
+   AUTOMATISCHE TEKENING
+   =========================================== */
 
 function draw(){
   const step=205;
@@ -740,6 +759,7 @@ function draw(){
         <path d="M130 ${y} H${start}"
           stroke="${c}" stroke-width="7"/>
       `);
+
       annotations.push(`
         <rect x="5" y="${y-19}" width="125"
           height="38" rx="8" fill="#e4f1fc"/>
@@ -824,14 +844,11 @@ function draw(){
             y="${(y+by)/2+3}"
             text-anchor="middle" font-size="13"
             font-weight="bold" fill="${cc}">
-            Standpijp Ø${diameter(t.td,t.wc)} mm
+            Standpijp Ø${diameter(t.td,t.wcCount)} mm
           </text>
         `);
 
         const childEnd=drawFloor(child,nx);
-
-        // Alleen de ontbrekende verbinding herstellen.
-        // Alle andere tekenregels blijven ongewijzigd.
         const resumeX=Math.max(nx,childEnd)+step*0.35;
 
         if(item!==f.items[f.items.length-1]){
@@ -860,6 +877,7 @@ function draw(){
   for(const {f} of order){
     const y=yOf(f);
     const c=colorOf(f);
+
     bands.push(`
       <rect x="5" y="${y-119}"
         width="${width-10}"
@@ -882,12 +900,18 @@ function draw(){
   `;
 }
 
+/* ===========================================
+   TABELLEN EN RESULTATEN
+   =========================================== */
+
 function render(){
   let rows=calculate();
+
   const floorColorMap={};
 
   (function collect(f,depth){
     floorColorMap[f.name]=floorColors[depth%floorColors.length];
+
     for(const x of f.items){
       if(x.type==='branch')collect(x.floor,depth+1);
     }
@@ -902,6 +926,7 @@ function render(){
 
   (function collectTables(f,depth){
     floorTables.push({f,depth});
+
     for(const x of f.items){
       if(x.type==='branch')collectTables(x.floor,depth+1);
     }
@@ -986,6 +1011,5 @@ document.getElementById('reset').onclick=()=>{
 
 fresh();
 </script>
-
 </body>
 </html>
